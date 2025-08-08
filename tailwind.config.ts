@@ -61,7 +61,25 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				}
+				},
+				// PDF Viewer specific colors
+				'pdf-viewer-bg': 'hsl(var(--pdf-viewer-bg))',
+				'pdf-page-bg': 'hsl(var(--pdf-page-bg))',
+				'pdf-page-shadow': 'hsl(var(--pdf-page-shadow))',
+				'toolbar-bg': 'hsl(var(--toolbar-bg))',
+				'toolbar-border': 'hsl(var(--toolbar-border))'
+			},
+			backgroundImage: {
+				'gradient-subtle': 'var(--gradient-subtle)',
+				'gradient-primary': 'var(--gradient-primary)'
+			},
+			boxShadow: {
+				'soft': 'var(--shadow-soft)',
+				'medium': 'var(--shadow-medium)',
+				'strong': 'var(--shadow-strong)'
+			},
+			transitionTimingFunction: {
+				'smooth': 'cubic-bezier(0.4, 0, 0.2, 1)'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
