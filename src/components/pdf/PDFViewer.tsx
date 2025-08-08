@@ -8,8 +8,8 @@ import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 
-// Set up PDF.js worker with the correct version
-pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
+// ✅ CORRECT: Use the worker from public folder
+pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js';
 
 interface PDFViewerProps {
   file: File;
@@ -21,24 +21,95 @@ export const PDFViewer = ({ file, onClose }: PDFViewerProps) => {
   const [pageNumber, setPageNumber] = useState<number>(1);
   const [scale, setScale] = useState<number>(1.0);
   const [rotation, setRotation] = useState<number>(0);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [loadError, setLoadError] = useState<string>("");
   const { toast } = useToast();
 
+  // Debug worker setup
+  useState(() => {
+    console.log("🔧 PDF.js Worker Setup:", {
+      workerSrc: pdfjs.GlobalWorkerOptions.workerSrc,
+      version: pdfjs.version,
+      baseUrl: window.location.origin
+    });
+  });
+
   const onDocumentLoadSuccess = useCallback(({ numPages }: { numPages: number }) => {
+    console.log("✅ PDF loaded successfully:", { numPages, fileName: file.name });
     setNumPages(numPages);
+    setIsLoading(false);
+    setLoadError("");
     toast({
       title: "PDF loaded successfully",
       description: `Document contains ${numPages} pages`,
     });
-  }, [toast]);
+  }, [toast, file.name]);
 
   const onDocumentLoadError = useCallback((error: Error) => {
-    console.error("Error loading PDF:", error);
+    console.error("❌ Error loading PDF:", {
+      error: error.message,
+      stack: error.stack,
+      fileName: file.name,
+      fileSize: file.size,
+      fileType: file.type,
+      workerSrc: pdfjs.GlobalWorkerOptions.workerSrc,
+      workerStatus: "Check if worker file exists at: " + window.location.origin + pdfjs.GlobalWorkerOptions.workerSrc
+    });
+    
+    setIsLoading(false);
+    setLoadError(error.message);
+    
+    let errorMessage = "Please make sure the file is a valid PDF document";
+    if (error.message.includes("worker")) {
+      errorMessage = "PDF worker failed to load. Make sure pdf.worker.min.js is in the public folder.";
+    } else if (error.message.includes("Invalid PDF")) {
+      errorMessage = "The selected file is not a valid PDF document.";
+    } else if (error.message.includes("password")) {
+      errorMessage = "This PDF is password protected and cannot be opened.";
+    }
+    
     toast({
       title: "Error loading PDF",
-      description: "Please make sure the file is a valid PDF document",
+      description: errorMessage,
       variant: "destructive",
     });
-  }, [toast]);
+  }, [toast, file.name, file.size, file.type]);
+
+  const validateFile = useCallback(() => {
+    console.log("🔍 Validating file:", {
+      name: file.name,
+      size: file.size,
+      type: file.type,
+      lastModified: new Date(file.lastModified).toISOString()
+    });
+
+    if (!file) {
+      throw new Error("No file provided");
+    }
+    
+    if (file.type !== "application/pdf") {
+      throw new Error(`Invalid file type: ${file.type}. Expected: application/pdf`);
+    }
+    
+    if (file.size === 0) {
+      throw new Error("File is empty");
+    }
+    
+    if (file.size > 50 * 1024 * 1024) {
+      throw new Error("File too large (max 50MB)");
+    }
+    
+    console.log("✅ File validation passed");
+  }, [file]);
+
+  useState(() => {
+    try {
+      validateFile();
+    } catch (error) {
+      console.error("❌ File validation failed:", error);
+      onDocumentLoadError(error as Error);
+    }
+  });
 
   const goToPrevPage = useCallback(() => {
     setPageNumber(prev => Math.max(1, prev - 1));
@@ -78,6 +149,11 @@ export const PDFViewer = ({ file, onClose }: PDFViewerProps) => {
             </Button>
             <div className="h-6 w-px bg-border" />
             <span className="text-sm font-medium">{file.name}</span>
+            {loadError && (
+              <span className="text-sm text-destructive bg-destructive/10 px-2 py-1 rounded">
+                Error: {loadError}
+              </span>
+            )}
           </div>
 
           <div className="flex items-center gap-2">
@@ -86,7 +162,7 @@ export const PDFViewer = ({ file, onClose }: PDFViewerProps) => {
               variant="outline"
               size="sm"
               onClick={goToPrevPage}
-              disabled={pageNumber <= 1}
+              disabled={pageNumber <= 1 || isLoading}
             >
               <ChevronLeft className="h-4 w-4" />
             </Button>
@@ -99,15 +175,18 @@ export const PDFViewer = ({ file, onClose }: PDFViewerProps) => {
                 min={1}
                 max={numPages}
                 className="w-16 text-center"
+                disabled={isLoading}
               />
-              <span className="text-sm text-muted-foreground">of {numPages}</span>
+              <span className="text-sm text-muted-foreground">
+                of {numPages || "?"}
+              </span>
             </div>
 
             <Button
               variant="outline"
               size="sm"
               onClick={goToNextPage}
-              disabled={pageNumber >= numPages}
+              disabled={pageNumber >= numPages || isLoading}
             >
               <ChevronRight className="h-4 w-4" />
             </Button>
@@ -115,7 +194,7 @@ export const PDFViewer = ({ file, onClose }: PDFViewerProps) => {
             <div className="h-6 w-px bg-border mx-2" />
 
             {/* Zoom Controls */}
-            <Button variant="outline" size="sm" onClick={zoomOut}>
+            <Button variant="outline" size="sm" onClick={zoomOut} disabled={isLoading}>
               <ZoomOut className="h-4 w-4" />
             </Button>
             
@@ -123,14 +202,14 @@ export const PDFViewer = ({ file, onClose }: PDFViewerProps) => {
               {Math.round(scale * 100)}%
             </span>
             
-            <Button variant="outline" size="sm" onClick={zoomIn}>
+            <Button variant="outline" size="sm" onClick={zoomIn} disabled={isLoading}>
               <ZoomIn className="h-4 w-4" />
             </Button>
 
             <div className="h-6 w-px bg-border mx-2" />
 
             {/* Rotation */}
-            <Button variant="outline" size="sm" onClick={rotate}>
+            <Button variant="outline" size="sm" onClick={rotate} disabled={isLoading}>
               <RotateCw className="h-4 w-4" />
             </Button>
           </div>
@@ -146,26 +225,38 @@ export const PDFViewer = ({ file, onClose }: PDFViewerProps) => {
               onLoadSuccess={onDocumentLoadSuccess}
               onLoadError={onDocumentLoadError}
               loading={
-                <div className="flex items-center justify-center p-12">
-                  <div className="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+                <div className="flex flex-col items-center justify-center p-12">
+                  <div className="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent mb-4" />
+                  <p className="text-sm text-muted-foreground">Loading PDF...</p>
+                </div>
+              }
+              error={
+                <div className="flex flex-col items-center justify-center p-12 bg-destructive/10 rounded-lg">
+                  <p className="text-destructive text-center mb-2">Failed to load PDF</p>
+                  <p className="text-sm text-muted-foreground text-center">{loadError}</p>
+                  <Button variant="outline" onClick={onClose} className="mt-4">
+                    Go Back
+                  </Button>
                 </div>
               }
             >
-              <Page
-                pageNumber={pageNumber}
-                scale={scale}
-                rotate={rotation}
-                loading={
-                  <div className="flex items-center justify-center p-12 bg-pdf-page-bg rounded-lg">
-                    <div className="h-6 w-6 animate-spin rounded-full border-2 border-primary border-t-transparent" />
-                  </div>
-                }
-                error={
-                  <div className="flex items-center justify-center p-12 bg-pdf-page-bg rounded-lg">
-                    <p className="text-destructive">Error loading page</p>
-                  </div>
-                }
-              />
+              {!isLoading && numPages > 0 && (
+                <Page
+                  pageNumber={pageNumber}
+                  scale={scale}
+                  rotate={rotation}
+                  loading={
+                    <div className="flex items-center justify-center p-12 bg-pdf-page-bg rounded-lg">
+                      <div className="h-6 w-6 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+                    </div>
+                  }
+                  error={
+                    <div className="flex items-center justify-center p-12 bg-pdf-page-bg rounded-lg">
+                      <p className="text-destructive">Error loading page {pageNumber}</p>
+                    </div>
+                  }
+                />
+              )}
             </Document>
           </div>
         </div>

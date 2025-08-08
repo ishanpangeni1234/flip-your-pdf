@@ -19,4 +19,18 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  optimizeDeps: {
+    include: ['pdfjs-dist']
+  },
+  // Add this to properly serve static files
+  publicDir: "public",
+  // Handle .mjs files properly
+  esbuild: {
+    supported: {
+      'top-level-await': true
+    },
+  },
+  build: {
+    target: 'esnext'
+  }
 }));
