@@ -1,12 +1,19 @@
 // src/lib/pdf-storage.ts
 
 const DB_NAME = "PDFViewerDB";
-const STORE_NAME = "pdfStore";
-const DB_VERSION = 1;
+const PDF_STORE_NAME = "pdfStore";
+const NOTES_STORE_NAME = "notesStore";
+const DB_VERSION = 2; // Incremented version to trigger onupgradeneeded
 
 interface StoredPDF {
-  id: string;
+  id: string; // Should be a unique identifier, e.g., 'current_pdf'
   file: File;
+  timestamp: Date;
+}
+
+interface StoredNotes {
+  pdfId: string; // Links notes to a specific PDF (using file.name)
+  notes: { [sheetName: string]: string };
   timestamp: Date;
 }
 
@@ -15,10 +22,13 @@ const openDB = (): Promise<IDBDatabase> => {
   return new Promise((resolve, reject) => {
     const request = indexedDB.open(DB_NAME, DB_VERSION);
 
-    request.onupgradeneeded = () => {
+    request.onupgradeneeded = (event) => {
       const db = request.result;
-      if (!db.objectStoreNames.contains(STORE_NAME)) {
-        db.createObjectStore(STORE_NAME, { keyPath: "id" });
+      if (!db.objectStoreNames.contains(PDF_STORE_NAME)) {
+        db.createObjectStore(PDF_STORE_NAME, { keyPath: "id" });
+      }
+      if (!db.objectStoreNames.contains(NOTES_STORE_NAME)) {
+        db.createObjectStore(NOTES_STORE_NAME, { keyPath: "pdfId" });
       }
     };
 
@@ -33,85 +43,121 @@ const openDB = (): Promise<IDBDatabase> => {
   });
 };
 
-// Stores the PDF file in IndexedDB.
+// --- PDF Storage ---
+
 export const storePDF = async (file: File): Promise<void> => {
   const db = await openDB();
-  return new Promise((resolve, reject) => {
-    const transaction = db.transaction(STORE_NAME, "readwrite");
-    const store = transaction.objectStore(STORE_NAME);
-    
-    // Clear any existing PDF first to only store one at a time.
+  const transaction = db.transaction(PDF_STORE_NAME, "readwrite");
+  const store = transaction.objectStore(PDF_STORE_NAME);
+
+  // Clear any existing PDF first to only store one at a time.
+  await new Promise((resolve, reject) => {
     const clearRequest = store.clear();
+    clearRequest.onsuccess = () => resolve(true);
+    clearRequest.onerror = () => reject(clearRequest.error);
+  });
+  
+  const pdfToStore: StoredPDF = {
+    id: 'current_pdf', // Use a static ID for the single PDF
+    file,
+    timestamp: new Date(),
+  };
 
-    clearRequest.onsuccess = () => {
-        const pdfToStore: StoredPDF = {
-          id: file.name, // Use filename as a simple ID
-          file,
-          timestamp: new Date(),
-        };
-        const putRequest = store.put(pdfToStore);
-    
-        putRequest.onsuccess = () => {
-          console.log("✅ PDF stored successfully in IndexedDB.");
-          resolve();
-        };
-    
-        putRequest.onerror = () => {
-          console.error("Error storing PDF:", putRequest.error);
-          reject(new Error("Could not store the PDF file."));
-        };
-    }
-
-    clearRequest.onerror = () => {
-        console.error("Error clearing store:", clearRequest.error);
-        reject(new Error("Could not clear the existing PDF file."));
-    }
+  return new Promise((resolve, reject) => {
+    const putRequest = store.put(pdfToStore);
+    putRequest.onsuccess = () => {
+      console.log("✅ PDF stored successfully.");
+      resolve();
+    };
+    putRequest.onerror = () => reject(putRequest.error);
   });
 };
 
-// Retrieves the last stored PDF file from IndexedDB.
 export const getStoredPDF = async (): Promise<File | null> => {
   const db = await openDB();
   return new Promise((resolve, reject) => {
-    const transaction = db.transaction(STORE_NAME, "readonly");
-    const store = transaction.objectStore(STORE_NAME);
-    const getAllRequest = store.getAll();
+    const transaction = db.transaction(PDF_STORE_NAME, "readonly");
+    const store = transaction.objectStore(PDF_STORE_NAME);
+    const getRequest = store.get('current_pdf');
 
-    getAllRequest.onsuccess = () => {
-      if (getAllRequest.result.length > 0) {
-        // We only store one PDF, so get the first one.
-        const stored = getAllRequest.result[0] as StoredPDF;
+    getRequest.onsuccess = () => {
+      if (getRequest.result) {
+        const stored = getRequest.result as StoredPDF;
         console.log("✅ PDF retrieved from IndexedDB:", stored.file.name);
         resolve(stored.file);
       } else {
-        console.log("No PDF found in IndexedDB.");
         resolve(null);
       }
     };
-
-    getAllRequest.onerror = () => {
-      console.error("Error retrieving PDF:", getAllRequest.error);
-      reject(new Error("Could not retrieve PDF file from storage."));
-    };
+    getRequest.onerror = () => reject(getRequest.error);
   });
 };
 
-// Clears the PDF file from IndexedDB.
 export const clearStoredPDF = async (): Promise<void> => {
   const db = await openDB();
   return new Promise((resolve, reject) => {
-    const transaction = db.transaction(STORE_NAME, "readwrite");
-    const store = transaction.objectStore(STORE_NAME);
+    const transaction = db.transaction(PDF_STORE_NAME, "readwrite");
+    const store = transaction.objectStore(PDF_STORE_NAME);
     const request = store.clear();
+    request.onsuccess = () => resolve();
+    request.onerror = () => reject(request.error);
+  });
+};
 
+
+// --- Notes Storage ---
+
+export const storeNotes = async (pdfId: string, notes: { [sheetName: string]: string }): Promise<void> => {
+  const db = await openDB();
+  const transaction = db.transaction(NOTES_STORE_NAME, "readwrite");
+  const store = transaction.objectStore(NOTES_STORE_NAME);
+  
+  const notesToStore: StoredNotes = {
+    pdfId,
+    notes,
+    timestamp: new Date(),
+  };
+
+  return new Promise((resolve, reject) => {
+    const request = store.put(notesToStore);
     request.onsuccess = () => {
-      console.log("✅ IndexedDB store cleared.");
+      console.log(`✅ Notes for ${pdfId} stored.`);
       resolve();
     };
+    request.onerror = () => reject(request.error);
+  });
+};
 
-    request.onerror = () => {
-      console.error("Error clearing IndexedDB store:", request.error);
-      reject(new Error("Could not clear PDF from storage."));
+export const getStoredNotes = async (pdfId: string): Promise<{ [sheetName: string]: string } | null> => {
+  const db = await openDB();
+  return new Promise((resolve, reject) => {
+    const transaction = db.transaction(NOTES_STORE_NAME, "readonly");
+    const store = transaction.objectStore(NOTES_STORE_NAME);
+    const request = store.get(pdfId);
+
+    request.onsuccess = () => {
+      if (request.result) {
+        const stored = request.result as StoredNotes;
+        console.log(`✅ Notes for ${pdfId} retrieved.`);
+        resolve(stored.notes);
+      } else {
+        resolve(null);
+      }
     };
+    request.onerror = () => reject(request.error);
+  });
+};
+
+export const clearStoredNotes = async (pdfId: string): Promise<void> => {
+  const db = await openDB();
+  return new Promise((resolve, reject) => {
+    const transaction = db.transaction(NOTES_STORE_NAME, "readwrite");
+    const store = transaction.objectStore(NOTES_STORE_NAME);
+    const request = store.delete(pdfId);
+    request.onsuccess = () => {
+       console.log(`✅ Notes for ${pdfId} cleared.`);
+       resolve();
+    };
+    request.onerror = () => reject(request.error);
   });
 };

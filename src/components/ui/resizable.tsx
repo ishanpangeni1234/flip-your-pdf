@@ -40,4 +40,8 @@ const ResizableHandle = ({
   </ResizablePrimitive.PanelResizeHandle>
 )
 
+// This is the added line to fix the error.
+// It re-exports the type from the original library.
+export type { ImperativePanelGroupHandle } from "react-resizable-panels"
+
 export { ResizablePanelGroup, ResizablePanel, ResizableHandle }
