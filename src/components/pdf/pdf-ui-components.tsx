@@ -5,7 +5,8 @@ import { Document, Page } from "react-pdf";
 import type { PDFDocumentProxy } from "pdfjs-dist/types/src/display/api";
 import { 
   ChevronLeft, ChevronRight, ZoomIn, ZoomOut, Search, FileUp, 
-  PanelLeftClose, PanelLeftOpen, Rows, Columns, ChevronUp, ChevronDown, X
+  PanelLeftClose, PanelLeftOpen, Rows, Columns, ChevronUp, ChevronDown, X,
+  MessageSquare
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -17,7 +18,6 @@ import {
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
 
-// --- Thumbnail Component (no changes) ---
 interface ThumbnailProps {
   pageNumber: number;
   onThumbnailClick: (page: number) => void;
@@ -46,7 +46,6 @@ export const Thumbnail = React.memo(({ pageNumber, onThumbnailClick, isActive }:
   </button>
 ));
 
-// --- Thumbnail Sidebar (no changes) ---
 interface ThumbnailSidebarProps {
   file: File;
   numPages: number;
@@ -72,8 +71,6 @@ export const ThumbnailSidebar = ({ file, numPages, currentPage, goToPage, onDocu
   );
 };
 
-
-// --- PDF Toolbar (Updated) ---
 interface PDFToolbarProps {
   file: File;
   onClose: () => void;
@@ -104,13 +101,16 @@ interface PDFToolbarProps {
   onCreateNewNote: () => void;
   onSelectNote: (name: string) => void;
   onCloseNotes: () => void;
+  isChatViewActive: boolean;
+  onToggleChatView: () => void;
 }
 
 export const PDFToolbar = ({
   file, onClose, isSidebarOpen, toggleSidebar, pageNumber, numPages, goToPage, goToPrevPage, goToNextPage, isLoading,
   scale, setScale, fitToPage, fitToWidth,
   searchQuery, setSearchQuery, handleSearch, isSearching, searchResults, setSearchResults, currentMatchIndex, setCurrentMatchIndex, goToPrevMatch, goToNextMatch,
-  isNotesViewActive, notes, onCreateNewNote, onSelectNote, onCloseNotes
+  isNotesViewActive, notes, onCreateNewNote, onSelectNote, onCloseNotes,
+  isChatViewActive, onToggleChatView
 }: PDFToolbarProps) => {
   const [isSearchExpanded, setIsSearchExpanded] = useState(false);
 
@@ -155,9 +155,9 @@ export const PDFToolbar = ({
                 <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => setIsSearchExpanded(false)}><X className="h-4 w-4" /></Button>
               </div>
             ) : (
-               <Tooltip><TooltipTrigger asChild><Button variant="ghost" size="icon" onClick={() => setIsSearchExpanded(true)}><Search className="h-5 w-5" /></Button></TooltipTrigger><TooltipContent><p>Search (Ctrl+F)</p></TooltipContent></Tooltip>
+                <Tooltip><TooltipTrigger asChild><Button variant="ghost" size="icon" onClick={() => setIsSearchExpanded(true)}><Search className="h-5 w-5" /></Button></TooltipTrigger><TooltipContent><p>Search (Ctrl+F)</p></TooltipContent></Tooltip>
             )}
-             {searchResults.length > 0 && !isSearching && (
+              {searchResults.length > 0 && !isSearching && (
               <div className="flex items-center gap-1 text-sm ml-2">
                 <span className="text-muted-foreground tabular-nums">{currentMatchIndex + 1} of {searchResults.length}</span>
                 <Tooltip><TooltipTrigger asChild><Button variant="ghost" size="icon" className="h-7 w-7" onClick={goToPrevMatch}><ChevronUp className="h-4 w-4" /></Button></TooltipTrigger><TooltipContent><p>Previous Match</p></TooltipContent></Tooltip>
@@ -168,6 +168,16 @@ export const PDFToolbar = ({
           
           <div className="h-6 w-px bg-border mx-1" />
           
+          {/* Chat Button (NEW) */}
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button variant={isChatViewActive ? "secondary" : "ghost"} size="icon" onClick={onToggleChatView}>
+                  <MessageSquare className="h-5 w-5" />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent><p>Toggle AI Chat</p></TooltipContent>
+          </Tooltip>
+
           {/* Notes Button - Redesigned with HoverCard */}
           <HoverCard openDelay={100} closeDelay={100}>
             <Tooltip><TooltipTrigger asChild>

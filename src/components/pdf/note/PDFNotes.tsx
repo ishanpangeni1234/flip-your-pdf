@@ -1,4 +1,4 @@
-// src/components/pdf/PDFNotes.tsx
+// src/components/pdf/note/PDFNotes.tsx
 
 import React, { useRef, useEffect, useCallback } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';

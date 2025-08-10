@@ -1,3 +1,5 @@
+// src/components/pdf/note/EditorToolbar.tsx
+
 import React from 'react';
 import {
   Bold,

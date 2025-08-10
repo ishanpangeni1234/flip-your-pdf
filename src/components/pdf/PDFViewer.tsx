@@ -7,9 +7,12 @@ import 'react-pdf/dist/Page/AnnotationLayer.css';
 import 'react-pdf/dist/Page/TextLayer.css';
 
 import { useToast } from "@/hooks/use-toast";
-import { useDebounce } from "@/hooks/use-debounce";
 import { cn } from "@/lib/utils";
-import { getStoredNotes, storeNotes } from "@/lib/pdf-storage";
+
+import { useNotes } from "./note/use-notes";
+import { useChat } from "./chat/use-chat";
+import { PDFNotes } from "./note/PDFNotes";
+import { PDFChat } from "./chat/PDFChat";
 
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Card } from "@/components/ui/card";
@@ -20,7 +23,6 @@ import {
   type ImperativePanelGroupHandle
 } from "@/components/ui/resizable";
 import { ThumbnailSidebar, PDFToolbar } from "./pdf-ui-components";
-import { PDFNotes } from "./PDFNotes";
 
 // Set the workerSrc for pdfjs
 pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js';
@@ -35,8 +37,8 @@ export const PDFViewer = ({ file, onClose }: PDFViewerProps) => {
   const [numPages, setNumPages] = useState<number>(0);
   const [pageNumber, setPageNumber] = useState<number>(1); // Most visible page
   const [scale, setScale] = useState<number>(1.0);
-  // rotation state removed
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [pdfProxy, setPdfProxy] = useState<PDFDocumentProxy | null>(null);
   
   // Virtualization State
   const [renderedPages, setRenderedPages] = useState<Set<number>>(new Set());
@@ -44,6 +46,8 @@ export const PDFViewer = ({ file, onClose }: PDFViewerProps) => {
 
   // UI State
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(true);
+  const [isNotesViewActive, setIsNotesViewActive] = useState(false);
+  const [isChatViewActive, setIsChatViewActive] = useState(false);
   const { toast } = useToast();
 
   // Search State
@@ -51,67 +55,54 @@ export const PDFViewer = ({ file, onClose }: PDFViewerProps) => {
   const [searchResults, setSearchResults] = useState<{ pageNumber: number }[]>([]);
   const [currentMatchIndex, setCurrentMatchIndex] = useState<number>(0);
   const [isSearching, setIsSearching] = useState<boolean>(false);
-  const [pdfProxy, setPdfProxy] = useState<PDFDocumentProxy | null>(null);
   
-  // Notes State
-  const [isNotesViewActive, setIsNotesViewActive] = useState(false);
-  const [notes, setNotes] = useState<{ [key: string]: string }>({});
-  const [activeNoteSheet, setActiveNoteSheet] = useState<string | null>(null);
-  const debouncedNotes = useDebounce(notes, 1000);
+  // Custom Hooks for features
+  const { notes, activeNoteSheet, handleCreateNewNote, handleSelectNote, handleNoteChange } = useNotes(file.name);
+  const { chatMessages, isGeneratingResponse, selectedContextPages, setSelectedContextPages, handleSendMessage, clearChat } = useChat({ pdfProxy, toast });
 
   // Refs
   const viewerRef = useRef<HTMLDivElement | null>(null);
   const pageRefs = useRef<(HTMLDivElement | null)[]>([]);
   const panelGroupRef = useRef<ImperativePanelGroupHandle>(null);
 
-  // --- FIX: This effect programmatically resizes panels when notes view is toggled ---
+  // --- UI LOGIC ---
+  
+  // This effect programmatically resizes panels when notes/chat view is toggled
   useEffect(() => {
     const panelGroup = panelGroupRef.current;
     if (panelGroup) {
-      if (isNotesViewActive) {
+      if (isNotesViewActive || isChatViewActive) {
         panelGroup.setLayout([50, 50]);
       } else {
         panelGroup.setLayout([100, 0]);
       }
     }
-  }, [isNotesViewActive]);
+  }, [isNotesViewActive, isChatViewActive]);
 
-  // --- NOTES LOGIC ---
-  useEffect(() => {
-    const loadNotes = async () => {
-      const storedNotes = await getStoredNotes(file.name);
-      if (storedNotes) {
-        setNotes(storedNotes);
-      }
-    };
-    loadNotes();
-  }, [file.name]);
-
-  useEffect(() => {
-    if (Object.keys(debouncedNotes).length > 0) {
-      storeNotes(file.name, debouncedNotes);
-    }
-  }, [debouncedNotes, file.name]);
-
-  const handleCreateNewNote = () => {
-    const name = prompt("Enter a name for your new note sheet:");
-    if (name && !notes[name]) {
-      setNotes(prev => ({ ...prev, [name]: '' }));
-      setActiveNoteSheet(name);
+  // Handlers to bridge UI state with feature logic
+  const openNewNote = () => {
+    const newNoteName = handleCreateNewNote();
+    if (newNoteName) {
       setIsNotesViewActive(true);
-    } else if (name) {
-      toast({ title: "Note Exists", description: "A note sheet with that name already exists.", variant: "destructive" });
+      setIsChatViewActive(false); // Close chat when opening notes
     }
   };
 
-  const handleSelectNote = (name: string) => {
-    setActiveNoteSheet(name);
+  const openExistingNote = (name: string) => {
+    handleSelectNote(name);
     setIsNotesViewActive(true);
+    setIsChatViewActive(false); // Close chat when opening notes
   };
   
-  const handleNoteChange = (newText: string) => {
-    if (activeNoteSheet) {
-      setNotes(prev => ({...prev, [activeNoteSheet]: newText }));
+  const toggleChatView = () => {
+    const willBeActive = !isChatViewActive;
+    setIsChatViewActive(willBeActive);
+    if (willBeActive) {
+      setIsNotesViewActive(false); // Close notes when opening chat
+    } else {
+      setSelectedContextPages(new Set()); // Clear context when closing
+      // Optional: clear chat history when closing panel
+      // clearChat(); 
     }
   };
 
@@ -201,6 +192,8 @@ export const PDFViewer = ({ file, onClose }: PDFViewerProps) => {
     adjustScale((viewerRect) => (viewerRect.width / pageDimensions!.width) * 0.95);
   }, [adjustScale, pageDimensions]);
 
+  // --- SEARCH LOGIC ---
+
   const handleSearch = useCallback(async () => {
     if (!searchQuery.trim() || !pdfProxy) { setSearchResults([]); return; }
     setIsSearching(true);
@@ -286,9 +279,10 @@ export const PDFViewer = ({ file, onClose }: PDFViewerProps) => {
     return () => clearTimeout(highlightTimer);
   }, [searchQuery, renderedPages, scale]);
 
+  // --- KEYBOARD SHORTCUTS ---
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if ((event.target as HTMLElement).closest('.wysiwyg-editor')) return;
+      if ((event.target as HTMLElement).closest('.wysiwyg-editor') || (event.target as HTMLElement).closest('.pdf-chat-input')) return;
       if ((event.target as HTMLElement).tagName === 'INPUT' || (event.target as HTMLElement).tagName === 'TEXTAREA') return;
 
       if (event.ctrlKey || event.metaKey) {
@@ -318,10 +312,10 @@ export const PDFViewer = ({ file, onClose }: PDFViewerProps) => {
         </div>
         <div className="flex flex-col flex-1 min-w-0">
           <Card className="rounded-none border-0 border-b z-10">
-            <PDFToolbar {...{ file, onClose, isSidebarOpen, toggleSidebar: () => setIsSidebarOpen(o => !o), pageNumber, numPages, goToPage, goToPrevPage, goToNextPage, isLoading, scale, setScale, fitToPage, fitToWidth, searchQuery, setSearchQuery, handleSearch, isSearching, searchResults, setSearchResults, currentMatchIndex, setCurrentMatchIndex, goToPrevMatch, goToNextMatch, isNotesViewActive, notes, onCreateNewNote: handleCreateNewNote, onSelectNote: handleSelectNote, onCloseNotes: () => setIsNotesViewActive(false) }} />
+            <PDFToolbar {...{ file, onClose, isSidebarOpen, toggleSidebar: () => setIsSidebarOpen(o => !o), pageNumber, numPages, goToPage, goToPrevPage, goToNextPage, isLoading, scale, setScale, fitToPage, fitToWidth, searchQuery, setSearchQuery, handleSearch, isSearching, searchResults, setSearchResults, currentMatchIndex, setCurrentMatchIndex, goToPrevMatch, goToNextMatch, isNotesViewActive, notes, onCreateNewNote: openNewNote, onSelectNote: openExistingNote, onCloseNotes: () => setIsNotesViewActive(false), isChatViewActive, onToggleChatView: toggleChatView }} />
           </Card>
           <ResizablePanelGroup direction="horizontal" className="flex-1" ref={panelGroupRef}>
-            <ResizablePanel defaultSize={isNotesViewActive ? 50 : 100}>
+            <ResizablePanel defaultSize={isNotesViewActive || isChatViewActive ? 50 : 100}>
               <div className="flex-1 overflow-auto p-4 md:p-8 h-full" ref={viewerRef}>
                 <Document file={file} onLoadSuccess={onDocumentLoadSuccess} onLoadError={onDocumentLoadError} loading={<div className="p-12 flex justify-center items-center"><div className="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent" /></div>} error={<div className="p-12 bg-destructive/10 text-destructive rounded-lg">Failed to load PDF.</div>}>
                   <div className="flex flex-col items-center gap-y-4">
@@ -344,14 +338,29 @@ export const PDFViewer = ({ file, onClose }: PDFViewerProps) => {
                 </Document>
               </div>
             </ResizablePanel>
+            
+            {(isNotesViewActive || isChatViewActive) && <ResizableHandle withHandle />}
+            
             {isNotesViewActive && (
-              <>
-                <ResizableHandle withHandle />
-                <ResizablePanel defaultSize={50} minSize={25} collapsible>
-                   <PDFNotes activeSheetName={activeNoteSheet} notes={notes} onNoteChange={handleNoteChange} />
-                </ResizablePanel>
-              </>
+              <ResizablePanel defaultSize={50} minSize={25} collapsible>
+                  <PDFNotes activeSheetName={activeNoteSheet} notes={notes} onNoteChange={handleNoteChange} />
+              </ResizablePanel>
             )}
+
+            {isChatViewActive && (
+              <ResizablePanel defaultSize={50} minSize={25} collapsible>
+                  <PDFChat 
+                    messages={chatMessages}
+                    onSendMessage={handleSendMessage}
+                    isGenerating={isGeneratingResponse}
+                    currentPage={pageNumber}
+                    totalPages={numPages}
+                    selectedPages={selectedContextPages}
+                    onSelectedPagesChange={setSelectedContextPages}
+                  />
+              </ResizablePanel>
+            )}
+
           </ResizablePanelGroup>
         </div>
       </div>

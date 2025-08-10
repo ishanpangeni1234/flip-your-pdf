@@ -105,7 +105,6 @@
   display: none;
 }
 
-
 .wysiwyg-editor h1, .wysiwyg-editor h2, .wysiwyg-editor h3, .wysiwyg-editor h4 {
   font-weight: 600;
   line-height: 1.3;
@@ -235,4 +234,51 @@
 .wysiwyg-editor .toggle-content {
   padding-left: 1.5rem; /* Aligns content with the start of the title text and lists */
   color: hsl(var(--foreground));
+}
+
+/* === NEW: Chat Markdown Styling === */
+.prose {
+    color: hsl(var(--foreground));
+    line-height: 1.6;
+}
+.prose p {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+}
+.prose p:last-child {
+    margin-bottom: 0;
+}
+.prose ul, .prose ol {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    padding-left: 1.25rem;
+}
+.prose li {
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
+}
+.prose ul {
+    list-style-type: disc;
+}
+.prose ol {
+    list-style-type: decimal;
+}
+.prose strong {
+    font-weight: 600;
+}
+.prose a {
+    color: hsl(var(--primary));
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+.prose blockquote {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding-left: 1rem;
+    border-left: 2px solid hsl(var(--border));
+    font-style: italic;
+    color: hsl(var(--muted-foreground));
+}
+.prose.max-w-none {
+    max-width: none;
 }
