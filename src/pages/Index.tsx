@@ -3,10 +3,11 @@
 import { useState, useEffect, useCallback } from "react";
 import { FileText, Search as SearchIcon, GalleryThumbnails, Save, Notebook } from "lucide-react";
 import { PDFUploader } from "@/components/pdf/PDFUploader";
-import { PDFViewer } from "@/components/pdf/PDFViewer";
+import { PDFViewer } from "@/components/pdf/PDFViewer"; // <--- THIS LINE IS CORRECTED
 import { getStoredPDF, clearStoredPDF, storePDF, clearStoredNotes } from "@/lib/pdf-storage";
 import { useToast } from "@/hooks/use-toast";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Layout } from "@/components/layout/Layout"; // Import the Layout component
 
 // Feature Card Component
 const FeatureCard = ({ icon, title, children }: { icon: React.ReactNode, title: string, children: React.ReactNode }) => (
@@ -99,33 +100,23 @@ const Index = () => {
     }
   }, [toast, selectedFile]);
 
+  // If a file is selected, show the PDFViewer directly without the layout wrapper
+  // as PDFViewer is likely a full-page component itself.
   if (selectedFile) {
     return <PDFViewer file={selectedFile} onClose={handleClose} />;
   }
 
+  // Otherwise, show the landing page content wrapped in the global Layout
   return (
-    <div className="min-h-screen bg-background relative overflow-x-hidden">
-      <div className="absolute inset-0 -z-10 h-full w-full bg-background bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:6rem_4rem] dark:bg-[linear-gradient(to_right,rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.05)_1px,transparent_1px)]"><div className="absolute bottom-0 left-0 right-0 top-0 bg-[radial-gradient(circle_500px_at_50%_200px,rgba(200,200,255,0.1),transparent)] dark:bg-[radial-gradient(circle_500px_at_50%_200px,rgba(40,50,80,0.3),transparent)]"></div></div>
+    <Layout>
+      <div className="absolute inset-0 -z-10 h-full w-full bg-background bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:6rem_4rem] dark:bg-[linear-gradient(to_right,rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.05)_1px,transparent_1px)]">
+        <div className="absolute bottom-0 left-0 right-0 top-0 bg-[radial-gradient(circle_500px_at_50%_200px,rgba(200,200,255,0.1),transparent)] dark:bg-[radial-gradient(circle_500px_at_50%_200px,rgba(40,50,80,0.3),transparent)]"></div>
+      </div>
       
-      {/* Header */}
-      <header className="sticky top-0 z-50 border-b bg-card/50 backdrop-blur-lg">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-primary text-primary-foreground">
-              <FileText className="h-5 w-5" />
-            </div>
-            <div>
-              <h1 className="text-xl font-bold tracking-tight">Flip Your PDF</h1>
-              <p className="text-xs text-muted-foreground">
-                Advanced PDF Viewer
-              </p>
-            </div>
-          </div>
-        </div>
-      </header>
+      {/* Removed original Header - now handled by Layout/Navbar */}
 
       {/* Main Content */}
-      <main className="container mx-auto px-4 py-12 sm:py-16 md:py-24">
+      <div className="container mx-auto px-4 py-12 sm:py-16 md:py-24">
         <div className="mx-auto max-w-3xl">
           <div className="text-center mb-10">
             <h2 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl mb-4">
@@ -160,14 +151,10 @@ const Index = () => {
             </div>
           </div>
         </div>
-      </main>
+      </div>
 
-      <footer className="py-8 mt-12 border-t bg-background/50">
-        <div className="container mx-auto px-4 text-center text-sm text-muted-foreground">
-            <p>&copy; {new Date().getFullYear()} Flip Your PDF. All Rights Reserved.</p>
-        </div>
-      </footer>
-    </div>
+      {/* Removed original Footer - now handled by Layout/Footer */}
+    </Layout>
   );
 };
 

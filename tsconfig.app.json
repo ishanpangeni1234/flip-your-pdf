@@ -9,6 +9,8 @@
     /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,      /* Added: Allows importing .json files */
+    "esModuleInterop": true,        /* Added: Improves module interoperability */
     "isolatedModules": true,
     "moduleDetection": "force",
     "noEmit": true,
