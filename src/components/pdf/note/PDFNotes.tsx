@@ -1,11 +1,11 @@
 // src/components/pdf/note/PDFNotes.tsx
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react'; // Added useState
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Underline from '@tiptap/extension-underline';
 import Placeholder from '@tiptap/extension-placeholder';
-import Link from '@tiptap/extension-link'; // This is the extension we're configuring
+import Link from '@tiptap/extension-link';
 import TaskList from '@tiptap/extension-task-list';
 import TaskItem from '@tiptap/extension-task-item';
 import Typography from '@tiptap/extension-typography';
@@ -22,6 +22,12 @@ interface PDFNotesProps {
 export const PDFNotes = ({ activeSheetName, notes, onNoteChange }: PDFNotesProps) => {
   const currentNote = activeSheetName ? notes[activeSheetName] ?? '' : '';
   const prevActiveSheetName = useRef(activeSheetName);
+  const [zoom, setZoom] = useState(1); // 1 = 100%
+
+  // Zoom control handlers
+  const handleZoomIn = () => setZoom(prev => Math.min(prev + 0.1, 2)); // Max 200%
+  const handleZoomOut = () => setZoom(prev => Math.max(prev - 0.1, 0.5)); // Min 50%
+  const handleResetZoom = () => setZoom(1);
 
   const editor = useEditor({
     extensions: [
@@ -32,10 +38,7 @@ export const PDFNotes = ({ activeSheetName, notes, onNoteChange }: PDFNotesProps
       }),
       Underline,
       Typography,
-      // --- THIS BLOCK IS THE FIX ---
       Link.configure({
-        // The `openOnClick: false` line has been removed.
-        // Tiptap will now default to opening links on `Ctrl/Cmd + Click`.
         autolink: true,
         defaultProtocol: 'https',
       }),
@@ -92,8 +95,14 @@ export const PDFNotes = ({ activeSheetName, notes, onNoteChange }: PDFNotesProps
         </CardTitle>
       </CardHeader>
       <CardContent className="p-0 flex-1 flex flex-col min-h-0">
-        <EditorToolbar editor={editor} />
-        <div className="flex-1 overflow-y-auto">
+        <EditorToolbar 
+            editor={editor}
+            zoom={zoom}
+            onZoomIn={handleZoomIn}
+            onZoomOut={handleZoomOut}
+            onResetZoom={handleResetZoom}
+        />
+        <div className="flex-1 overflow-y-auto" style={{ zoom: zoom }}>
           <EditorContent 
             editor={editor} 
             className="h-full"

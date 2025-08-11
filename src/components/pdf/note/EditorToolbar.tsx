@@ -5,17 +5,29 @@ import { Editor } from '@tiptap/react';
 import {
   Bold, Italic, Underline, Strikethrough, Code,
   List, ListOrdered, Quote, Link, Minus, CheckSquare,
-  Heading1, Heading2, Heading3, Type
+  Heading1, Heading2, Heading3, Type,
+  Search, ZoomIn, ZoomOut, RotateCcw // Added icons
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Separator } from '@/components/ui/separator';
+import { 
+  DropdownMenu, 
+  DropdownMenuContent, 
+  DropdownMenuItem, 
+  DropdownMenuSeparator, 
+  DropdownMenuTrigger 
+} from '@/components/ui/dropdown-menu';
 
 interface EditorToolbarProps {
   editor: Editor | null;
+  zoom: number;
+  onZoomIn: () => void;
+  onZoomOut: () => void;
+  onResetZoom: () => void;
 }
 
-export function EditorToolbar({ editor }: EditorToolbarProps) {
+export function EditorToolbar({ editor, zoom, onZoomIn, onZoomOut, onResetZoom }: EditorToolbarProps) {
   if (!editor) {
     return null;
   }
@@ -71,40 +83,75 @@ export function EditorToolbar({ editor }: EditorToolbarProps) {
   return (
     <div className="border-b border-editor-border bg-editor-background px-3 py-2">
       <TooltipProvider>
-        <div className="flex flex-wrap items-center gap-1">
-          {toolbarItems.map((group, groupIndex) => (
-            <React.Fragment key={groupIndex}>
-              {group.type === 'separator' ? (
-                <Separator orientation="vertical" className="h-8 mx-1" />
-              ) : (
-                <div className="flex items-center gap-0.5">
-                  {group.items.map((button) => {
-                    const IconComponent = button.icon;
-                    const tooltipText = button.shortcut ? `${button.label} (${button.shortcut})` : button.label;
-                    
-                    return (
-                      <Tooltip key={button.label} delayDuration={300}>
-                        <TooltipTrigger asChild>
-                          <Button
-                            variant={button.isActive() ? 'secondary' : 'ghost'}
-                            size="icon"
-                            onClick={button.command}
-                            className="h-8 w-8 text-muted-foreground hover:text-foreground"
-                            aria-label={button.label}
-                          >
-                            <IconComponent className="h-4 w-4" />
-                          </Button>
-                        </TooltipTrigger>
-                        <TooltipContent>
-                          <p>{tooltipText}</p>
-                        </TooltipContent>
-                      </Tooltip>
-                    );
-                  })}
-                </div>
-              )}
-            </React.Fragment>
-          ))}
+        <div className="flex flex-wrap items-center justify-between gap-1">
+          {/* Formatting Controls */}
+          <div className="flex flex-wrap items-center gap-1">
+            {toolbarItems.map((group, groupIndex) => (
+              <React.Fragment key={groupIndex}>
+                {group.type === 'separator' ? (
+                  <Separator orientation="vertical" className="h-8 mx-1" />
+                ) : (
+                  <div className="flex items-center gap-0.5">
+                    {group.items.map((button) => {
+                      const IconComponent = button.icon;
+                      const tooltipText = button.shortcut ? `${button.label} (${button.shortcut})` : button.label;
+                      
+                      return (
+                        <Tooltip key={button.label} delayDuration={300}>
+                          <TooltipTrigger asChild>
+                            <Button
+                              variant={button.isActive() ? 'secondary' : 'ghost'}
+                              size="icon"
+                              onClick={button.command}
+                              className="h-8 w-8 text-muted-foreground hover:text-foreground"
+                              aria-label={button.label}
+                            >
+                              <IconComponent className="h-4 w-4" />
+                            </Button>
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>{tooltipText}</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      );
+                    })}
+                  </div>
+                )}
+              </React.Fragment>
+            ))}
+          </div>
+
+          {/* Zoom Controls */}
+          <DropdownMenu>
+            <Tooltip delayDuration={300}>
+                <TooltipTrigger asChild>
+                    <DropdownMenuTrigger asChild>
+                        <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground hover:text-foreground">
+                            <Search className="h-4 w-4" />
+                            <span className="sr-only">Zoom Controls</span>
+                        </Button>
+                    </DropdownMenuTrigger>
+                </TooltipTrigger>
+                <TooltipContent>
+                    <p>Zoom</p>
+                </TooltipContent>
+            </Tooltip>
+            <DropdownMenuContent align="end">
+                <DropdownMenuItem onClick={onZoomIn}>
+                    <ZoomIn className="mr-2 h-4 w-4" />
+                    <span>Zoom In</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={onZoomOut}>
+                    <ZoomOut className="mr-2 h-4 w-4" />
+                    <span>Zoom Out</span>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={onResetZoom}>
+                    <RotateCcw className="mr-2 h-4 w-4" />
+                    <span>Reset ({Math.round(zoom * 100)}%)</span>
+                </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       </TooltipProvider>
     </div>
