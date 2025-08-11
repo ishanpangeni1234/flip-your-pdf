@@ -1,52 +1,48 @@
 // src/components/pdf/note/EditorToolbar.tsx
 
 import React from 'react';
+import { Editor } from '@tiptap/react';
 import {
-  Bold,
-  Italic,
-  Underline,
-  List,
-  ListOrdered,
-  ChevronRight,
-  Heading1,
-  Heading2,
-  Heading3,
-  Type,
-  Quote
+  Bold, Italic, Underline, List, ListOrdered, ChevronRight,
+  Heading1, Heading2, Heading3, Type, Quote
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 interface EditorToolbarProps {
-  onFormat: (command: string, value?: string) => void;
+  editor: Editor | null;
 }
 
-export function EditorToolbar({ onFormat }: EditorToolbarProps) {
+export function EditorToolbar({ editor }: EditorToolbarProps) {
+  if (!editor) {
+    return null;
+  }
+
   const toolbarButtonGroups = [
     {
       group: 'text',
       buttons: [
-        { icon: Bold, label: 'Bold', command: 'bold', shortcut: 'Ctrl+B' },
-        { icon: Italic, label: 'Italic', command: 'italic', shortcut: 'Ctrl+I' },
-        { icon: Underline, label: 'Underline', command: 'underline', shortcut: 'Ctrl+U' }
+        { icon: Bold, label: 'Bold', command: () => editor.chain().focus().toggleBold().run(), isActive: () => editor.isActive('bold'), shortcut: 'Ctrl+B' },
+        { icon: Italic, label: 'Italic', command: () => editor.chain().focus().toggleItalic().run(), isActive: () => editor.isActive('italic'), shortcut: 'Ctrl+I' },
+        { icon: Underline, label: 'Underline', command: () => editor.chain().focus().toggleUnderline().run(), isActive: () => editor.isActive('underline'), shortcut: 'Ctrl+U' }
       ]
     },
     {
       group: 'headings',
       buttons: [
-        { icon: Heading1, label: 'Heading 1', command: 'formatBlock', value: 'h1' },
-        { icon: Heading2, label: 'Heading 2', command: 'formatBlock', value: 'h2' },
-        { icon: Heading3, label: 'Heading 3', command: 'formatBlock', value: 'h3' },
-        { icon: Type, label: 'Normal Text', command: 'formatBlock', value: 'p' }
+        { icon: Heading1, label: 'Heading 1', command: () => editor.chain().focus().toggleHeading({ level: 1 }).run(), isActive: () => editor.isActive('heading', { level: 1 }) },
+        { icon: Heading2, label: 'Heading 2', command: () => editor.chain().focus().toggleHeading({ level: 2 }).run(), isActive: () => editor.isActive('heading', { level: 2 }) },
+        { icon: Heading3, label: 'Heading 3', command: () => editor.chain().focus().toggleHeading({ level: 3 }).run(), isActive: () => editor.isActive('heading', { level: 3 }) },
+        { icon: Type, label: 'Normal Text', command: () => editor.chain().focus().setParagraph().run(), isActive: () => editor.isActive('paragraph') }
       ]
     },
     {
       group: 'blocks',
       buttons: [
-        { icon: List, label: 'Bullet List', command: 'insertUnorderedList' },
-        { icon: ListOrdered, label: 'Numbered List', command: 'insertOrderedList' },
-        { icon: Quote, label: 'Blockquote', command: 'formatBlock', value: 'blockquote' },
-        { icon: ChevronRight, label: 'Toggle List', command: 'toggleBlock' }
+        { icon: List, label: 'Bullet List', command: () => editor.chain().focus().toggleBulletList().run(), isActive: () => editor.isActive('bulletList') },
+        { icon: ListOrdered, label: 'Numbered List', command: () => editor.chain().focus().toggleOrderedList().run(), isActive: () => editor.isActive('orderedList') },
+        { icon: Quote, label: 'Blockquote', command: () => editor.chain().focus().toggleBlockquote().run(), isActive: () => editor.isActive('blockquote') },
+        { icon: ChevronRight, label: 'Toggle Block', command: () => editor.chain().focus().setToggleBlock().run(), isActive: () => editor.isActive('toggleBlock') }
       ]
     }
   ];
@@ -63,12 +59,12 @@ export function EditorToolbar({ onFormat }: EditorToolbarProps) {
                 const tooltipText = button.shortcut ? `${button.label} (${button.shortcut})` : button.label;
                 
                 return (
-                  <Tooltip key={button.command + (button.value || '')} delayDuration={300}>
+                  <Tooltip key={button.label} delayDuration={300}>
                     <TooltipTrigger asChild>
                       <Button
-                        variant="ghost"
+                        variant={button.isActive() ? 'secondary' : 'ghost'}
                         size="icon"
-                        onClick={() => onFormat(button.command, button.value)}
+                        onClick={button.command}
                         className="h-8 w-8 text-muted-foreground hover:text-foreground"
                         aria-label={button.label}
                       >

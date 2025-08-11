@@ -119,7 +119,8 @@ export const PDFToolbar = ({
       {/* Left Section */}
       <div className="flex items-center gap-1 flex-shrink-0">
         <Tooltip><TooltipTrigger asChild><Button variant="ghost" size="icon" onClick={toggleSidebar}>{isSidebarOpen ? <PanelLeftClose className="h-5 w-5" /> : <PanelLeftOpen className="h-5 w-5" />}</Button></TooltipTrigger><TooltipContent><p>Toggle Thumbnails (Ctrl+B)</p></TooltipContent></Tooltip>
-        <Tooltip><TooltipTrigger asChild><Button variant="ghost" size="icon" onClick={onClose}><FileUp className="h-5 w-5" /></Button></TooltipTrigger><TooltipContent><p>Upload New PDF</p></TooltipContent></Tooltip>
+        {/* Changed from FileUp to X, and tooltip text */}
+        <Tooltip><TooltipTrigger asChild><Button variant="ghost" size="icon" onClick={onClose}><X className="h-5 w-5" /></Button></TooltipTrigger><TooltipContent><p>Close PDF</p></TooltipContent></Tooltip>
         <div className="h-6 w-px bg-border hidden sm:block mx-1" />
         <span className="text-sm font-medium truncate max-w-24 sm:max-w-48 hidden sm:inline" title={file.name}>{file.name}</span>
       </div>
