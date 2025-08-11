@@ -92,21 +92,38 @@
     @apply prose dark:prose-invert max-w-none p-6;
     @apply prose-headings:font-semibold prose-h1:text-2xl prose-h2:text-xl prose-h3:text-lg;
     @apply focus:outline-none min-h-full;
+    /* This provides the physical space at the end of the document to scroll into. */
+    padding-bottom: 40vh;
   }
 
- /* Compact list/HR spacing */
-.tiptap li > p {
-  @apply my-0;
-}
+  /* This tells the scroll container to keep the cursor out of the bottom 15% of the viewport when auto-scrolling. */
+  .editor-scroll-container {
+    scroll-padding-bottom: 15vh;
+  }
 
-.tiptap ol > li,
-.tiptap ul > li {
-  @apply my-0 pl-0; 
-}
+  /* This section overrides the default prose margins to create a compact, note-taking feel. */
+  /* It gives all block-level elements a tiny, consistent vertical margin. */
+  .tiptap h1,
+  .tiptap h2,
+  .tiptap h3,
+  .tiptap p,
+  .tiptap ul,
+  .tiptap ol,
+  .tiptap blockquote,
+  .tiptap hr {
+    @apply my-1;
+  }
+  
+  /* This removes any margin from list items and paragraphs inside them, */
+  /* because the parent UL/OL now controls the spacing. */
+  .tiptap ul > li,
+  .tiptap ol > li {
+    @apply my-0 pl-0;
+  }
 
-.tiptap hr {
-  @apply my-1;
-}
+  .tiptap li > p {
+    @apply my-0;
+  }
 
   .tiptap p.is-editor-empty:first-child::before {
     content: attr(data-placeholder);
@@ -122,29 +139,9 @@
   }
   
   .tiptap blockquote {
-    @apply border-l-4 border-primary/30 pl-4 italic text-muted-foreground my-4;
+    /* The main rule above handles margin, this just handles styling */
+    @apply border-l-4 border-primary/30 pl-4 italic text-muted-foreground;
   }
-  
-  .tiptap ul[data-type="taskList"] {
-    @apply list-none pl-0;
-  }
-  
-  .tiptap ul[data-type="taskList"] li {
-    @apply flex items-start gap-2 my-1;
-  }
-  
-  .tiptap ul[data-type="taskList"] li > label {
-    @apply flex-grow;
-  }
-
-  .tiptap ul[data-type="taskList"] li > div {
-    @apply flex-grow;
-  }
-  
-  .tiptap ul[data-type="taskList"] li input[type="checkbox"] {
-    @apply mt-1 rounded text-primary focus:ring-primary;
-  }
-
   
   .tiptap ul > li::marker,
   .tiptap ol > li::marker {

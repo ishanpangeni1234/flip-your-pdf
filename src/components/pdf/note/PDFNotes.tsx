@@ -6,8 +6,6 @@ import StarterKit from '@tiptap/starter-kit';
 import Underline from '@tiptap/extension-underline';
 import Placeholder from '@tiptap/extension-placeholder';
 import Link from '@tiptap/extension-link';
-import TaskList from '@tiptap/extension-task-list';
-import TaskItem from '@tiptap/extension-task-item';
 import Typography from '@tiptap/extension-typography';
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -24,10 +22,10 @@ interface PDFNotesProps {
 export const PDFNotes = ({ activeSheetName, notes, onNoteChange }: PDFNotesProps) => {
   const currentNote = activeSheetName ? notes[activeSheetName] ?? '' : '';
   const prevActiveSheetName = useRef(activeSheetName);
-  // --- FIX: The state now represents a scale factor ---
+  // --- The state now represents a scale factor ---
   const [zoomLevel, setZoomLevel] = useState(1); // 1 = 100% scale
 
-  // --- FIX: The zoom step is adjusted for a better feel with scale() ---
+  // --- The zoom step is adjusted for a better feel with scale() ---
   const handleZoomIn = () => setZoomLevel(prev => Math.min(prev + 0.05, 1.5));
   const handleZoomOut = () => setZoomLevel(prev => Math.max(prev - 0.05, 0.5));
 
@@ -44,10 +42,6 @@ export const PDFNotes = ({ activeSheetName, notes, onNoteChange }: PDFNotesProps
         openOnClick: true,
         autolink: true,
         defaultProtocol: 'https',
-      }),
-      TaskList,
-      TaskItem.configure({
-        nested: true,
       }),
       Placeholder.configure({
         placeholder: ({ node }) => {
@@ -104,9 +98,7 @@ export const PDFNotes = ({ activeSheetName, notes, onNoteChange }: PDFNotesProps
               <BubbleToolbar editor={editor} />
             </BubbleMenu>
         )}
-        <div className="flex-1 overflow-y-auto">
-          {/* --- THIS IS THE FIX --- */}
-          {/* We apply transform: scale() to the EditorContent itself */}
+        <div className="flex-1 overflow-y-auto editor-scroll-container">
           <EditorContent 
             editor={editor} 
             className="h-full"

@@ -7,7 +7,7 @@ import suggestion, { SuggestionKeyDownProps, SuggestionProps } from '@tiptap/sug
 import tippy, { Instance } from 'tippy.js';
 import {
   Heading1, Heading2, Heading3, List, ListOrdered,
-  CheckSquare, Quote, Type, Minus
+  Quote, Type, Minus
 } from 'lucide-react';
 
 import { CommandList } from '@/components/pdf/note/CommandList';
@@ -60,13 +60,6 @@ const getCommandItems = (): CommandItemProps[] => [
       editor.chain().focus().deleteRange(range).toggleOrderedList().run();
     },
     icon: <ListOrdered className="h-4 w-4" />,
-  },
-  {
-    title: 'Task List',
-    command: ({ editor, range }) => {
-      editor.chain().focus().deleteRange(range).toggleTaskList().run();
-    },
-    icon: <CheckSquare className="h-4 w-4" />,
   },
   {
     title: 'Blockquote',
