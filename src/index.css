@@ -1,8 +1,14 @@
+/* src/index.css */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
- 
+
 @layer base {
+  /*
+    This is your original color theme, now applied to the new structure.
+    All 'blue' or 'purple' accents have been reverted to your original color palette.
+  */
   :root {
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
@@ -10,8 +16,8 @@
     --card-foreground: 222.2 84% 4.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 222.2 47.4% 11.2%; /* Restored Original Primary */
+    --primary-foreground: 210 40% 98%; /* Restored Original Primary Foreground */
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
     --muted: 210 40% 96.1%;
@@ -22,10 +28,20 @@
     --destructive-foreground: 210 40% 98%;
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --ring: 222.2 84% 4.9%; /* Restored Original Ring */
     --radius: 0.5rem;
 
-    /* --- ADDED FOR HIGHLIGHTING --- */
+    /* Editor-specific colors mapped to your theme */
+    --editor-background: 0 0% 100%;
+    --editor-foreground: 222.2 84% 4.9%;
+    --editor-border: 214.3 31.8% 91.4%;
+
+    /* Shadows and gradients from the new theme (will adapt to colors) */
+    --shadow-soft: 0 1px 3px 0 hsl(220 13% 91% / 0.2), 0 1px 2px -1px hsl(220 13% 91% / 0.2);
+    --shadow-medium: 0 4px 6px -1px hsl(220 13% 91% / 0.2), 0 2px 4px -2px hsl(220 13% 91% / 0.2);
+    --shadow-large: 0 10px 15px -3px hsl(220 13% 91% / 0.2), 0 4px 6px -4px hsl(220 13% 91% / 0.2);
+
+    /* --- RESTORED FROM YOUR ORIGINAL CSS --- */
     --highlight-bg: #fef08a; /* yellow-200 */
     --highlight-fg: #000000;
   }
@@ -37,8 +53,8 @@
     --card-foreground: 210 40% 98%;
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 210 40% 98%; /* Restored Original Dark Primary */
+    --primary-foreground: 222.2 47.4% 11.2%; /* Restored Original Dark Primary Foreground */
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
     --muted: 217.2 32.6% 17.5%;
@@ -49,9 +65,19 @@
     --destructive-foreground: 210 40% 98%;
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --ring: 212.7 26.8% 83.9%; /* Restored Original Dark Ring */
 
-    /* --- ADDED FOR HIGHLIGHTING --- */
+    /* Editor-specific colors mapped to your dark theme */
+    --editor-background: 222.2 84% 4.9%;
+    --editor-foreground: 210 40% 98%;
+    --editor-border: 217.2 32.6% 17.5%;
+
+    /* Shadows for dark mode */
+    --shadow-soft: 0 1px 3px 0 hsl(0 0% 0% / 0.3), 0 1px 2px -1px hsl(0 0% 0% / 0.3);
+    --shadow-medium: 0 4px 6px -1px hsl(0 0% 0% / 0.3), 0 2px 4px -2px hsl(0 0% 0% / 0.3);
+    --shadow-large: 0 10px 15px -3px hsl(0 0% 0% / 0.3), 0 4px 6px -4px hsl(0 0% 0% / 0.3);
+
+    /* --- RESTORED FROM YOUR ORIGINAL CSS --- */
     --highlight-bg: #facc15; /* yellow-400 */
     --highlight-fg: #000000;
   }
@@ -64,9 +90,63 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  /* === NEW: TIPTAP EDITOR STYLES === */
+  /* This section uses @tailwindcss/typography and is essential for the new editor features */
+  .tiptap {
+    @apply prose dark:prose-invert max-w-none p-6;
+    /* Customizations */
+    @apply prose-headings:font-semibold prose-h1:text-2xl prose-h2:text-xl prose-h3:text-lg;
+    @apply focus:outline-none min-h-full;
+  }
+
+  .tiptap p.is-editor-empty:first-child::before {
+    content: attr(data-placeholder);
+    float: left;
+    color: hsl(var(--muted-foreground));
+    pointer-events: none;
+    height: 0;
+    font-style: italic;
+  }
+
+  .tiptap a {
+    /* This will now use your restored --primary color */
+    @apply text-primary hover:text-primary/80 transition-colors;
+  }
+  
+  .tiptap blockquote {
+    @apply border-l-4 border-primary/30 pl-4 italic text-muted-foreground my-4;
+  }
+  
+  .tiptap ul[data-type="taskList"] {
+    @apply list-none pl-0;
+  }
+  
+  .tiptap ul[data-type="taskList"] li {
+    @apply flex items-start gap-2 my-1;
+  }
+  
+  .tiptap ul[data-type="taskList"] li > label {
+    @apply flex-grow;
+  }
+
+  .tiptap ul[data-type="taskList"] li > div {
+    @apply flex-grow;
+  }
+  
+  .tiptap ul[data-type="taskList"] li input[type="checkbox"] {
+    /* Style the checkbox to match the primary color */
+    @apply mt-1 rounded text-primary focus:ring-primary;
+  }
+
+  
+  .tiptap ul > li::marker,
+  .tiptap ol > li::marker {
+    color: hsl(var(--foreground) / 0.75);
+  }
 }
 
-/* Custom styles for react-pdf */
+/* --- PRESERVED: Custom styles for react-pdf --- */
 .react-pdf__Page__canvas {
     margin: 0 auto;
     border-radius: calc(var(--radius) - 4px);
@@ -76,193 +156,7 @@
     border-radius: calc(var(--radius) - 4px);
 }
 
-/* --- PDF Search Highlight Styling --- */
+/* --- PRESERVED: PDF Search Highlight Styling --- */
 .search-highlight {
   border-radius: 2px;
-}
-
-/* === TIPTAP EDITOR STYLES === */
-/* This is the main editor container */
-.ProseMirror {
-  @apply p-4 md:p-6 h-full;
-  line-height: 1.6;
-  min-height: 100%;
-}
-
-.ProseMirror:focus {
-  outline: none;
-}
-
-/* Tiptap Placeholder styles */
-.ProseMirror p.is-editor-empty:first-child::before {
-  content: attr(data-placeholder);
-  float: left;
-  color: hsl(var(--muted-foreground));
-  pointer-events: none;
-  height: 0;
-  font-style: italic;
-}
-.ProseMirror .is-empty::before {
-  content: attr(data-placeholder);
-  float: left;
-  color: hsl(var(--muted-foreground));
-  pointer-events: none;
-  height: 0;
-  font-style: italic;
-}
-
-
-/* General Typography */
-.ProseMirror h1, .ProseMirror h2, .ProseMirror h3, .ProseMirror h4 {
-  font-weight: 600;
-  line-height: 1.3;
-}
-
-.ProseMirror h1 {
-  font-size: 1.5rem;
-  margin: 1.25em 0 0.75em;
-  padding-bottom: 0.3em;
-  border-bottom: 1px solid hsl(var(--border));
-}
-
-.ProseMirror h2 {
-  font-size: 1.25rem;
-  margin: 1em 0 0.5em;
-}
-
-.ProseMirror h3 {
-  font-size: 1.125rem;
-  margin: 1em 0 0.5em;
-}
-
-.ProseMirror p {
-  margin: 0.5em 0;
-}
-
-.ProseMirror blockquote {
-  margin: 1em 0;
-  padding-left: 1em;
-  border-left: 3px solid hsl(var(--primary));
-  color: hsl(var(--muted-foreground));
-}
-
-.ProseMirror blockquote p {
-  margin: 0;
-}
-
-/* List Styling */
-.ProseMirror ul, .ProseMirror ol {
-  margin: 1em 0;
-  padding-left: 1.5rem; /* Indent lists */
-}
-
-.ProseMirror li {
-  margin: 0.5em 0;
-}
-.ProseMirror ul {
-  list-style-type: disc;
-}
-.ProseMirror ol {
-  list-style-type: decimal;
-}
-
-.ProseMirror u {
-  text-decoration-color: hsl(var(--primary));
-  text-underline-offset: 2px;
-}
-
-.ProseMirror hr {
-  border: 0;
-  height: 2px;
-  background-color: hsl(var(--border));
-  margin: 1em 0;
-}
-
-/* --- Tiptap Toggle block styles --- */
-.ProseMirror .toggle-block {
-  margin: 0.5em 0;
-  position: relative;
-}
-
-.ProseMirror .toggle-header {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  user-select: none;
-  font-weight: 500;
-}
-
-.ProseMirror .toggle-arrow {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 1.25rem;
-  height: 1.25rem;
-  margin-right: 0.25rem;
-  border-radius: 4px;
-  background: transparent;
-  color: hsl(var(--muted-foreground));
-  transition: background-color 0.2s;
-}
-
-.ProseMirror .toggle-header:hover .toggle-arrow {
-  background-color: hsl(var(--muted));
-  color: hsl(var(--foreground));
-}
-
-.ProseMirror .toggle-content {
-  padding-left: 1.5rem; /* Aligns content under the title */
-  color: hsl(var(--foreground));
-}
-
-/* The first paragraph in a toggle is treated as the title */
-.ProseMirror .toggle-block > .toggle-content > p:first-child {
-  margin-top: 0;
-}
-
-/* === NEW: Chat Markdown Styling === */
-.prose {
-    color: hsl(var(--foreground));
-    line-height: 1.6;
-}
-.prose p {
-    margin-top: 0;
-    margin-bottom: 0.5rem;
-}
-.prose p:last-child {
-    margin-bottom: 0;
-}
-.prose ul, .prose ol {
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
-    padding-left: 1.25rem;
-}
-.prose li {
-    margin-top: 0.25rem;
-    margin-bottom: 0.25rem;
-}
-.prose ul {
-    list-style-type: disc;
-}
-.prose ol {
-    list-style-type: decimal;
-}
-.prose strong {
-    font-weight: 600;
-}
-.prose a {
-    color: hsl(var(--primary));
-    text-decoration: underline;
-    text-underline-offset: 2px;
-}
-.prose blockquote {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    padding-left: 1rem;
-    border-left: 2px solid hsl(var(--border));
-    font-style: italic;
-    color: hsl(var(--muted-foreground));
-}
-.prose.max-w-none {
-    max-width: none;
 }

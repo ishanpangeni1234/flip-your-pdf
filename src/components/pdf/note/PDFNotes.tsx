@@ -5,10 +5,13 @@ import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Underline from '@tiptap/extension-underline';
 import Placeholder from '@tiptap/extension-placeholder';
+import Link from '@tiptap/extension-link'; // This is the extension we're configuring
+import TaskList from '@tiptap/extension-task-list';
+import TaskItem from '@tiptap/extension-task-item';
+import Typography from '@tiptap/extension-typography';
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { EditorToolbar } from './EditorToolbar';
-import { ToggleBlock } from '@/lib/tiptap-extensions/ToggleBlock';
 
 interface PDFNotesProps {
   activeSheetName: string | null;
@@ -23,28 +26,36 @@ export const PDFNotes = ({ activeSheetName, notes, onNoteChange }: PDFNotesProps
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
-        // The ToggleBlock handles its own input rule
         heading: { levels: [1, 2, 3] },
-        // Disable the default heading input rule if you want to use a different one
+        bulletList: { keepMarks: true, keepAttributes: false },
+        orderedList: { keepMarks: true, keepAttributes: false },
       }),
       Underline,
+      Typography,
+      // --- THIS BLOCK IS THE FIX ---
+      Link.configure({
+        // The `openOnClick: false` line has been removed.
+        // Tiptap will now default to opening links on `Ctrl/Cmd + Click`.
+        autolink: true,
+        defaultProtocol: 'https',
+      }),
+      TaskList,
+      TaskItem.configure({
+        nested: true,
+      }),
       Placeholder.configure({
         placeholder: ({ node }) => {
           if (node.type.name === 'heading') {
             return `Heading ${node.attrs.level}`;
           }
-          if (node.type.name === 'toggleBlock') {
-             return "Toggle Title";
-          }
           return 'Start typing your notes...';
         },
       }),
-      ToggleBlock, // Our custom node
     ],
     content: currentNote,
     editorProps: {
       attributes: {
-        class: 'prose dark:prose-invert prose-sm sm:prose-base lg:prose-lg xl:prose-2xl m-5 focus:outline-none',
+        class: 'tiptap',
       },
     },
     onUpdate: ({ editor }) => {
@@ -56,14 +67,11 @@ export const PDFNotes = ({ activeSheetName, notes, onNoteChange }: PDFNotesProps
   useEffect(() => {
     if (!editor || editor.isDestroyed) return;
 
-    // Only update content if the active sheet has actually changed
-    // or if the content is out of sync
     if (activeSheetName !== prevActiveSheetName.current || editor.getHTML() !== currentNote) {
         editor.commands.setContent(currentNote, false);
         prevActiveSheetName.current = activeSheetName;
     }
   }, [activeSheetName, currentNote, editor]);
-
 
   if (!activeSheetName) {
     return (
@@ -76,11 +84,11 @@ export const PDFNotes = ({ activeSheetName, notes, onNoteChange }: PDFNotesProps
   }
 
   return (
-    <Card className="h-full w-full flex flex-col rounded-none border-0 md:border-l">
-      <CardHeader className="p-3 border-b">
-        <CardTitle className="text-base truncate flex items-center gap-2">
+    <Card className="h-full w-full flex flex-col rounded-none border-0 md:border-l bg-editor-background">
+      <CardHeader className="p-3 border-b border-editor-border">
+        <CardTitle className="text-base truncate flex items-center gap-2 text-editor-foreground">
           <span className="text-base" role="img" aria-label="Notes">📝</span>
-          <span className="font-medium text-muted-foreground">{activeSheetName}</span>
+          <span className="font-medium">{activeSheetName}</span>
         </CardTitle>
       </CardHeader>
       <CardContent className="p-0 flex-1 flex flex-col min-h-0">

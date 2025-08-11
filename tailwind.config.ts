@@ -1,3 +1,5 @@
+// tailwind.config.ts
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -52,22 +54,10 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
-				sidebar: {
-					DEFAULT: 'hsl(var(--sidebar-background))',
-					foreground: 'hsl(var(--sidebar-foreground))',
-					primary: 'hsl(var(--sidebar-primary))',
-					'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
-					accent: 'hsl(var(--sidebar-accent))',
-					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
-					border: 'hsl(var(--sidebar-border))',
-					ring: 'hsl(var(--sidebar-ring))'
-				},
-				// PDF Viewer specific colors
-				'pdf-viewer-bg': 'hsl(var(--pdf-viewer-bg))',
-				'pdf-page-bg': 'hsl(var(--pdf-page-bg))',
-				'pdf-page-shadow': 'hsl(var(--pdf-page-shadow))',
-				'toolbar-bg': 'hsl(var(--toolbar-bg))',
-				'toolbar-border': 'hsl(var(--toolbar-border))'
+				// Merged editor colors from the example app
+				'editor-background': 'hsl(var(--editor-background))',
+        'editor-foreground': 'hsl(var(--editor-foreground))',
+        'editor-border': 'hsl(var(--editor-border))',
 			},
 			backgroundImage: {
 				'gradient-subtle': 'var(--gradient-subtle)',
@@ -76,7 +66,7 @@ export default {
 			boxShadow: {
 				'soft': 'var(--shadow-soft)',
 				'medium': 'var(--shadow-medium)',
-				'strong': 'var(--shadow-strong)'
+				'large': 'var(--shadow-large)' // changed from 'strong' to match new CSS
 			},
 			transitionTimingFunction: {
 				'smooth': 'cubic-bezier(0.4, 0, 0.2, 1)'
@@ -110,5 +100,6 @@ export default {
 			}
 		}
 	},
-	plugins: [require("tailwindcss-animate")],
+	// Added @tailwindcss/typography plugin
+	plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
 } satisfies Config;
