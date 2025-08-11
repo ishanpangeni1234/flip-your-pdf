@@ -150,6 +150,31 @@
   .tiptap ol > li::marker {
     color: hsl(var(--foreground) / 0.75);
   }
+
+  /* --- NEW STYLES ADDED FOR BUBBLE AND COMMAND MENUS --- */
+
+  /* Bubble Menu Toolbar Styles */
+  .bubble-menu-toolbar {
+    @apply flex items-center gap-1 rounded-md bg-background shadow-lg border p-1;
+  }
+
+  /* Command List Popup Styles */
+  .command-list-popup {
+    @apply z-50 flex flex-col gap-1 rounded-md bg-background shadow-lg border p-1 min-w-[12rem] max-h-72 overflow-y-auto;
+  }
+
+  .command-list-item {
+    @apply flex items-center gap-2 w-full text-left p-2 rounded-sm text-sm text-foreground hover:bg-muted;
+    @apply focus:bg-muted focus:outline-none; /* Ensures keyboard navigation also shows hover state */
+  }
+  
+  .command-list-item.is-selected {
+    @apply bg-muted;
+  }
+
+  .command-list-icon {
+    @apply text-muted-foreground;
+  }
 }
 
 /* React-PDF styles */

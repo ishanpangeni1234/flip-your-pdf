@@ -1,7 +1,7 @@
 // src/components/pdf/note/PDFNotes.tsx
 
-import React, { useEffect, useRef, useState } from 'react'; // Added useState
-import { useEditor, EditorContent } from '@tiptap/react';
+import React, { useEffect, useRef, useState } from 'react';
+import { useEditor, EditorContent, BubbleMenu } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Underline from '@tiptap/extension-underline';
 import Placeholder from '@tiptap/extension-placeholder';
@@ -12,6 +12,8 @@ import Typography from '@tiptap/extension-typography';
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { EditorToolbar } from './EditorToolbar';
+import { BubbleToolbar } from './BubbleToolbar';
+import SlashCommand from '@/lib/tiptap-extensions/slash-command';
 
 interface PDFNotesProps {
   activeSheetName: string | null;
@@ -22,12 +24,12 @@ interface PDFNotesProps {
 export const PDFNotes = ({ activeSheetName, notes, onNoteChange }: PDFNotesProps) => {
   const currentNote = activeSheetName ? notes[activeSheetName] ?? '' : '';
   const prevActiveSheetName = useRef(activeSheetName);
-  const [zoom, setZoom] = useState(1); // 1 = 100%
+  // --- FIX: The state now represents a scale factor ---
+  const [zoomLevel, setZoomLevel] = useState(1); // 1 = 100% scale
 
-  // Zoom control handlers
-  const handleZoomIn = () => setZoom(prev => Math.min(prev + 0.1, 2)); // Max 200%
-  const handleZoomOut = () => setZoom(prev => Math.max(prev - 0.1, 0.5)); // Min 50%
-  const handleResetZoom = () => setZoom(1);
+  // --- FIX: The zoom step is adjusted for a better feel with scale() ---
+  const handleZoomIn = () => setZoomLevel(prev => Math.min(prev + 0.05, 1.5));
+  const handleZoomOut = () => setZoomLevel(prev => Math.max(prev - 0.05, 0.5));
 
   const editor = useEditor({
     extensions: [
@@ -39,6 +41,7 @@ export const PDFNotes = ({ activeSheetName, notes, onNoteChange }: PDFNotesProps
       Underline,
       Typography,
       Link.configure({
+        openOnClick: true,
         autolink: true,
         defaultProtocol: 'https',
       }),
@@ -51,9 +54,10 @@ export const PDFNotes = ({ activeSheetName, notes, onNoteChange }: PDFNotesProps
           if (node.type.name === 'heading') {
             return `Heading ${node.attrs.level}`;
           }
-          return 'Start typing your notes...';
+          return "Type '/' for commands or start writing...";
         },
       }),
+      SlashCommand,
     ],
     content: currentNote,
     editorProps: {
@@ -66,7 +70,6 @@ export const PDFNotes = ({ activeSheetName, notes, onNoteChange }: PDFNotesProps
     },
   });
 
-  // Effect to update the editor's content when the active note sheet changes
   useEffect(() => {
     if (!editor || editor.isDestroyed) return;
 
@@ -95,17 +98,22 @@ export const PDFNotes = ({ activeSheetName, notes, onNoteChange }: PDFNotesProps
         </CardTitle>
       </CardHeader>
       <CardContent className="p-0 flex-1 flex flex-col min-h-0">
-        <EditorToolbar 
-            editor={editor}
-            zoom={zoom}
-            onZoomIn={handleZoomIn}
-            onZoomOut={handleZoomOut}
-            onResetZoom={handleResetZoom}
-        />
-        <div className="flex-1 overflow-y-auto" style={{ zoom: zoom }}>
+        <EditorToolbar onZoomIn={handleZoomIn} onZoomOut={handleZoomOut} />
+        {editor && (
+            <BubbleMenu editor={editor} tippyOptions={{ duration: 100 }}>
+              <BubbleToolbar editor={editor} />
+            </BubbleMenu>
+        )}
+        <div className="flex-1 overflow-y-auto">
+          {/* --- THIS IS THE FIX --- */}
+          {/* We apply transform: scale() to the EditorContent itself */}
           <EditorContent 
             editor={editor} 
             className="h-full"
+            style={{ 
+              transform: `scale(${zoomLevel})`,
+              transformOrigin: 'top left',
+             }}
           />
         </div>
       </CardContent>
