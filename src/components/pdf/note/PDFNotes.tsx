@@ -94,7 +94,7 @@ export const PDFNotes = ({ activeSheetName, notes, onNoteChange }: PDFNotesProps
       <CardContent className="p-0 flex-1 flex flex-col min-h-0">
         <EditorToolbar onZoomIn={handleZoomIn} onZoomOut={handleZoomOut} />
         {editor && (
-            <BubbleMenu editor={editor} tippyOptions={{ duration: 100 }}>
+            <BubbleMenu editor={editor}>
               <BubbleToolbar editor={editor} />
             </BubbleMenu>
         )}

@@ -103,7 +103,7 @@ const commandRenderer = () => {
       });
     },
 
-    onUpdate: (props: SuggestionProps<CommandItemProps>) => {
+    onUpdate(props: SuggestionProps<CommandItemProps>) {
       component.updateProps(props);
 
       if (!props.clientRect) {
@@ -115,17 +115,22 @@ const commandRenderer = () => {
       });
     },
 
-    onKeyDown: (props: SuggestionKeyDownProps) => {
+    onKeyDown(props: SuggestionKeyDownProps) {
       if (props.event.key === 'Escape') {
         popup[0].hide();
         return true;
       }
-      return component.ref?.onKeyDown(props.event);
+      const commandListRef = component.ref as any;
+      return commandListRef?.onKeyDown(props);
     },
 
-    onExit: () => {
-      popup[0].destroy();
-      component.destroy();
+    onExit() {
+      if (popup && popup.length > 0) {
+          popup[0].destroy();
+      }
+      if (component) {
+          component.destroy();
+      }
     },
   };
 };
