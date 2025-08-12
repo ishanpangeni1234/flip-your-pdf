@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { Document, Page } from "react-pdf";
 import type { PDFDocumentProxy } from "pdfjs-dist/types/src/display/api";
 import { 
-  ChevronLeft, ChevronRight, ZoomIn, ZoomOut, Search, FileUp, 
+  ChevronLeft, ChevronRight, ZoomIn, ZoomOut, Search,
   PanelLeftClose, PanelLeftOpen, Rows, Columns, ChevronUp, ChevronDown, X,
   MessageSquare
 } from "lucide-react";
@@ -12,11 +12,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "@/components/ui/hover-card";
 
 interface ThumbnailProps {
   pageNumber: number;
@@ -97,10 +92,7 @@ interface PDFToolbarProps {
   goToPrevMatch: () => void;
   goToNextMatch: () => void;
   isNotesViewActive: boolean;
-  notes: { [key: string]: string };
-  onCreateNewNote: () => void;
-  onSelectNote: (name: string) => void;
-  onCloseNotes: () => void;
+  onToggleNotesView: () => void; // Updated prop
   isChatViewActive: boolean;
   onToggleChatView: () => void;
 }
@@ -109,7 +101,7 @@ export const PDFToolbar = ({
   file, onClose, isSidebarOpen, toggleSidebar, pageNumber, numPages, goToPage, goToPrevPage, goToNextPage, isLoading,
   scale, setScale, fitToPage, fitToWidth,
   searchQuery, setSearchQuery, handleSearch, isSearching, searchResults, setSearchResults, currentMatchIndex, setCurrentMatchIndex, goToPrevMatch, goToNextMatch,
-  isNotesViewActive, notes, onCreateNewNote, onSelectNote, onCloseNotes,
+  isNotesViewActive, onToggleNotesView,
   isChatViewActive, onToggleChatView
 }: PDFToolbarProps) => {
   const [isSearchExpanded, setIsSearchExpanded] = useState(false);
@@ -119,7 +111,6 @@ export const PDFToolbar = ({
       {/* Left Section */}
       <div className="flex items-center gap-1 flex-shrink-0">
         <Tooltip><TooltipTrigger asChild><Button variant="ghost" size="icon" onClick={toggleSidebar}>{isSidebarOpen ? <PanelLeftClose className="h-5 w-5" /> : <PanelLeftOpen className="h-5 w-5" />}</Button></TooltipTrigger><TooltipContent><p>Toggle Thumbnails (Ctrl+B)</p></TooltipContent></Tooltip>
-        {/* Changed from FileUp to X, and tooltip text */}
         <Tooltip><TooltipTrigger asChild><Button variant="ghost" size="icon" onClick={onClose}><X className="h-5 w-5" /></Button></TooltipTrigger><TooltipContent><p>Close PDF</p></TooltipContent></Tooltip>
         <div className="h-6 w-px bg-border hidden sm:block mx-1" />
         <span className="text-sm font-medium truncate max-w-24 sm:max-w-48 hidden sm:inline" title={file.name}>{file.name}</span>
@@ -134,7 +125,7 @@ export const PDFToolbar = ({
       
       {/* Right Section: Tools */}
       <div className="flex items-center gap-1 flex-shrink-0">
-          {/* Search - Redesigned */}
+          {/* Search */}
           <div className="flex items-center justify-end">
             {isSearchExpanded ? (
               <div className="flex items-center gap-1 p-1 rounded-md bg-muted/50 dark:bg-muted/20 border">
@@ -169,44 +160,25 @@ export const PDFToolbar = ({
           
           <div className="h-6 w-px bg-border mx-1" />
           
-          {/* Chat Button (NEW) */}
+          {/* Chat Button (Enlarged) */}
           <Tooltip>
             <TooltipTrigger asChild>
               <Button variant={isChatViewActive ? "secondary" : "ghost"} size="icon" onClick={onToggleChatView}>
-                  <MessageSquare className="h-5 w-5" />
+                  <MessageSquare className="h-6 w-6" />
               </Button>
             </TooltipTrigger>
             <TooltipContent><p>Toggle AI Chat</p></TooltipContent>
           </Tooltip>
 
-          {/* Notes Button - Redesigned with HoverCard */}
-          <HoverCard openDelay={100} closeDelay={100}>
-            <Tooltip><TooltipTrigger asChild>
-                <HoverCardTrigger asChild>
-                    <Button variant={isNotesViewActive ? "secondary" : "ghost"} size="icon">
-                        <span className="text-xl" role="img" aria-label="Notes">📝</span>
-                    </Button>
-                </HoverCardTrigger>
-            </TooltipTrigger><TooltipContent><p>Notes</p></TooltipContent></Tooltip>
-            <HoverCardContent className="w-56 p-2">
-              <div className="flex flex-col gap-1">
-                <button onClick={onCreateNewNote} className="w-full text-left p-2 rounded-md text-sm hover:bg-accent">Create New Note...</button>
-                {isNotesViewActive && <button onClick={onCloseNotes} className="w-full text-left p-2 rounded-md text-sm text-destructive hover:bg-destructive/10">Close Notes View</button>}
-                
-                {Object.keys(notes).length > 0 && (
-                  <>
-                    <div className="my-1 h-px bg-border" />
-                    <p className="px-2 py-1 text-xs font-semibold text-muted-foreground">Existing Notes</p>
-                    <div className="max-h-40 overflow-y-auto">
-                      {Object.keys(notes).map(name => (
-                          <button key={name} onClick={() => onSelectNote(name)} className="w-full text-left p-2 rounded-md text-sm hover:bg-accent truncate">{name}</button>
-                      ))}
-                    </div>
-                  </>
-                )}
-              </div>
-            </HoverCardContent>
-          </HoverCard>
+          {/* Notes Button (Redesigned & Enlarged) */}
+          <Tooltip>
+            <TooltipTrigger asChild>
+                <Button variant={isNotesViewActive ? "secondary" : "ghost"} size="icon" onClick={onToggleNotesView}>
+                    <span className="text-2xl" role="img" aria-label="Notes">📝</span>
+                </Button>
+            </TooltipTrigger>
+            <TooltipContent><p>Toggle Notes</p></TooltipContent>
+          </Tooltip>
   
           <div className="h-6 w-px bg-border mx-1" />
   

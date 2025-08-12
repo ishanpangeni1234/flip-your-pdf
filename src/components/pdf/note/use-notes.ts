@@ -15,32 +15,31 @@ export const useNotes = (fileName: string) => {
   useEffect(() => {
     const loadNotes = async () => {
       const storedNotes = await getStoredNotes(fileName);
-      if (storedNotes) {
-        setNotes(storedNotes);
-      }
+      setNotes(storedNotes || {});
+      setActiveNoteSheet(null);
     };
     loadNotes();
   }, [fileName]);
 
   // Save notes to storage when they change (debounced)
   useEffect(() => {
-    if (Object.keys(debouncedNotes).length > 0) {
+    if (Object.keys(debouncedNotes).length > 0 || getStoredNotes(fileName) !== null) {
       storeNotes(fileName, debouncedNotes);
     }
   }, [debouncedNotes, fileName]);
 
-  // Handler for creating a new note sheet
+  // Creates a new note with a unique default name, and returns that name.
   const handleCreateNewNote = useCallback(() => {
-    const name = prompt("Enter a name for your new note sheet:");
-    if (name && !notes[name]) {
-      setNotes(prev => ({ ...prev, [name]: '' }));
-      setActiveNoteSheet(name);
-      return name; // Return name to signal success
-    } else if (name) {
-      toast({ title: "Note Exists", description: "A note sheet with that name already exists.", variant: "destructive" });
+    let newName = "New Note";
+    let counter = 1;
+    while (notes.hasOwnProperty(newName)) {
+        newName = `New Note ${counter}`;
+        counter++;
     }
-    return null; // Return null on failure or cancellation
-  }, [notes, toast]);
+    setNotes(prev => ({ ...prev, [newName]: '' }));
+    setActiveNoteSheet(newName);
+    return newName; // Return name to signal success and allow tracking
+  }, [notes]);
 
   // Handler for selecting an existing note sheet
   const handleSelectNote = useCallback((name: string) => {
@@ -54,11 +53,50 @@ export const useNotes = (fileName: string) => {
     }
   }, [activeNoteSheet]);
 
+  // Handler for deleting a note
+  const handleDeleteNote = useCallback((name: string) => {
+    setNotes(prev => {
+        const newNotes = {...prev};
+        delete newNotes[name];
+        return newNotes;
+    });
+    if (activeNoteSheet === name) {
+        setActiveNoteSheet(null);
+    }
+  }, [activeNoteSheet]);
+
+  // Handler for renaming a note
+  const handleRenameNote = useCallback((oldName: string, newName: string): boolean => {
+      if (!newName || newName.trim().length === 0) {
+        toast({ title: "Invalid Name", description: "Note name cannot be empty.", variant: "destructive"});
+        return false;
+      }
+      if (newName === oldName) return true;
+      if (notes.hasOwnProperty(newName)) {
+          toast({ title: "Cannot Rename", description: `A note named "${newName}" already exists.`, variant: "destructive"});
+          return false;
+      }
+
+      setNotes(prev => {
+          const content = prev[oldName];
+          const { [oldName]: _, ...rest } = prev;
+          return { ...rest, [newName]: content };
+      });
+      
+      if(activeNoteSheet === oldName) {
+          setActiveNoteSheet(newName);
+      }
+      toast({ title: "Note Renamed", description: `"${oldName}" is now "${newName}".`})
+      return true;
+  }, [notes, activeNoteSheet, toast]);
+
   return {
     notes,
     activeNoteSheet,
     handleCreateNewNote,
     handleSelectNote,
     handleNoteChange,
+    handleDeleteNote,
+    handleRenameNote,
   };
 };

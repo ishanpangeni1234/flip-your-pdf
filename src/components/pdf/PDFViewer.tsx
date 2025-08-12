@@ -57,8 +57,11 @@ export const PDFViewer = ({ file, onClose }: PDFViewerProps) => {
   const [isSearching, setIsSearching] = useState<boolean>(false);
   
   // Custom Hooks for features
-  const { notes, activeNoteSheet, handleCreateNewNote, handleSelectNote, handleNoteChange } = useNotes(file.name);
+  const { notes, activeNoteSheet, handleCreateNewNote, handleSelectNote, handleNoteChange, handleDeleteNote, handleRenameNote } = useNotes(file.name);
   const { chatMessages, isGeneratingResponse, selectedContextPages, setSelectedContextPages, handleSendMessage, clearChat } = useChat({ pdfProxy, toast });
+
+  // Ephemeral note tracking state
+  const [ephemeralNoteName, setEphemeralNoteName] = useState<string | null>(null);
 
   // Refs
   const viewerRef = useRef<HTMLDivElement | null>(null);
@@ -67,7 +70,6 @@ export const PDFViewer = ({ file, onClose }: PDFViewerProps) => {
 
   // --- UI LOGIC ---
   
-  // This effect programmatically resizes panels when notes/chat view is toggled
   useEffect(() => {
     const panelGroup = panelGroupRef.current;
     if (panelGroup) {
@@ -79,19 +81,26 @@ export const PDFViewer = ({ file, onClose }: PDFViewerProps) => {
     }
   }, [isNotesViewActive, isChatViewActive]);
 
-  // Handlers to bridge UI state with feature logic
-  const openNewNote = () => {
-    const newNoteName = handleCreateNewNote();
-    if (newNoteName) {
-      setIsNotesViewActive(true);
-      setIsChatViewActive(false); // Close chat when opening notes
+  const cleanupEphemeralNote = useCallback(() => {
+    if (ephemeralNoteName && notes[ephemeralNoteName]?.trim() === '') {
+        handleDeleteNote(ephemeralNoteName);
     }
-  };
+    setEphemeralNoteName(null);
+  }, [ephemeralNoteName, notes, handleDeleteNote]);
 
-  const openExistingNote = (name: string) => {
-    handleSelectNote(name);
-    setIsNotesViewActive(true);
-    setIsChatViewActive(false); // Close chat when opening notes
+  const toggleNotesView = () => {
+    const willBeActive = !isNotesViewActive;
+    setIsNotesViewActive(willBeActive);
+
+    if (willBeActive) {
+      setIsChatViewActive(false); // Close chat when opening notes
+      if (!activeNoteSheet) { // <<< THIS IS THE FIX
+        const newNoteName = handleCreateNewNote();
+        setEphemeralNoteName(newNoteName);
+      }
+    } else {
+      cleanupEphemeralNote();
+    }
   };
   
   const toggleChatView = () => {
@@ -100,11 +109,22 @@ export const PDFViewer = ({ file, onClose }: PDFViewerProps) => {
     if (willBeActive) {
       setIsNotesViewActive(false); // Close notes when opening chat
     } else {
-      setSelectedContextPages(new Set()); // Clear context when closing
-      // Optional: clear chat history when closing panel
-      // clearChat(); 
+      setSelectedContextPages(new Set());
     }
   };
+
+  // --- NOTES LOGIC WRAPPERS ---
+  const handleSelectNoteWrapper = useCallback((name: string) => {
+    cleanupEphemeralNote();
+    handleSelectNote(name);
+  }, [cleanupEphemeralNote, handleSelectNote]);
+
+  const handleNoteChangeWrapper = useCallback((newText: string) => {
+    if (ephemeralNoteName && newText.trim() !== '') {
+      setEphemeralNoteName(null);
+    }
+    handleNoteChange(newText);
+  }, [ephemeralNoteName, handleNoteChange]);
 
   // --- CORE PDF LOGIC ---
 
@@ -312,7 +332,7 @@ export const PDFViewer = ({ file, onClose }: PDFViewerProps) => {
         </div>
         <div className="flex flex-col flex-1 min-w-0">
           <Card className="rounded-none border-0 border-b z-10">
-            <PDFToolbar {...{ file, onClose, isSidebarOpen, toggleSidebar: () => setIsSidebarOpen(o => !o), pageNumber, numPages, goToPage, goToPrevPage, goToNextPage, isLoading, scale, setScale, fitToPage, fitToWidth, searchQuery, setSearchQuery, handleSearch, isSearching, searchResults, setSearchResults, currentMatchIndex, setCurrentMatchIndex, goToPrevMatch, goToNextMatch, isNotesViewActive, notes, onCreateNewNote: openNewNote, onSelectNote: openExistingNote, onCloseNotes: () => setIsNotesViewActive(false), isChatViewActive, onToggleChatView: toggleChatView }} />
+            <PDFToolbar {...{ file, onClose, isSidebarOpen, toggleSidebar: () => setIsSidebarOpen(o => !o), pageNumber, numPages, goToPage, goToPrevPage, goToNextPage, isLoading, scale, setScale, fitToPage, fitToWidth, searchQuery, setSearchQuery, handleSearch, isSearching, searchResults, setSearchResults, currentMatchIndex, setCurrentMatchIndex, goToPrevMatch, goToNextMatch, isNotesViewActive, onToggleNotesView: toggleNotesView, isChatViewActive, onToggleChatView: toggleChatView }} />
           </Card>
           <ResizablePanelGroup direction="horizontal" className="flex-1" ref={panelGroupRef}>
             <ResizablePanel defaultSize={isNotesViewActive || isChatViewActive ? 50 : 100}>
@@ -343,7 +363,15 @@ export const PDFViewer = ({ file, onClose }: PDFViewerProps) => {
             
             {isNotesViewActive && (
               <ResizablePanel defaultSize={50} minSize={25} collapsible>
-                  <PDFNotes activeSheetName={activeNoteSheet} notes={notes} onNoteChange={handleNoteChange} />
+                  <PDFNotes 
+                    activeSheetName={activeNoteSheet} 
+                    notes={notes} 
+                    onNoteChange={handleNoteChangeWrapper}
+                    onCreateNewNote={handleCreateNewNote}
+                    onSelectNote={handleSelectNoteWrapper}
+                    onRenameNote={handleRenameNote}
+                    onDeleteNote={handleDeleteNote}
+                  />
               </ResizablePanel>
             )}
 

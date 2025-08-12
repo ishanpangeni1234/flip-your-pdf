@@ -104,7 +104,6 @@ export const clearStoredPDF = async (): Promise<void> => {
   });
 };
 
-
 // --- Notes Storage ---
 
 export const storeNotes = async (pdfId: string, notes: { [sheetName: string]: string }): Promise<void> => {
