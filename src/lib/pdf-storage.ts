@@ -3,7 +3,8 @@
 const DB_NAME = "PDFViewerDB";
 const PDF_STORE_NAME = "pdfStore";
 const NOTES_STORE_NAME = "notesStore";
-const DB_VERSION = 2; // Incremented version to trigger onupgradeneeded
+const CHATS_STORE_NAME = "chatsStore"; // New Constant
+const DB_VERSION = 3; // Incremented version to trigger onupgradeneeded
 
 interface StoredPDF {
   id: string; // Should be a unique identifier, e.g., 'current_pdf'
@@ -17,6 +18,19 @@ interface StoredNotes {
   timestamp: Date;
 }
 
+// New Interfaces for Chats
+interface ChatMessage {
+  role: 'user' | 'model';
+  content: string;
+}
+
+interface StoredChats {
+  pdfId: string;
+  chats: { [chatName: string]: ChatMessage[] };
+  timestamp: Date;
+}
+
+
 // Opens the IndexedDB database.
 const openDB = (): Promise<IDBDatabase> => {
   return new Promise((resolve, reject) => {
@@ -29,6 +43,10 @@ const openDB = (): Promise<IDBDatabase> => {
       }
       if (!db.objectStoreNames.contains(NOTES_STORE_NAME)) {
         db.createObjectStore(NOTES_STORE_NAME, { keyPath: "pdfId" });
+      }
+      // Add the new chat store if it doesn't exist
+      if (!db.objectStoreNames.contains(CHATS_STORE_NAME)) {
+        db.createObjectStore(CHATS_STORE_NAME, { keyPath: "pdfId" });
       }
     };
 
@@ -155,6 +173,63 @@ export const clearStoredNotes = async (pdfId: string): Promise<void> => {
     const request = store.delete(pdfId);
     request.onsuccess = () => {
        console.log(`✅ Notes for ${pdfId} cleared.`);
+       resolve();
+    };
+    request.onerror = () => reject(request.error);
+  });
+};
+
+// --- Chats Storage ---
+
+export const storeChats = async (pdfId: string, chats: { [chatName: string]: ChatMessage[] }): Promise<void> => {
+  const db = await openDB();
+  const transaction = db.transaction(CHATS_STORE_NAME, "readwrite");
+  const store = transaction.objectStore(CHATS_STORE_NAME);
+  
+  const chatsToStore: StoredChats = {
+    pdfId,
+    chats,
+    timestamp: new Date(),
+  };
+
+  return new Promise((resolve, reject) => {
+    const request = store.put(chatsToStore);
+    request.onsuccess = () => {
+      console.log(`✅ Chats for ${pdfId} stored.`);
+      resolve();
+    };
+    request.onerror = () => reject(request.error);
+  });
+};
+
+export const getStoredChats = async (pdfId: string): Promise<{ [chatName: string]: ChatMessage[] } | null> => {
+  const db = await openDB();
+  return new Promise((resolve, reject) => {
+    const transaction = db.transaction(CHATS_STORE_NAME, "readonly");
+    const store = transaction.objectStore(CHATS_STORE_NAME);
+    const request = store.get(pdfId);
+
+    request.onsuccess = () => {
+      if (request.result) {
+        const stored = request.result as StoredChats;
+        console.log(`✅ Chats for ${pdfId} retrieved.`);
+        resolve(stored.chats);
+      } else {
+        resolve(null);
+      }
+    };
+    request.onerror = () => reject(request.error);
+  });
+};
+
+export const clearStoredChats = async (pdfId: string): Promise<void> => {
+  const db = await openDB();
+  return new Promise((resolve, reject) => {
+    const transaction = db.transaction(CHATS_STORE_NAME, "readwrite");
+    const store = transaction.objectStore(CHATS_STORE_NAME);
+    const request = store.delete(pdfId);
+    request.onsuccess = () => {
+       console.log(`✅ Chats for ${pdfId} cleared.`);
        resolve();
     };
     request.onerror = () => reject(request.error);

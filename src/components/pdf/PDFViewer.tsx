@@ -48,7 +48,8 @@ export const PDFViewer = ({ file, onClose }: PDFViewerProps) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(true);
   const [isNotesViewActive, setIsNotesViewActive] = useState(false);
   const [isChatViewActive, setIsChatViewActive] = useState(false);
-  const [isNotesFocusMode, setIsNotesFocusMode] = useState(false); // State for focus mode
+  const [isNotesFocusMode, setIsNotesFocusMode] = useState(false);
+  const [isChatFocusMode, setIsChatFocusMode] = useState(false); // New state for chat focus mode
   const { toast } = useToast();
 
   // Search State
@@ -59,10 +60,11 @@ export const PDFViewer = ({ file, onClose }: PDFViewerProps) => {
   
   // Custom Hooks for features
   const { notes, activeNoteSheet, handleCreateNewNote, handleSelectNote, handleNoteChange, handleDeleteNote, handleRenameNote } = useNotes(file.name);
-  const { chatMessages, isGeneratingResponse, selectedContextPages, setSelectedContextPages, handleSendMessage, clearChat } = useChat({ pdfProxy, toast });
+  const { allChats, activeChatName, isGeneratingResponse, selectedContextPages, setSelectedContextPages, handleCreateNewChat, handleSelectChat, handleDeleteChat, handleRenameChat, handleSendMessage } = useChat({ fileName: file.name });
 
-  // Ephemeral note tracking state
+  // Ephemeral state tracking
   const [ephemeralNoteName, setEphemeralNoteName] = useState<string | null>(null);
+  const [ephemeralChatName, setEphemeralChatName] = useState<string | null>(null);
 
   // Refs
   const viewerRef = useRef<HTMLDivElement | null>(null);
@@ -73,6 +75,12 @@ export const PDFViewer = ({ file, onClose }: PDFViewerProps) => {
   
   const toggleNotesFocusMode = () => {
     setIsNotesFocusMode(prev => !prev);
+    if (!isNotesFocusMode) setIsChatFocusMode(false); // Ensure other focus mode is off
+  };
+
+  const toggleChatFocusMode = () => {
+    setIsChatFocusMode(prev => !prev);
+    if (!isChatFocusMode) setIsNotesFocusMode(false); // Ensure other focus mode is off
   };
 
   useEffect(() => {
@@ -93,19 +101,27 @@ export const PDFViewer = ({ file, onClose }: PDFViewerProps) => {
     setEphemeralNoteName(null);
   }, [ephemeralNoteName, notes, handleDeleteNote]);
 
+  const cleanupEphemeralChat = useCallback(() => {
+    if (ephemeralChatName && allChats[ephemeralChatName]?.length === 0) {
+        handleDeleteChat(ephemeralChatName);
+    }
+    setEphemeralChatName(null);
+  }, [ephemeralChatName, allChats, handleDeleteChat]);
+
   const toggleNotesView = () => {
     const willBeActive = !isNotesViewActive;
     setIsNotesViewActive(willBeActive);
 
     if (willBeActive) {
-      setIsChatViewActive(false); // Close chat when opening notes
+      setIsChatViewActive(false); 
+      cleanupEphemeralChat(); 
       if (!activeNoteSheet) {
         const newNoteName = handleCreateNewNote();
         setEphemeralNoteName(newNoteName);
       }
     } else {
       cleanupEphemeralNote();
-      setIsNotesFocusMode(false); // Ensure we exit focus mode when notes view is closed
+      setIsNotesFocusMode(false); 
     }
   };
   
@@ -113,14 +129,21 @@ export const PDFViewer = ({ file, onClose }: PDFViewerProps) => {
     const willBeActive = !isChatViewActive;
     setIsChatViewActive(willBeActive);
     if (willBeActive) {
-      setIsNotesViewActive(false); // Close notes when opening chat
-      setIsNotesFocusMode(false); // Ensure focus mode is off
+      setIsNotesViewActive(false);
+      cleanupEphemeralNote();
+      setIsNotesFocusMode(false);
+      if (!activeChatName) {
+        const newChatName = handleCreateNewChat();
+        setEphemeralChatName(newChatName);
+      }
     } else {
+      cleanupEphemeralChat();
       setSelectedContextPages(new Set());
+      setIsChatFocusMode(false); // Exit focus mode when panel closes
     }
   };
 
-  // --- NOTES LOGIC WRAPPERS ---
+  // --- FEATURE LOGIC WRAPPERS ---
   const handleSelectNoteWrapper = useCallback((name: string) => {
     cleanupEphemeralNote();
     handleSelectNote(name);
@@ -133,8 +156,26 @@ export const PDFViewer = ({ file, onClose }: PDFViewerProps) => {
     handleNoteChange(newText);
   }, [ephemeralNoteName, handleNoteChange]);
 
-  // --- CORE PDF LOGIC ---
+  const handleSelectChatWrapper = useCallback((name: string) => {
+    cleanupEphemeralChat();
+    handleSelectChat(name);
+  }, [cleanupEphemeralChat, handleSelectChat]);
 
+  const handleDeleteChatWrapper = useCallback((name: string) => {
+    if (name === ephemeralChatName) {
+        setEphemeralChatName(null);
+    }
+    handleDeleteChat(name);
+  }, [ephemeralChatName, handleDeleteChat]);
+  
+  const handleSendMessageWrapper = useCallback((prompt: string) => {
+    if (ephemeralChatName) {
+      setEphemeralChatName(null);
+    }
+    handleSendMessage(prompt, pdfProxy);
+  }, [ephemeralChatName, handleSendMessage, pdfProxy]);
+
+  // --- CORE PDF LOGIC (This section is unchanged) ---
   const onPageRenderSuccess = useCallback((page: { originalWidth: number; originalHeight: number }) => {
     if (!pageDimensions) {
       setPageDimensions({ width: page.originalWidth, height: page.originalHeight });
@@ -218,8 +259,6 @@ export const PDFViewer = ({ file, onClose }: PDFViewerProps) => {
   const fitToWidth = useCallback(() => {
     adjustScale((viewerRect) => (viewerRect.width / pageDimensions!.width) * 0.95);
   }, [adjustScale, pageDimensions]);
-
-  // --- SEARCH LOGIC ---
 
   const handleSearch = useCallback(async () => {
     if (!searchQuery.trim() || !pdfProxy) { setSearchResults([]); return; }
@@ -306,7 +345,7 @@ export const PDFViewer = ({ file, onClose }: PDFViewerProps) => {
     return () => clearTimeout(highlightTimer);
   }, [searchQuery, renderedPages, scale]);
 
-  // --- KEYBOARD SHORTCUTS ---
+  // --- KEYBOARD SHORTCUTS (This section is unchanged) ---
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if ((event.target as HTMLElement).closest('.wysiwyg-editor') || (event.target as HTMLElement).closest('.pdf-chat-input')) return;
@@ -334,7 +373,6 @@ export const PDFViewer = ({ file, onClose }: PDFViewerProps) => {
   // --- CONDITIONAL RENDERING ---
 
   if (isNotesFocusMode) {
-    // Render ONLY the notes component in a full-screen container
     return (
       <div className="h-screen w-screen bg-editor-background">
         <PDFNotes 
@@ -347,6 +385,30 @@ export const PDFViewer = ({ file, onClose }: PDFViewerProps) => {
           onDeleteNote={handleDeleteNote}
           isFocusMode={isNotesFocusMode}
           onToggleFocusMode={toggleNotesFocusMode}
+        />
+      </div>
+    );
+  }
+
+  // NEW: Render ONLY the chat component in full screen if chat focus mode is on
+  if (isChatFocusMode) {
+    return (
+      <div className="h-screen w-screen bg-background">
+        <PDFChat 
+          allChats={allChats}
+          activeChatName={activeChatName}
+          onSendMessage={handleSendMessageWrapper}
+          isGenerating={isGeneratingResponse}
+          currentPage={pageNumber}
+          totalPages={numPages}
+          selectedPages={selectedContextPages}
+          onSelectedPagesChange={setSelectedContextPages}
+          onCreateNewChat={handleCreateNewChat}
+          onSelectChat={handleSelectChatWrapper}
+          onRenameChat={handleRenameChat}
+          onDeleteChat={handleDeleteChatWrapper}
+          isFocusMode={isChatFocusMode}
+          onToggleFocusMode={toggleChatFocusMode}
         />
       </div>
     );
@@ -409,13 +471,20 @@ export const PDFViewer = ({ file, onClose }: PDFViewerProps) => {
             {isChatViewActive && (
               <ResizablePanel defaultSize={50} minSize={25} collapsible>
                   <PDFChat 
-                    messages={chatMessages}
-                    onSendMessage={handleSendMessage}
+                    allChats={allChats}
+                    activeChatName={activeChatName}
+                    onSendMessage={handleSendMessageWrapper}
                     isGenerating={isGeneratingResponse}
                     currentPage={pageNumber}
                     totalPages={numPages}
                     selectedPages={selectedContextPages}
                     onSelectedPagesChange={setSelectedContextPages}
+                    onCreateNewChat={handleCreateNewChat}
+                    onSelectChat={handleSelectChatWrapper}
+                    onRenameChat={handleRenameChat}
+                    onDeleteChat={handleDeleteChatWrapper}
+                    isFocusMode={isChatFocusMode}
+                    onToggleFocusMode={toggleChatFocusMode}
                   />
               </ResizablePanel>
             )}
