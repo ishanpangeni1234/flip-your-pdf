@@ -57,21 +57,47 @@ export const PDFNotes = ({ activeSheetName, notes, onNoteChange, onCreateNewNote
 
   useEffect(() => { if (renamingName) inputRef.current?.focus(); }, [renamingName]);
 
+  // === THIS IS THE FIX ===
+  // This effect synchronizes the Tiptap editor and the UI state (like renaming).
+  // It's now structured to robustly handle note changes, especially renames of empty notes.
   useEffect(() => {
     if (!editor || editor.isDestroyed) return;
-    if (activeSheetName !== prevActiveSheetName.current || editor.getHTML() !== currentNote) {
+
+    // A change in the active sheet's name is the most reliable trigger.
+    // This correctly captures selection, creation, and renames.
+    const hasActiveSheetChanged = activeSheetName !== prevActiveSheetName.current;
+    
+    // If the note has changed, we must reset the UI state.
+    if (hasActiveSheetChanged) {
+        // Update the editor with the new note's content.
         editor.commands.setContent(currentNote, false);
+        
+        // **Crucially, cancel any rename operation.** This fixes the bug where the
+        // UI would get stuck in renaming mode for empty notes.
+        setRenamingName(null);
+
+        // Update our reference for the next render.
         prevActiveSheetName.current = activeSheetName;
-        if (renamingName) setRenamingName(null);
+    } 
+    // This secondary check ensures that if the content updates for the *same* note
+    // (e.g., from an external source), the editor still syncs.
+    else if (editor.getHTML() !== currentNote) {
+        editor.commands.setContent(currentNote, false);
     }
-  }, [activeSheetName, currentNote, editor, renamingName]);
+  }, [activeSheetName, currentNote, editor]); // Dependencies remain to catch all relevant updates.
 
   const handleFinishRename = () => {
     if (renamingName) {
-        onRenameNote(renamingName, inputValue);
-        setRenamingName(null);
+        const success = onRenameNote(renamingName, inputValue);
+        // Only clear the renaming state if the rename was successful.
+        // If it failed (e.g., duplicate name), the input remains for the user to correct.
+        if (success) {
+            setRenamingName(null);
+            setInputValue("");
+        }
+    } else {
+        setInputValue("");
     }
-    setInputValue("");
   };
   
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -90,9 +116,7 @@ export const PDFNotes = ({ activeSheetName, notes, onNoteChange, onCreateNewNote
     <TooltipProvider>
       <Card className="h-full w-full flex flex-col rounded-none border-0 md:border-l bg-editor-background">
         
-        {/* === Top Toolbar (New Structure) === */}
         <div className="flex items-center justify-between p-1 border-b border-editor-border flex-shrink-0">
-          {/* Left Side: Sidebar Toggle */}
           <div>
             <Tooltip>
               <TooltipTrigger asChild>
@@ -111,7 +135,6 @@ export const PDFNotes = ({ activeSheetName, notes, onNoteChange, onCreateNewNote
             </Tooltip>
           </div>
           
-          {/* Right Side: Zoom Controls */}
           <div className="flex items-center">
             <Tooltip><TooltipTrigger asChild><Button variant="ghost" size="icon" onClick={handleZoomOut}><ZoomOut className="h-5 w-5"/></Button></TooltipTrigger><TooltipContent><p>Zoom Out</p></TooltipContent></Tooltip>
             <span className="text-sm font-semibold text-foreground min-w-[3rem] text-center select-none">{Math.round(zoomLevel * 100)}%</span>
@@ -119,9 +142,7 @@ export const PDFNotes = ({ activeSheetName, notes, onNoteChange, onCreateNewNote
           </div>
         </div>
 
-        {/* === Main Content Area (New Structure) === */}
         <div className="flex flex-1 min-h-0">
-          {/* Notes List Sidebar */}
           <div 
             className={cn( 
               "flex flex-col bg-muted/20 transition-all duration-300 ease-in-out",
@@ -158,7 +179,6 @@ export const PDFNotes = ({ activeSheetName, notes, onNoteChange, onCreateNewNote
             </div>
           </div>
 
-          {/* Editor Area */}
           <div className="flex-1 flex flex-col min-h-0">
             {!activeSheetName ? (
               <div className="h-full flex items-center justify-center p-4">

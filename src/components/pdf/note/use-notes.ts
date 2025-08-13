@@ -83,12 +83,13 @@ export const useNotes = (fileName: string) => {
           return { ...rest, [newName]: content };
       });
       
-      if(activeNoteSheet === oldName) {
-          setActiveNoteSheet(newName);
-      }
+      setActiveNoteSheet(currentActiveSheet =>
+        currentActiveSheet === oldName ? newName : currentActiveSheet
+      );
+      
       toast({ title: "Note Renamed", description: `"${oldName}" is now "${newName}".`})
       return true;
-  }, [notes, activeNoteSheet, toast]);
+  }, [notes, toast]); // Removed activeNoteSheet from dependency array as it's now handled safely by the updater function
 
   return {
     notes,
