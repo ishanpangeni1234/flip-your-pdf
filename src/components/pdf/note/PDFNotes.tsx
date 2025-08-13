@@ -1,3 +1,5 @@
+// src/components/pdf/note/PDFNotes.tsx
+
 import React, { useEffect, useRef, useState } from 'react';
 import { useEditor, EditorContent, BubbleMenu } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
@@ -5,7 +7,7 @@ import Underline from '@tiptap/extension-underline';
 import Placeholder from '@tiptap/extension-placeholder';
 import Link from '@tiptap/extension-link';
 import Typography from '@tiptap/extension-typography';
-import { PanelLeftClose, ChevronRight, PlusCircle, FileText, Trash2, Pencil, ZoomIn, ZoomOut } from 'lucide-react';
+import { PanelLeftClose, ChevronRight, PlusCircle, FileText, Trash2, Pencil, ZoomIn, ZoomOut, Maximize, Minimize } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
 import { Card, CardContent } from '@/components/ui/card';
@@ -23,9 +25,11 @@ interface PDFNotesProps {
   onSelectNote: (name: string) => void;
   onRenameNote: (oldName: string, newName: string) => boolean;
   onDeleteNote: (name: string) => void;
+  isFocusMode: boolean;
+  onToggleFocusMode: () => void;
 }
 
-export const PDFNotes = ({ activeSheetName, notes, onNoteChange, onCreateNewNote, onSelectNote, onRenameNote, onDeleteNote }: PDFNotesProps) => {
+export const PDFNotes = ({ activeSheetName, notes, onNoteChange, onCreateNewNote, onSelectNote, onRenameNote, onDeleteNote, isFocusMode, onToggleFocusMode }: PDFNotesProps) => {
   const currentNote = activeSheetName ? notes[activeSheetName] ?? '' : '';
   const prevActiveSheetName = useRef(activeSheetName);
 
@@ -57,40 +61,22 @@ export const PDFNotes = ({ activeSheetName, notes, onNoteChange, onCreateNewNote
 
   useEffect(() => { if (renamingName) inputRef.current?.focus(); }, [renamingName]);
 
-  // === THIS IS THE FIX ===
-  // This effect synchronizes the Tiptap editor and the UI state (like renaming).
-  // It's now structured to robustly handle note changes, especially renames of empty notes.
   useEffect(() => {
     if (!editor || editor.isDestroyed) return;
-
-    // A change in the active sheet's name is the most reliable trigger.
-    // This correctly captures selection, creation, and renames.
     const hasActiveSheetChanged = activeSheetName !== prevActiveSheetName.current;
-    
-    // If the note has changed, we must reset the UI state.
     if (hasActiveSheetChanged) {
-        // Update the editor with the new note's content.
         editor.commands.setContent(currentNote, false);
-        
-        // **Crucially, cancel any rename operation.** This fixes the bug where the
-        // UI would get stuck in renaming mode for empty notes.
         setRenamingName(null);
-
-        // Update our reference for the next render.
         prevActiveSheetName.current = activeSheetName;
     } 
-    // This secondary check ensures that if the content updates for the *same* note
-    // (e.g., from an external source), the editor still syncs.
     else if (editor.getHTML() !== currentNote) {
         editor.commands.setContent(currentNote, false);
     }
-  }, [activeSheetName, currentNote, editor]); // Dependencies remain to catch all relevant updates.
+  }, [activeSheetName, currentNote, editor]);
 
   const handleFinishRename = () => {
     if (renamingName) {
         const success = onRenameNote(renamingName, inputValue);
-        // Only clear the renaming state if the rename was successful.
-        // If it failed (e.g., duplicate name), the input remains for the user to correct.
         if (success) {
             setRenamingName(null);
             setInputValue("");
@@ -114,7 +100,7 @@ export const PDFNotes = ({ activeSheetName, notes, onNoteChange, onCreateNewNote
 
   return (
     <TooltipProvider>
-      <Card className="h-full w-full flex flex-col rounded-none border-0 md:border-l bg-editor-background">
+      <Card className={cn("h-full w-full flex flex-col rounded-none border-0 md:border-l bg-editor-background", isFocusMode && 'md:border-l-0')}>
         
         <div className="flex items-center justify-between p-1 border-b border-editor-border flex-shrink-0">
           <div>
@@ -139,6 +125,15 @@ export const PDFNotes = ({ activeSheetName, notes, onNoteChange, onCreateNewNote
             <Tooltip><TooltipTrigger asChild><Button variant="ghost" size="icon" onClick={handleZoomOut}><ZoomOut className="h-5 w-5"/></Button></TooltipTrigger><TooltipContent><p>Zoom Out</p></TooltipContent></Tooltip>
             <span className="text-sm font-semibold text-foreground min-w-[3rem] text-center select-none">{Math.round(zoomLevel * 100)}%</span>
             <Tooltip><TooltipTrigger asChild><Button variant="ghost" size="icon" onClick={handleZoomIn}><ZoomIn className="h-5 w-5"/></Button></TooltipTrigger><TooltipContent><p>Zoom In</p></TooltipContent></Tooltip>
+            <div className="h-6 w-px bg-editor-border mx-1" />
+            <Tooltip>
+                <TooltipTrigger asChild>
+                    <Button variant="ghost" size="icon" onClick={onToggleFocusMode}>
+                        {isFocusMode ? <Minimize className="h-5 w-5" /> : <Maximize className="h-5 w-5" />}
+                    </Button>
+                </TooltipTrigger>
+                <TooltipContent><p>{isFocusMode ? 'Exit focus mode' : 'Enter focus mode'}</p></TooltipContent>
+            </Tooltip>
           </div>
         </div>
 

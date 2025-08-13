@@ -48,6 +48,7 @@ export const PDFViewer = ({ file, onClose }: PDFViewerProps) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(true);
   const [isNotesViewActive, setIsNotesViewActive] = useState(false);
   const [isChatViewActive, setIsChatViewActive] = useState(false);
+  const [isNotesFocusMode, setIsNotesFocusMode] = useState(false); // State for focus mode
   const { toast } = useToast();
 
   // Search State
@@ -70,6 +71,10 @@ export const PDFViewer = ({ file, onClose }: PDFViewerProps) => {
 
   // --- UI LOGIC ---
   
+  const toggleNotesFocusMode = () => {
+    setIsNotesFocusMode(prev => !prev);
+  };
+
   useEffect(() => {
     const panelGroup = panelGroupRef.current;
     if (panelGroup) {
@@ -94,12 +99,13 @@ export const PDFViewer = ({ file, onClose }: PDFViewerProps) => {
 
     if (willBeActive) {
       setIsChatViewActive(false); // Close chat when opening notes
-      if (!activeNoteSheet) { // <<< THIS IS THE FIX
+      if (!activeNoteSheet) {
         const newNoteName = handleCreateNewNote();
         setEphemeralNoteName(newNoteName);
       }
     } else {
       cleanupEphemeralNote();
+      setIsNotesFocusMode(false); // Ensure we exit focus mode when notes view is closed
     }
   };
   
@@ -108,6 +114,7 @@ export const PDFViewer = ({ file, onClose }: PDFViewerProps) => {
     setIsChatViewActive(willBeActive);
     if (willBeActive) {
       setIsNotesViewActive(false); // Close notes when opening chat
+      setIsNotesFocusMode(false); // Ensure focus mode is off
     } else {
       setSelectedContextPages(new Set());
     }
@@ -323,7 +330,29 @@ export const PDFViewer = ({ file, onClose }: PDFViewerProps) => {
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [goToPrevPage, goToNextPage, fitToPage]);
+  
+  // --- CONDITIONAL RENDERING ---
 
+  if (isNotesFocusMode) {
+    // Render ONLY the notes component in a full-screen container
+    return (
+      <div className="h-screen w-screen bg-editor-background">
+        <PDFNotes 
+          activeSheetName={activeNoteSheet} 
+          notes={notes} 
+          onNoteChange={handleNoteChangeWrapper}
+          onCreateNewNote={handleCreateNewNote}
+          onSelectNote={handleSelectNoteWrapper}
+          onRenameNote={handleRenameNote}
+          onDeleteNote={handleDeleteNote}
+          isFocusMode={isNotesFocusMode}
+          onToggleFocusMode={toggleNotesFocusMode}
+        />
+      </div>
+    );
+  }
+
+  // Render the standard split-screen view
   return (
     <TooltipProvider>
       <div className="flex h-screen bg-gray-200 dark:bg-gray-800 font-sans overflow-hidden">
@@ -371,6 +400,8 @@ export const PDFViewer = ({ file, onClose }: PDFViewerProps) => {
                     onSelectNote={handleSelectNoteWrapper}
                     onRenameNote={handleRenameNote}
                     onDeleteNote={handleDeleteNote}
+                    isFocusMode={isNotesFocusMode}
+                    onToggleFocusMode={toggleNotesFocusMode}
                   />
               </ResizablePanel>
             )}
