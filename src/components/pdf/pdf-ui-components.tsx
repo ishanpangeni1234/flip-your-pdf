@@ -42,7 +42,7 @@ export const Thumbnail = React.memo(({ pageNumber, onThumbnailClick, isActive }:
 ));
 
 interface ThumbnailSidebarProps {
-  file: File;
+  file: File | null; // Can be null while switching
   numPages: number;
   currentPage: number;
   goToPage: (page: number) => void;
@@ -50,12 +50,13 @@ interface ThumbnailSidebarProps {
 }
 
 export const ThumbnailSidebar = ({ file, numPages, currentPage, goToPage, onDocumentLoadError }: ThumbnailSidebarProps) => {
+  if (!file) return null; // Don't render if there's no file
   return (
     <div className="p-2 h-full overflow-y-auto overflow-x-hidden">
       <Document file={file} loading="" onLoadError={onDocumentLoadError}>
         {Array.from(new Array(numPages), (_, index) => (
             <Thumbnail
-              key={`thumb-${index + 1}`}
+              key={`thumb-${file.name}-${index + 1}`}
               pageNumber={index + 1}
               onThumbnailClick={goToPage}
               isActive={currentPage === index + 1}
@@ -67,7 +68,7 @@ export const ThumbnailSidebar = ({ file, numPages, currentPage, goToPage, onDocu
 };
 
 interface PDFToolbarProps {
-  file: File;
+  fileName: string;
   onClose: () => void;
   isSidebarOpen: boolean;
   toggleSidebar: () => void;
@@ -78,31 +79,38 @@ interface PDFToolbarProps {
   goToNextPage: () => void;
   isLoading: boolean;
   scale: number;
-  setScale: React.Dispatch<React.SetStateAction<number>>;
+  setScale: (updater: number | ((prev: number) => number)) => void;
   fitToPage: () => void;
   fitToWidth: () => void;
   searchQuery: string;
-  setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
+  setSearchQuery: (value: string) => void;
   handleSearch: () => void;
   isSearching: boolean;
   searchResults: { pageNumber: number }[];
-  setSearchResults: React.Dispatch<React.SetStateAction<{ pageNumber: number }[]>>;
+  setSearchResults: (results: { pageNumber: number }[]) => void;
   currentMatchIndex: number;
-  setCurrentMatchIndex: React.Dispatch<React.SetStateAction<number>>;
+  setCurrentMatchIndex: (updater: number | ((prev: number) => number)) => void;
   goToPrevMatch: () => void;
   goToNextMatch: () => void;
   isNotesViewActive: boolean;
-  onToggleNotesView: () => void; // Updated prop
+  onToggleNotesView: () => void;
   isChatViewActive: boolean;
   onToggleChatView: () => void;
+  // New props for the document switcher UI
+  activeDocumentType: 'qp' | 'ms';
+  onSwitchDocument: (targetType: 'qp' | 'ms') => void;
+  isPreloading: boolean;
+  canSwitch: boolean;
 }
 
 export const PDFToolbar = ({
-  file, onClose, isSidebarOpen, toggleSidebar, pageNumber, numPages, goToPage, goToPrevPage, goToNextPage, isLoading,
+  fileName, onClose, isSidebarOpen, toggleSidebar, pageNumber, numPages, goToPage, goToPrevPage, goToNextPage, isLoading,
   scale, setScale, fitToPage, fitToWidth,
   searchQuery, setSearchQuery, handleSearch, isSearching, searchResults, setSearchResults, currentMatchIndex, setCurrentMatchIndex, goToPrevMatch, goToNextMatch,
   isNotesViewActive, onToggleNotesView,
-  isChatViewActive, onToggleChatView
+  isChatViewActive, onToggleChatView,
+  // New destructured props
+  activeDocumentType, onSwitchDocument, isPreloading, canSwitch
 }: PDFToolbarProps) => {
   const [isSearchExpanded, setIsSearchExpanded] = useState(false);
 
@@ -113,19 +121,42 @@ export const PDFToolbar = ({
         <Tooltip><TooltipTrigger asChild><Button variant="ghost" size="icon" onClick={toggleSidebar}>{isSidebarOpen ? <PanelLeftClose className="h-5 w-5" /> : <PanelLeftOpen className="h-5 w-5" />}</Button></TooltipTrigger><TooltipContent><p>Toggle Thumbnails (Ctrl+B)</p></TooltipContent></Tooltip>
         <Tooltip><TooltipTrigger asChild><Button variant="ghost" size="icon" onClick={onClose}><X className="h-5 w-5" /></Button></TooltipTrigger><TooltipContent><p>Close PDF</p></TooltipContent></Tooltip>
         <div className="h-6 w-px bg-border hidden sm:block mx-1" />
-        <span className="text-sm font-medium truncate max-w-24 sm:max-w-48 hidden sm:inline" title={file.name}>{file.name}</span>
+        <span className="text-sm font-medium truncate max-w-24 sm:max-w-48 hidden sm:inline" title={fileName}>{fileName}</span>
       </div>
 
-      {/* Center Section: Page Navigation */}
-      <div className="flex items-center justify-center gap-1 flex-grow min-w-0">
-        <Tooltip><TooltipTrigger asChild><Button variant="ghost" size="icon" onClick={goToPrevPage} disabled={pageNumber <= 1}><ChevronLeft className="h-5 w-5" /></Button></TooltipTrigger><TooltipContent><p>Previous (←)</p></TooltipContent></Tooltip>
-        <div className="flex items-center gap-1"><Input type="number" value={pageNumber} onChange={(e) => goToPage(parseInt(e.target.value, 10) || 1)} className="w-14 text-center h-8" disabled={isLoading} /><span className="text-sm text-muted-foreground">/ {numPages || "..."}</span></div>
-        <Tooltip><TooltipTrigger asChild><Button variant="ghost" size="icon" onClick={goToNextPage} disabled={pageNumber >= numPages}><ChevronRight className="h-5 w-5" /></Button></TooltipTrigger><TooltipContent><p>Next (→)</p></TooltipContent></Tooltip>
+      {/* Center Section: Switcher & Page Nav */}
+      <div className="flex items-center justify-center gap-4 flex-grow min-w-0">
+        {/* NEW: Document Switcher UI */}
+        {canSwitch && (
+          <div className="hidden sm:flex items-center">
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="h-8 px-3 text-xs font-semibold"
+                  onClick={() => onSwitchDocument(activeDocumentType === 'qp' ? 'ms' : 'qp')}
+                  disabled={isPreloading}
+                >
+                  {isPreloading && <div className="h-3 w-3 mr-2 animate-spin rounded-full border-2 border-current border-t-transparent" />}
+                  View {activeDocumentType === 'qp' ? 'Mark Scheme' : 'Question Paper'}
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent><p>Switch Document (Ctrl+X)</p></TooltipContent>
+            </Tooltip>
+          </div>
+        )}
+
+        {/* Page Navigation */}
+        <div className="flex items-center justify-center gap-1">
+          <Tooltip><TooltipTrigger asChild><Button variant="ghost" size="icon" onClick={goToPrevPage} disabled={pageNumber <= 1}><ChevronLeft className="h-5 w-5" /></Button></TooltipTrigger><TooltipContent><p>Previous (←)</p></TooltipContent></Tooltip>
+          <div className="flex items-center gap-1"><Input type="number" value={pageNumber} onChange={(e) => goToPage(parseInt(e.target.value, 10) || 1)} className="w-14 text-center h-8" disabled={isLoading} /><span className="text-sm text-muted-foreground">/ {numPages || "..."}</span></div>
+          <Tooltip><TooltipTrigger asChild><Button variant="ghost" size="icon" onClick={goToNextPage} disabled={pageNumber >= numPages}><ChevronRight className="h-5 w-5" /></Button></TooltipTrigger><TooltipContent><p>Next (→)</p></TooltipContent></Tooltip>
+        </div>
       </div>
       
       {/* Right Section: Tools */}
       <div className="flex items-center gap-1 flex-shrink-0">
-          {/* Search */}
           <div className="flex items-center justify-end">
             {isSearchExpanded ? (
               <div className="flex items-center gap-1 p-1 rounded-md bg-muted/50 dark:bg-muted/20 border">
@@ -160,21 +191,19 @@ export const PDFToolbar = ({
           
           <div className="h-6 w-px bg-border mx-1" />
           
-          {/* Chat Button (Enlarged) */}
           <Tooltip>
             <TooltipTrigger asChild>
               <Button variant={isChatViewActive ? "secondary" : "ghost"} size="icon" onClick={onToggleChatView}>
-                  <MessageSquare className="h-6 w-6" />
+                  <MessageSquare className="h-5 w-5" />
               </Button>
             </TooltipTrigger>
             <TooltipContent><p>Toggle AI Chat</p></TooltipContent>
           </Tooltip>
 
-          {/* Notes Button (Redesigned & Enlarged) */}
           <Tooltip>
             <TooltipTrigger asChild>
                 <Button variant={isNotesViewActive ? "secondary" : "ghost"} size="icon" onClick={onToggleNotesView}>
-                    <span className="text-2xl" role="img" aria-label="Notes">📝</span>
+                    <span className="text-xl" role="img" aria-label="Notes">📝</span>
                 </Button>
             </TooltipTrigger>
             <TooltipContent><p>Toggle Notes</p></TooltipContent>
@@ -182,7 +211,6 @@ export const PDFToolbar = ({
   
           <div className="h-6 w-px bg-border mx-1" />
   
-          {/* Zoom & View */}
           <Tooltip><TooltipTrigger asChild><Button variant="ghost" size="icon" onClick={()=> setScale(s => Math.max(0.2, s - 0.2))}><ZoomOut className="h-5 w-5" /></Button></TooltipTrigger><TooltipContent><p>Zoom Out (Ctrl+-)</p></TooltipContent></Tooltip>
           <span className="text-sm font-semibold text-foreground min-w-[3rem] text-center select-none">{Math.round(scale * 100)}%</span>
           <Tooltip><TooltipTrigger asChild><Button variant="ghost" size="icon" onClick={()=> setScale(s => Math.min(3.0, s + 0.2))}><ZoomIn className="h-5 w-5" /></Button></TooltipTrigger><TooltipContent><p>Zoom In (Ctrl++)</p></TooltipContent></Tooltip>
