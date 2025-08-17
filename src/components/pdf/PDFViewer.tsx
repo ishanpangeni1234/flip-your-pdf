@@ -41,7 +41,7 @@ interface PDFViewerProps {
   onClose: () => void;
 }
 
-type DocType = 'qp' | 'ms';
+type DocType = 'qp' | 'ms' | 'in';
 
 interface DocumentState {
   numPages: number;
@@ -56,25 +56,27 @@ interface DocumentState {
 
 export const PDFViewer = ({ initialFile, paperSet, initialFileType, onClose }: PDFViewerProps) => {
   // --- State Management for Multi-Document Handling ---
-  const [documents, setDocuments] = useState<{ qp: File | null; ms: File | null }>({
+  const [documents, setDocuments] = useState<{ qp: File | null; ms: File | null; in: File | null }>({
     qp: initialFileType === 'qp' ? initialFile : null,
     ms: initialFileType === 'ms' ? initialFile : null,
+    in: initialFileType === 'in' ? initialFile : null,
   });
-  const [activeDocumentType, setActiveDocumentType] = useState<DocType>(initialFileType === 'ms' ? 'ms' : 'qp');
+  const [activeDocumentType, setActiveDocumentType] = useState<DocType>(initialFileType || 'qp');
   const [isPreloading, setIsPreloading] = useState<boolean>(false);
-  const canSwitch = !!(paperSet?.qp && paperSet?.ms);
+  const canSwitch = !!paperSet && [paperSet.qp, paperSet.ms, paperSet.in].filter(Boolean).length > 1;
 
   // Decoupled state for each document
   const [pageStates, setPageStates] = useState({ 
     qp: { page: 1, scale: 1.0 }, 
-    ms: { page: 1, scale: 1.0 } 
+    ms: { page: 1, scale: 1.0 },
+    in: { page: 1, scale: 1.0 },
   });
   const [docStates, setDocStates] = useState<Record<DocType, DocumentState>>({
     qp: { numPages: 0, pdfProxy: null, renderedPages: new Set(), pageDimensions: null, searchQuery: "", searchResults: [], currentMatchIndex: 0, isSearching: false },
     ms: { numPages: 0, pdfProxy: null, renderedPages: new Set(), pageDimensions: null, searchQuery: "", searchResults: [], currentMatchIndex: 0, isSearching: false },
+    in: { numPages: 0, pdfProxy: null, renderedPages: new Set(), pageDimensions: null, searchQuery: "", searchResults: [], currentMatchIndex: 0, isSearching: false },
   });
 
-  // Global loading state for initial load or switching to an unloaded doc
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   // UI State
@@ -85,7 +87,6 @@ export const PDFViewer = ({ initialFile, paperSet, initialFileType, onClose }: P
   const [isChatFocusMode, setIsChatFocusMode] = useState(false);
   const { toast } = useToast();
   
-  // Hooks for Notes and Chat (linked to initial file name for storage key)
   const { notes, activeNoteSheet, handleCreateNewNote, handleSelectNote, handleNoteChange, handleDeleteNote, handleRenameNote } = useNotes(initialFile.name);
   const { allChats, activeChatName, isGeneratingResponse, selectedContextPages, setSelectedContextPages, handleCreateNewChat, handleSelectChat, handleDeleteChat, handleRenameChat, handleSendMessage } = useChat({ fileName: initialFile.name });
 
@@ -93,11 +94,10 @@ export const PDFViewer = ({ initialFile, paperSet, initialFileType, onClose }: P
   const [ephemeralChatName, setEphemeralChatName] = useState<string | null>(null);
 
   const viewerRef = useRef<HTMLDivElement | null>(null);
-  const pageRefs = useRef<Record<DocType, (HTMLDivElement | null)[]>>({ qp: [], ms: [] });
+  const pageRefs = useRef<Record<DocType, (HTMLDivElement | null)[]>>({ qp: [], ms: [], in: [] });
   const panelGroupRef = useRef<ImperativePanelGroupHandle>(null);
   
   // --- Active State Accessors ---
-  // These make it easy to work with the state of the currently active document
   const activeFile = documents[activeDocumentType];
   const activeState = docStates[activeDocumentType];
   const pageNumber = pageStates[activeDocumentType].page;
@@ -121,6 +121,31 @@ export const PDFViewer = ({ initialFile, paperSet, initialFileType, onClose }: P
     }));
   };
 
+  // --- NEW: Cyclical Switching Logic ---
+  const getNextDocumentInfo = useCallback(() => {
+    if (!canSwitch || !paperSet) return null;
+
+    const cycleOrder: DocType[] = ['qp', 'ms', 'in'];
+    const docNames: Record<DocType, string> = { qp: "Question Paper", ms: "Mark Scheme", in: "Insert" };
+    
+    const availableDocs = cycleOrder.filter(type => paperSet[type]);
+    if (availableDocs.length < 2) return null;
+
+    const currentIndex = availableDocs.indexOf(activeDocumentType);
+    const nextIndex = (currentIndex + 1) % availableDocs.length;
+    const nextDocType = availableDocs[nextIndex];
+
+    return { type: nextDocType, name: docNames[nextDocType] };
+  }, [canSwitch, paperSet, activeDocumentType]);
+
+  const handleCycleDocument = useCallback(() => {
+    const nextDoc = getNextDocumentInfo();
+    if (nextDoc) {
+      if (!documents[nextDoc.type]) setIsLoading(true);
+      setActiveDocumentType(nextDoc.type);
+    }
+  }, [getNextDocumentInfo, documents]);
+
   // --- Pre-loading and Switching Logic ---
   useEffect(() => {
     if (!canSwitch) return;
@@ -140,16 +165,12 @@ export const PDFViewer = ({ initialFile, paperSet, initialFileType, onClose }: P
         setIsPreloading(false);
       }
     };
-    preloadDocument(activeDocumentType === 'qp' ? 'ms' : 'qp');
+    
+    const typesToPreload: DocType[] = ['qp', 'ms', 'in'];
+    typesToPreload.forEach(type => {
+      if (type !== activeDocumentType) preloadDocument(type);
+    });
   }, [paperSet, documents, canSwitch, activeDocumentType, toast]);
-
-  const handleSwitchDocument = useCallback((targetType: DocType) => {
-    if (targetType === activeDocumentType || !documents[targetType]) return;
-    if (!docStates[targetType].pdfProxy) {
-      setIsLoading(true);
-    }
-    setActiveDocumentType(targetType);
-  }, [activeDocumentType, documents, docStates]);
 
   // --- CORE PDF LOGIC ---
   const goToPage = useCallback((page: number) => {
@@ -192,87 +213,40 @@ export const PDFViewer = ({ initialFile, paperSet, initialFileType, onClose }: P
     }
   }, [activeState.pageDimensions]);
 
-  // (All other functions now use the `activeState` accessors)
-  // ... [UNCHANGED UI LOGIC: toggleNotesFocusMode, etc.] ...
-  
-  // --- UI LOGIC ---
-    const toggleNotesFocusMode = () => { setIsNotesFocusMode(p => !p); if (!isNotesFocusMode) setIsChatFocusMode(false); };
-    const toggleChatFocusMode = () => { setIsChatFocusMode(p => !p); if (!isChatFocusMode) setIsNotesFocusMode(false); };
-    useEffect(() => {
-      if (panelGroupRef.current) {
-        panelGroupRef.current.setLayout(isNotesViewActive || isChatViewActive ? [50, 50] : [100, 0]);
-      }
-    }, [isNotesViewActive, isChatViewActive]);
-    const cleanupEphemeralNote = useCallback(() => {
-      if (ephemeralNoteName && notes[ephemeralNoteName]?.trim() === '') handleDeleteNote(ephemeralNoteName);
-      setEphemeralNoteName(null);
-    }, [ephemeralNoteName, notes, handleDeleteNote]);
-    const cleanupEphemeralChat = useCallback(() => {
-      if (ephemeralChatName && allChats[ephemeralChatName]?.length === 0) handleDeleteChat(ephemeralChatName);
-      setEphemeralChatName(null);
-    }, [ephemeralChatName, allChats, handleDeleteChat]);
-    const toggleNotesView = () => {
-      const willBeActive = !isNotesViewActive;
-      setIsNotesViewActive(willBeActive);
-      if (willBeActive) {
-        setIsChatViewActive(false); cleanupEphemeralChat();
-        if (!activeNoteSheet) setEphemeralNoteName(handleCreateNewNote());
-      } else {
-        cleanupEphemeralNote(); setIsNotesFocusMode(false);
-      }
-    };
-    const toggleChatView = () => {
-      const willBeActive = !isChatViewActive;
-      setIsChatViewActive(willBeActive);
-      if (willBeActive) {
-        setIsNotesViewActive(false); cleanupEphemeralNote(); setIsNotesFocusMode(false);
-        if (!activeChatName) setEphemeralChatName(handleCreateNewChat());
-      } else {
-        cleanupEphemeralChat(); setSelectedContextPages(new Set()); setIsChatFocusMode(false);
-      }
-    };
-    const handleSelectNoteWrapper = useCallback((name: string) => { cleanupEphemeralNote(); handleSelectNote(name); }, [cleanupEphemeralNote, handleSelectNote]);
-    const handleNoteChangeWrapper = useCallback((newText: string) => { if (ephemeralNoteName && newText.trim() !== '') setEphemeralNoteName(null); handleNoteChange(newText); }, [ephemeralNoteName, handleNoteChange]);
-    const handleSelectChatWrapper = useCallback((name: string) => { cleanupEphemeralChat(); handleSelectChat(name); }, [cleanupEphemeralChat, handleSelectChat]);
-    const handleDeleteChatWrapper = useCallback((name: string) => { if (name === ephemeralChatName) setEphemeralChatName(null); handleDeleteChat(name); }, [ephemeralChatName, handleDeleteChat]);
-    const handleSendMessageWrapper = useCallback((prompt: string) => { if (ephemeralChatName) setEphemeralChatName(null); handleSendMessage(prompt, activeState.pdfProxy); }, [ephemeralChatName, handleSendMessage, activeState.pdfProxy]);
-    const onDocumentLoadError = useCallback((error: Error) => { console.error("Error loading PDF:", error); setIsLoading(false); toast({ title: "Error loading PDF", description: "The file may be invalid or corrupted.", variant: "destructive" }); }, [toast]);
-    const goToPrevPage = useCallback(() => goToPage(pageNumber - 1), [pageNumber, goToPage]);
-    const goToNextPage = useCallback(() => goToPage(pageNumber + 1), [pageNumber, goToPage]);
+  // ... [UNCHANGED UI/FEATURE LOGIC from previous step] ...
+  const toggleNotesFocusMode = () => { setIsNotesFocusMode(p => !p); if (!isNotesFocusMode) setIsChatFocusMode(false); };
+  const toggleChatFocusMode = () => { setIsChatFocusMode(p => !p); if (!isChatFocusMode) setIsNotesFocusMode(false); };
+  useEffect(() => { if (panelGroupRef.current) panelGroupRef.current.setLayout(isNotesViewActive || isChatViewActive ? [50, 50] : [100, 0]); }, [isNotesViewActive, isChatViewActive]);
+  const cleanupEphemeralNote = useCallback(() => { if (ephemeralNoteName && notes[ephemeralNoteName]?.trim() === '') handleDeleteNote(ephemeralNoteName); setEphemeralNoteName(null); }, [ephemeralNoteName, notes, handleDeleteNote]);
+  const cleanupEphemeralChat = useCallback(() => { if (ephemeralChatName && allChats[ephemeralChatName]?.length === 0) handleDeleteChat(ephemeralChatName); setEphemeralChatName(null); }, [ephemeralChatName, allChats, handleDeleteChat]);
+  const toggleNotesView = () => { const willBeActive = !isNotesViewActive; setIsNotesViewActive(willBeActive); if (willBeActive) { setIsChatViewActive(false); cleanupEphemeralChat(); if (!activeNoteSheet) setEphemeralNoteName(handleCreateNewNote()); } else { cleanupEphemeralNote(); setIsNotesFocusMode(false); } };
+  const toggleChatView = () => { const willBeActive = !isChatViewActive; setIsChatViewActive(willBeActive); if (willBeActive) { setIsNotesViewActive(false); cleanupEphemeralNote(); setIsNotesFocusMode(false); if (!activeChatName) setEphemeralChatName(handleCreateNewChat()); } else { cleanupEphemeralChat(); setSelectedContextPages(new Set()); setIsChatFocusMode(false); } };
+  const handleSelectNoteWrapper = useCallback((name: string) => { cleanupEphemeralNote(); handleSelectNote(name); }, [cleanupEphemeralNote, handleSelectNote]);
+  const handleNoteChangeWrapper = useCallback((newText: string) => { if (ephemeralNoteName && newText.trim() !== '') setEphemeralNoteName(null); handleNoteChange(newText); }, [ephemeralNoteName, handleNoteChange]);
+  const handleSelectChatWrapper = useCallback((name: string) => { cleanupEphemeralChat(); handleSelectChat(name); }, [cleanupEphemeralChat, handleSelectChat]);
+  const handleDeleteChatWrapper = useCallback((name: string) => { if (name === ephemeralChatName) setEphemeralChatName(null); handleDeleteChat(name); }, [ephemeralChatName, handleDeleteChat]);
+  const handleSendMessageWrapper = useCallback((prompt: string) => { if (ephemeralChatName) setEphemeralChatName(null); handleSendMessage(prompt, activeState.pdfProxy); }, [ephemeralChatName, handleSendMessage, activeState.pdfProxy]);
+  const onDocumentLoadError = useCallback((error: Error) => { console.error("Error loading PDF:", error); setIsLoading(false); toast({ title: "Error loading PDF", description: "The file may be invalid or corrupted.", variant: "destructive" }); }, [toast]);
+  const goToPrevPage = useCallback(() => goToPage(pageNumber - 1), [pageNumber, goToPage]);
+  const goToNextPage = useCallback(() => goToPage(pageNumber + 1), [pageNumber, goToPage]);
 
-  // Observer for setting current page number based on scroll
+  // Observer for setting current page number
   useEffect(() => {
     if (!activeState.numPages || !viewerRef.current) return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries.filter(e => e.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-        if (visible.length > 0) {
-          const newPage = parseInt(visible[0].target.getAttribute('data-page-number')!, 10);
-          setPageNumber(curr => curr === newPage ? curr : newPage);
-        }
-      }, { root: viewerRef.current, threshold: 0.2 }
-    );
-    for (let i = 1; i <= activeState.numPages; i++) {
-      if (pageRefs.current[activeDocumentType][i]) observer.observe(pageRefs.current[activeDocumentType][i]!);
-    }
+    const observer = new IntersectionObserver((entries) => { const visible = entries.filter(e => e.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio); if (visible.length > 0) { const newPage = parseInt(visible[0].target.getAttribute('data-page-number')!, 10); setPageNumber(curr => curr === newPage ? curr : newPage); } }, { root: viewerRef.current, threshold: 0.2 });
+    for (let i = 1; i <= activeState.numPages; i++) { if (pageRefs.current[activeDocumentType][i]) observer.observe(pageRefs.current[activeDocumentType][i]!); }
     return () => observer.disconnect();
-  }, [activeState.numPages, activeDocumentType]); // Re-run when active doc changes
+  }, [activeState.numPages, activeDocumentType]);
 
   // Eager loading of nearby pages
   useEffect(() => {
     if (!activeState.numPages) return;
     const newPages = new Set<number>();
-    for (let i = pageNumber - 2; i <= pageNumber + 2; i++) {
-      if (i > 0 && i <= activeState.numPages) newPages.add(i);
-    }
+    for (let i = pageNumber - 2; i <= pageNumber + 2; i++) { if (i > 0 && i <= activeState.numPages) newPages.add(i); }
     setDocState(prev => ({ renderedPages: new Set([...prev.renderedPages, ...newPages]) }));
   }, [pageNumber, activeState.numPages]);
 
-  // Zoom/Fit controls
-  const adjustScale = useCallback((getNewScale: (viewerRect: DOMRect) => number) => {
-    if (!viewerRef.current || !activeState.pageDimensions) return;
-    setScale(getNewScale(viewerRef.current.getBoundingClientRect()));
-  }, [activeState.pageDimensions]);
+  const adjustScale = useCallback((getNewScale: (viewerRect: DOMRect) => number) => { if (!viewerRef.current || !activeState.pageDimensions) return; setScale(getNewScale(viewerRef.current.getBoundingClientRect())); }, [activeState.pageDimensions]);
   const fitToPage = useCallback(() => { adjustScale(rect => Math.min(rect.width / activeState.pageDimensions!.width, rect.height / activeState.pageDimensions!.height) * 0.95); }, [adjustScale, activeState.pageDimensions]);
   const fitToWidth = useCallback(() => { adjustScale(rect => (rect.width / activeState.pageDimensions!.width) * 0.95); }, [adjustScale, activeState.pageDimensions]);
   
@@ -283,23 +257,9 @@ export const PDFViewer = ({ initialFile, paperSet, initialFileType, onClose }: P
     toast({ title: "Searching...", description: `Looking for "${activeState.searchQuery}"` });
     const newResults: { pageNumber: number }[] = [];
     const term = activeState.searchQuery.trim().toLowerCase();
-    for (let i = 1; i <= activeState.numPages; i++) {
-      try {
-        const page = await activeState.pdfProxy.getPage(i);
-        const textContent = await page.getTextContent();
-        if (textContent.items.map((item: any) => item.str).join('').toLowerCase().includes(term)) {
-          newResults.push({ pageNumber: i });
-        }
-      } catch (error) { console.error(`Error processing page ${i} for search:`, error); }
-    }
+    for (let i = 1; i <= activeState.numPages; i++) { try { const page = await activeState.pdfProxy.getPage(i); const textContent = await page.getTextContent(); if (textContent.items.map((item: any) => item.str).join('').toLowerCase().includes(term)) newResults.push({ pageNumber: i }); } catch (error) { console.error(`Error processing page ${i} for search:`, error); } }
     setDocState({ searchResults: newResults, isSearching: false });
-    if (newResults.length > 0) {
-      setDocState({ currentMatchIndex: 0 });
-      goToPage(newResults[0].pageNumber);
-      toast({ title: "Search Complete", description: `Found ${newResults.length} match(es).` });
-    } else {
-      toast({ title: "No Results", description: `Could not find "${term}".` });
-    }
+    if (newResults.length > 0) { setDocState({ currentMatchIndex: 0 }); goToPage(newResults[0].pageNumber); toast({ title: "Search Complete", description: `Found ${newResults.length} match(es).` }); } else { toast({ title: "No Results", description: `Could not find "${term}".` }); }
   }, [activeState, toast, goToPage]);
   const goToNextMatch = useCallback(() => { if (activeState.searchResults.length === 0) return; setDocState(p => ({ currentMatchIndex: (p.currentMatchIndex + 1) % p.searchResults.length })); }, [activeState.searchResults.length]);
   const goToPrevMatch = useCallback(() => { if (activeState.searchResults.length === 0) return; setDocState(p => ({ currentMatchIndex: (p.currentMatchIndex - 1 + p.searchResults.length) % p.searchResults.length })); }, [activeState.searchResults.length]);
@@ -309,14 +269,10 @@ export const PDFViewer = ({ initialFile, paperSet, initialFileType, onClose }: P
       const term = activeState.searchQuery.trim();
       const regex = term ? new RegExp(term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi') : null;
       activeState.renderedPages.forEach(pageNum => {
-        const pageWrapper = pageRefs.current[activeDocumentType][pageNum];
-        if (!pageWrapper) return;
-        const textLayer = pageWrapper.querySelector('.react-pdf__Page__textContent');
-        if (!textLayer) return;
-        textLayer.querySelectorAll('mark.search-highlight').forEach(mark => { const p = mark.parentNode; if(p){ p.replaceChild(document.createTextNode(mark.textContent || ''), mark); p.normalize(); } });
-        if (!regex) return;
-        const walker = document.createTreeWalker(textLayer, NodeFilter.SHOW_TEXT, null);
-        let node; while(node = walker.nextNode()){
+        const pageWrapper = pageRefs.current[activeDocumentType][pageNum]; if (!pageWrapper) return;
+        const textLayer = pageWrapper.querySelector('.react-pdf__Page__textContent'); if (!textLayer) return;
+        textLayer.querySelectorAll('mark.search-highlight').forEach(mark => { const p = mark.parentNode; if(p){ p.replaceChild(document.createTextNode(mark.textContent || ''), mark); p.normalize(); } }); if (!regex) return;
+        const walker = document.createTreeWalker(textLayer, NodeFilter.SHOW_TEXT, null); let node; while(node = walker.nextNode()){
           if (!node.textContent) continue;
           const matches = [...node.textContent.matchAll(regex)];
           if (matches.length > 0) {
@@ -324,10 +280,7 @@ export const PDFViewer = ({ initialFile, paperSet, initialFileType, onClose }: P
             matches.forEach(match => {
               const index = match.index!;
               if (index > lastIndex) fragment.appendChild(document.createTextNode(node.textContent!.substring(lastIndex, index)));
-              const mark = document.createElement('mark');
-              mark.className = 'search-highlight bg-yellow-400/80 dark:bg-yellow-500/80';
-              mark.appendChild(document.createTextNode(match[0]));
-              fragment.appendChild(mark);
+              const mark = document.createElement('mark'); mark.className = 'search-highlight bg-yellow-400/80 dark:bg-yellow-500/80'; mark.appendChild(document.createTextNode(match[0])); fragment.appendChild(mark);
               lastIndex = index + match[0].length;
             });
             if (lastIndex < node.textContent.length) fragment.appendChild(document.createTextNode(node.textContent.substring(lastIndex)));
@@ -344,15 +297,10 @@ export const PDFViewer = ({ initialFile, paperSet, initialFileType, onClose }: P
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.target as HTMLElement).closest('.wysiwyg-editor, .pdf-chat-input, input, textarea')) return;
       if (e.ctrlKey || e.metaKey) {
-        switch (e.key) {
+        switch (e.key.toLowerCase()) {
+          case 'x': handleCycleDocument(); e.preventDefault(); break;
           case 'f': document.getElementById("search-input")?.focus(); e.preventDefault(); break;
           case 'b': setIsSidebarOpen(o => !o); e.preventDefault(); break;
-          case 'x':
-            if (canSwitch) {
-              handleSwitchDocument(activeDocumentType === 'qp' ? 'ms' : 'qp');
-            }
-            e.preventDefault();
-            break;
           case '0': fitToPage(); e.preventDefault(); break;
           case '=': setScale(s => Math.min(3.0, s + 0.2)); e.preventDefault(); break;
           case '-': setScale(s => Math.max(0.2, s - 0.2)); e.preventDefault(); break;
@@ -361,22 +309,14 @@ export const PDFViewer = ({ initialFile, paperSet, initialFileType, onClose }: P
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [goToPrevPage, goToNextPage, fitToPage, setScale, canSwitch, activeDocumentType, handleSwitchDocument]);
+  }, [goToPrevPage, goToNextPage, fitToPage, setScale, handleCycleDocument]);
   
-  // Render logic for pages to avoid duplication
   const renderPagesForDoc = (docType: DocType) => {
     const state = docStates[docType];
     const docFile = documents[docType];
     if (!docFile) return null;
     return (
-      <Document
-        key={docFile.name}
-        file={docFile}
-        onLoadSuccess={(pdf) => onDocumentLoadSuccess(pdf, docType)}
-        onLoadError={onDocumentLoadError}
-        loading={null} // Handled by global isLoading state
-        error={<div className="p-12 bg-destructive/10 text-destructive rounded-lg">Failed to load PDF.</div>}
-      >
+      <Document key={docFile.name} file={docFile} onLoadSuccess={(pdf) => onDocumentLoadSuccess(pdf, docType)} onLoadError={onDocumentLoadError} loading={null} error={<div className="p-12 bg-destructive/10 text-destructive rounded-lg">Failed to load PDF.</div>}>
         <div className="flex flex-col items-center gap-y-4">
           {Array.from(new Array(state.numPages), (_, index) => {
             const pageNum = index + 1;
@@ -401,6 +341,8 @@ export const PDFViewer = ({ initialFile, paperSet, initialFileType, onClose }: P
   if (isNotesFocusMode) return <div className="h-screen w-screen bg-editor-background"><PDFNotes {...{activeSheetName: activeNoteSheet, notes, onNoteChange: handleNoteChangeWrapper, onCreateNewNote: handleCreateNewNote, onSelectNote: handleSelectNoteWrapper, onRenameNote: handleRenameNote, onDeleteNote: handleDeleteNote, isFocusMode: isNotesFocusMode, onToggleFocusMode: toggleNotesFocusMode}} /></div>;
   if (isChatFocusMode) return <div className="h-screen w-screen bg-background"><PDFChat {...{allChats, activeChatName, onSendMessage: handleSendMessageWrapper, isGenerating: isGeneratingResponse, currentPage: pageNumber, totalPages: activeState.numPages, selectedPages: selectedContextPages, onSelectedPagesChange: setSelectedContextPages, onCreateNewChat: handleCreateNewChat, onSelectChat: handleSelectChatWrapper, onRenameChat: handleRenameChat, onDeleteChat: handleDeleteChatWrapper, isFocusMode: isChatFocusMode, onToggleFocusMode: toggleChatFocusMode}} /></div>;
 
+  const nextDocumentInfo = getNextDocumentInfo();
+
   return (
     <TooltipProvider>
       <div className="flex h-screen bg-gray-200 dark:bg-gray-800 font-sans overflow-hidden">
@@ -409,16 +351,15 @@ export const PDFViewer = ({ initialFile, paperSet, initialFileType, onClose }: P
         </div>
         <div className="flex flex-col flex-1 min-w-0">
           <Card className="rounded-none border-0 border-b z-10">
-            <PDFToolbar {...{ fileName: activeFile?.name || 'Loading...', onClose, isSidebarOpen, toggleSidebar: () => setIsSidebarOpen(o => !o), pageNumber, numPages: activeState.numPages, goToPage, goToPrevPage, goToNextPage, isLoading, scale, setScale, fitToPage, fitToWidth, searchQuery: activeState.searchQuery, setSearchQuery: (q) => setDocState({ searchQuery: q }), handleSearch, isSearching: activeState.isSearching, searchResults: activeState.searchResults, setSearchResults: (r) => setDocState({ searchResults: r }), currentMatchIndex: activeState.currentMatchIndex, setCurrentMatchIndex: (i) => setDocState(p => ({ currentMatchIndex: typeof i === 'function' ? i(p.currentMatchIndex) : i})), goToPrevMatch, goToNextMatch, isNotesViewActive, onToggleNotesView: toggleNotesView, isChatViewActive, onToggleChatView: toggleChatView, activeDocumentType, onSwitchDocument: handleSwitchDocument, isPreloading, canSwitch }} />
+            <PDFToolbar {...{ fileName: activeFile?.name || 'Loading...', onClose, isSidebarOpen, toggleSidebar: () => setIsSidebarOpen(o => !o), pageNumber, numPages: activeState.numPages, goToPage, goToPrevPage, goToNextPage, isLoading, scale, setScale, fitToPage, fitToWidth, searchQuery: activeState.searchQuery, setSearchQuery: (q) => setDocState({ searchQuery: q }), handleSearch, isSearching: activeState.isSearching, searchResults: activeState.searchResults, setSearchResults: (r) => setDocState({ searchResults: r }), currentMatchIndex: activeState.currentMatchIndex, setCurrentMatchIndex: (i) => setDocState(p => ({ currentMatchIndex: typeof i === 'function' ? i(p.currentMatchIndex) : i})), goToPrevMatch, goToNextMatch, isNotesViewActive, onToggleNotesView: toggleNotesView, isChatViewActive, onToggleChatView: toggleChatView, onCycleDocument: handleCycleDocument, nextDocumentName: nextDocumentInfo?.name || null, isPreloading, canSwitch }} />
           </Card>
           <ResizablePanelGroup direction="horizontal" className="flex-1" ref={panelGroupRef}>
             <ResizablePanel defaultSize={isNotesViewActive || isChatViewActive ? 50 : 100}>
               <div className="flex-1 overflow-auto p-4 md:p-8 h-full" ref={viewerRef}>
                 {isLoading && <div className="absolute inset-0 flex justify-center items-center bg-background/50 z-20"><div className="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent" /></div>}
-                
                 <div className={cn({ 'hidden': activeDocumentType !== 'qp' })}>{renderPagesForDoc('qp')}</div>
                 <div className={cn({ 'hidden': activeDocumentType !== 'ms' })}>{renderPagesForDoc('ms')}</div>
-
+                <div className={cn({ 'hidden': activeDocumentType !== 'in' })}>{renderPagesForDoc('in')}</div>
               </div>
             </ResizablePanel>
             {(isNotesViewActive || isChatViewActive) && <ResizableHandle withHandle />}

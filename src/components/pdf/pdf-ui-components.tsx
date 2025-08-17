@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import { Document, Page } from "react-pdf";
-import type { PDFDocumentProxy } from "pdfjs-dist/types/src/display/api";
 import { 
   ChevronLeft, ChevronRight, ZoomIn, ZoomOut, Search,
   PanelLeftClose, PanelLeftOpen, Rows, Columns, ChevronUp, ChevronDown, X,
@@ -42,7 +41,7 @@ export const Thumbnail = React.memo(({ pageNumber, onThumbnailClick, isActive }:
 ));
 
 interface ThumbnailSidebarProps {
-  file: File | null; // Can be null while switching
+  file: File | null;
   numPages: number;
   currentPage: number;
   goToPage: (page: number) => void;
@@ -50,7 +49,7 @@ interface ThumbnailSidebarProps {
 }
 
 export const ThumbnailSidebar = ({ file, numPages, currentPage, goToPage, onDocumentLoadError }: ThumbnailSidebarProps) => {
-  if (!file) return null; // Don't render if there's no file
+  if (!file) return null;
   return (
     <div className="p-2 h-full overflow-y-auto overflow-x-hidden">
       <Document file={file} loading="" onLoadError={onDocumentLoadError}>
@@ -96,9 +95,9 @@ interface PDFToolbarProps {
   onToggleNotesView: () => void;
   isChatViewActive: boolean;
   onToggleChatView: () => void;
-  // New props for the document switcher UI
-  activeDocumentType: 'qp' | 'ms';
-  onSwitchDocument: (targetType: 'qp' | 'ms') => void;
+  // Props for the document switcher UI
+  onCycleDocument: () => void;
+  nextDocumentName: string | null;
   isPreloading: boolean;
   canSwitch: boolean;
 }
@@ -110,7 +109,7 @@ export const PDFToolbar = ({
   isNotesViewActive, onToggleNotesView,
   isChatViewActive, onToggleChatView,
   // New destructured props
-  activeDocumentType, onSwitchDocument, isPreloading, canSwitch
+  onCycleDocument, nextDocumentName, isPreloading, canSwitch
 }: PDFToolbarProps) => {
   const [isSearchExpanded, setIsSearchExpanded] = useState(false);
 
@@ -126,23 +125,21 @@ export const PDFToolbar = ({
 
       {/* Center Section: Switcher & Page Nav */}
       <div className="flex items-center justify-center gap-4 flex-grow min-w-0">
-        {/* NEW: Document Switcher UI */}
-        {canSwitch && (
+        {/* NEW: Cyclical Document Switcher UI */}
+        {canSwitch && nextDocumentName && (
           <div className="hidden sm:flex items-center">
-            <Tooltip>
-              <TooltipTrigger asChild>
+            <Tooltip><TooltipTrigger asChild>
                 <Button
                   variant="outline"
                   size="sm"
                   className="h-8 px-3 text-xs font-semibold"
-                  onClick={() => onSwitchDocument(activeDocumentType === 'qp' ? 'ms' : 'qp')}
+                  onClick={onCycleDocument}
                   disabled={isPreloading}
                 >
                   {isPreloading && <div className="h-3 w-3 mr-2 animate-spin rounded-full border-2 border-current border-t-transparent" />}
-                  View {activeDocumentType === 'qp' ? 'Mark Scheme' : 'Question Paper'}
+                  View {nextDocumentName}
                 </Button>
-              </TooltipTrigger>
-              <TooltipContent><p>Switch Document (Ctrl+X)</p></TooltipContent>
+              </TooltipTrigger><TooltipContent><p>Switch Document (Ctrl+X)</p></TooltipContent>
             </Tooltip>
           </div>
         )}
@@ -191,23 +188,8 @@ export const PDFToolbar = ({
           
           <div className="h-6 w-px bg-border mx-1" />
           
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button variant={isChatViewActive ? "secondary" : "ghost"} size="icon" onClick={onToggleChatView}>
-                  <MessageSquare className="h-5 w-5" />
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent><p>Toggle AI Chat</p></TooltipContent>
-          </Tooltip>
-
-          <Tooltip>
-            <TooltipTrigger asChild>
-                <Button variant={isNotesViewActive ? "secondary" : "ghost"} size="icon" onClick={onToggleNotesView}>
-                    <span className="text-xl" role="img" aria-label="Notes">📝</span>
-                </Button>
-            </TooltipTrigger>
-            <TooltipContent><p>Toggle Notes</p></TooltipContent>
-          </Tooltip>
+          <Tooltip><TooltipTrigger asChild><Button variant={isChatViewActive ? "secondary" : "ghost"} size="icon" onClick={onToggleChatView}><MessageSquare className="h-5 w-5" /></Button></TooltipTrigger><TooltipContent><p>Toggle AI Chat</p></TooltipContent></Tooltip>
+          <Tooltip><TooltipTrigger asChild><Button variant={isNotesViewActive ? "secondary" : "ghost"} size="icon" onClick={onToggleNotesView}><span className="text-xl" role="img" aria-label="Notes">📝</span></Button></TooltipTrigger><TooltipContent><p>Toggle Notes</p></TooltipContent></Tooltip>
   
           <div className="h-6 w-px bg-border mx-1" />
   
