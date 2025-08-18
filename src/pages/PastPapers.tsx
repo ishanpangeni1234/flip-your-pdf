@@ -253,6 +253,11 @@ const PastPapers = () => {
   const papers: PapersData = allPapersData;
   const subjects = Object.keys(papers);
 
+  // --- NEW: Scroll to top on navigation change ---
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [subjectSlug, sessionSlug, selectedYear]);
+
   // Derive state from URL parameters
   const selectedSubject = useMemo(() => {
     if (!subjectSlug) return null;
@@ -322,13 +327,15 @@ const PastPapers = () => {
   }
   const handleBack = () => navigate(-1);
 
+  // --- MODIFIED: Breadcrumb navigation handler ---
   const handleBreadcrumbNavigate = (index: number) => {
-    if (index === 0) navigate('/past-papers');
-    else if (index === 1 && subjectSlug) {
-        navigate(`/past-papers/${subjectSlug}`);
-    } else if (index === 2 && subjectSlug && sessionSlug) {
+    if (index === 0) {
+        navigate('/past-papers');
+    } else if (index === 1 && subjectSlug && sessionSlug) {
+        // Index 1 now corresponds to the combined 'Subject - Session' step
         navigate(`/past-papers/${subjectSlug}/${sessionSlug}`);
     }
+    // The last step (year) is disabled, so no further logic is needed.
   }
   
   const handleLinkClick: LinkClickHandler = (e, pdf, type, paperSet) => {
@@ -477,15 +484,13 @@ const PastPapers = () => {
     )
   }
 
+  // --- MODIFIED: Breadcrumb steps creation ---
   const breadcrumbSteps = [];
-  if (selectedSubject) {
-      breadcrumbSteps.push(selectedSubject);
-      if (selectedSession) {
-          breadcrumbSteps.push(selectedSession);
-          if (selectedYear) {
-              breadcrumbSteps.push(selectedYear);
-          }
-      }
+  if (selectedSubject && selectedSession) {
+    breadcrumbSteps.push(`${selectedSubject} - ${selectedSession}`);
+    if (selectedYear) {
+      breadcrumbSteps.push(selectedYear);
+    }
   }
 
   return (
