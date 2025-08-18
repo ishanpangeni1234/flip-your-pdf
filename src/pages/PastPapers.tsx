@@ -194,26 +194,27 @@ const LoadingOverlay = () => (
 
 const SessionSelector = ({ subject, sessions, onSelectSession }: { subject: string; sessions: string[]; onSelectSession: (session: string) => void }) => (
   <Card
-    className="group relative flex flex-col justify-center items-center overflow-hidden hover:shadow-2xl hover:border-primary/50 transition-all duration-300 transform hover:-translate-y-2 cursor-pointer min-h-[280px] bg-card/60 backdrop-blur-sm"
+    className="group relative flex flex-col justify-center items-center overflow-hidden hover:shadow-2xl hover:border-primary/50 transition-all duration-300 transform hover:-translate-y-2 cursor-pointer min-h-[220px] bg-card/60 backdrop-blur-sm" // Changed min-height from [280px] to [220px]
   >
-     <div className="transition-all duration-500 ease-in-out group-hover:opacity-0 group-hover:-translate-y-4 w-full text-center p-6 flex flex-col items-center justify-center">
-        <div className="mx-auto mb-4 p-5 bg-primary/10 rounded-full w-fit group-hover:scale-110 transition-transform duration-300">
-            <BookOpen className="h-12 w-12 text-primary" />
+     <div className="transition-all duration-500 ease-in-out group-hover:opacity-0 group-hover:-translate-y-4 w-full text-center p-4 flex flex-col items-center justify-center"> {/* Changed padding from p-6 to p-4 */}
+        <div className="mx-auto mb-3 p-4 bg-primary/10 rounded-full w-fit group-hover:scale-110 transition-transform duration-300"> {/* Changed padding from p-5 to p-4, mb-4 to mb-3 */}
+            <BookOpen className="h-10 w-10 text-primary" /> {/* Changed icon size from h-12 w-12 to h-10 w-10 */}
         </div>
-        <h3 className="text-2xl font-bold group-hover:text-primary transition-colors">{subject}</h3>
-        <p className="text-sm text-muted-foreground mt-2">Click to select a session</p>
+        <h3 className="text-xl font-bold group-hover:text-primary transition-colors">{subject}</h3> {/* Changed font size from text-2xl to text-xl */}
+        <p className="text-xs text-muted-foreground mt-1">Click to select a session</p> {/* Changed font size from text-sm to text-xs, mt-2 to mt-1 */}
      </div>
-     <div className="absolute inset-0 p-4 flex flex-col items-center justify-center transition-all duration-500 ease-in-out opacity-0 group-hover:opacity-100 group-hover:translate-y-0 translate-y-4 pointer-events-none group-hover:pointer-events-auto">
-        <h4 className="text-lg font-semibold mb-4 text-primary">Select Session</h4>
+     <div className="absolute inset-0 p-3 flex flex-col items-center justify-center transition-all duration-500 ease-in-out opacity-0 group-hover:opacity-100 group-hover:translate-y-0 translate-y-4 pointer-events-none group-hover:pointer-events-auto"> {/* Changed padding from p-4 to p-3 */}
+        <h4 className="text-base font-semibold mb-3 text-primary">Select Session</h4> {/* Changed font size from text-lg to text-base, mb-4 to mb-3 */}
         {sessions.length > 0 ? (
-          <div className="space-y-2 w-full max-w-[85%] mx-auto">
+          <div className="space-y-1.5 w-full max-w-[85%] mx-auto"> {/* Changed space-y-2 to space-y-1.5 */}
             {sessions.map((session) => (
-              <Button key={session} variant="ghost" className="w-full flex justify-between items-center p-3 h-auto hover:bg-primary/10" onClick={() => onSelectSession(session)}>
-                <div className="flex items-center gap-3"><Calendar className="h-5 w-5 text-primary" /><span className="font-medium">{session}</span></div><ChevronRight className="h-4 w-4 text-muted-foreground" />
+              <Button key={session} variant="ghost" className="w-full flex justify-between items-center p-2 h-auto hover:bg-primary/10" onClick={() => onSelectSession(session)}> {/* Changed padding from p-3 to p-2 */}
+                <div className="flex items-center gap-2"><Calendar className="h-4 w-4 text-primary" /><span className="font-medium text-sm">{session}</span></div>{/* Changed icon size from h-5 w-5 to h-4 w-4, added text-sm */}
+                <ChevronRight className="h-3 w-3 text-muted-foreground" /> {/* Changed icon size from h-4 w-4 to h-3 w-3 */}
               </Button>
             ))}
           </div>
-        ) : (<p className="text-sm text-muted-foreground text-center px-4">No sessions available.</p>)}
+        ) : (<p className="text-xs text-muted-foreground text-center px-4">No sessions available.</p>)} {/* Changed font size from text-sm to text-xs */}
      </div>
   </Card>
 )
