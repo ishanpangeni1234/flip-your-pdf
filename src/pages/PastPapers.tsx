@@ -501,13 +501,10 @@ const PastPapers = () => {
   }
 
   const breadcrumbSteps = [];
-  if (selectedSubject) { 
-    breadcrumbSteps.push(selectedSubject);
-    if (selectedSession) {
-      breadcrumbSteps.push(selectedSession);
-      if (selectedYear) {
-        breadcrumbSteps.push(selectedYear);
-      }
+  if (selectedSubject && selectedSession) {
+    breadcrumbSteps.push(`${selectedSubject}-${selectedSession}`);
+    if (selectedYear) {
+      breadcrumbSteps.push(selectedYear);
     }
   }
 
