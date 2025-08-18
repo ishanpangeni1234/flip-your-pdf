@@ -1,12 +1,9 @@
-// scripts/generate-paper-data.js
-
 const fs = require('fs');
 const path = require('path');
 
 const papersRootDir = path.join(process.cwd(), 'public', 'Past Paper');
 const outputFilePath = path.join(process.cwd(), 'src', 'data', 'papers.json');
 
-// --- UPDATED: Added new subjects ---
 const subjectCodes = {
   'Computer': '9618',
   'Business Studies': '9609',
@@ -14,35 +11,35 @@ const subjectCodes = {
   'English General Paper': '8021',
 };
 
-// --- UPDATED: Now handles 3-part filenames (er, gt) and 4-part (qp, ms, in) ---
 function parseFilename(filename) {
-  // e.g., 9618_s23_qp_11.pdf OR 9708_s23_er.pdf
   const parts = filename.replace('.pdf', '').split('_');
 
   if (parts.length === 4) {
-    // Standard paper file (qp, ms, in)
     return {
       subjectCode: parts[0],
-      season: parts[1], // 's' or 'w'
-      year: `20${parts[1].substring(1)}`, // s23 -> 23
+      season: parts[1].charAt(0), // s23 -> 's'
+      year: `20${parts[1].substring(1)}`, // s23 -> '2023'
       type: parts[2], // 'qp', 'ms', 'in'
-      variant: parts[3], // '11', '12', '21', etc.
+      paperNumber: parts[3].charAt(0), // '11' -> '1'
+      variantNumber: parts[3].charAt(1), // '11' -> '1'
+      fullVariant: parts[3], // '11', '12', etc.
     };
   } else if (parts.length === 3) {
-    // Session-wide document (er, gt)
     const type = parts[2];
     if (type === 'er' || type === 'gt') {
       return {
         subjectCode: parts[0],
-        season: parts[1],
+        season: parts[1].charAt(0),
         year: `20${parts[1].substring(1)}`,
-        type: type, // 'er' or 'gt'
-        variant: null, // No variant for these files
+        type: type,
+        paperNumber: null,
+        variantNumber: null,
+        fullVariant: null,
       };
     }
   }
 
-  return null; // Invalid filename format
+  return null;
 }
 
 function generatePaperData() {
@@ -76,9 +73,8 @@ function generatePaperData() {
 
         const files = fs.readdirSync(yearPath).filter(f => f.endsWith('.pdf'));
 
-        // --- UPDATED: Logic to handle both paper variants and session-wide docs ---
-        const paperGroups = {}; // Keyed by variant, e.g., '11'
-        let sessionDocs = { er: null, gt: null }; // To hold er and gt files
+        const paperGroups = {};
+        let sessionDocs = { er: null, gt: null };
 
         for (const file of files) {
           const parsed = parseFilename(file);
@@ -89,28 +85,35 @@ function generatePaperData() {
             path: `/Past Paper/${subject}/${session}/${yearDir}/${file}`,
           };
 
-          if (parsed.variant) {
-            // This is a standard paper with a variant (qp, ms, in)
-            if (!paperGroups[parsed.variant]) {
-              paperGroups[parsed.variant] = {
-                id: `${parsed.season}${parsed.variant}`,
-                series: `Paper ${parsed.variant[0]} Variant ${parsed.variant[1]}`,
+          if (parsed.fullVariant) {
+            if (!paperGroups[parsed.fullVariant]) {
+              // --- THIS IS THE KEY CHANGE ---
+              // Add all the new required fields here
+              paperGroups[parsed.fullVariant] = {
+                id: `${parsed.season}20${parsed.year.substring(2)}${parsed.fullVariant}`, // e.g., s2311
+                series: `Paper ${parsed.paperNumber} Variant ${parsed.variantNumber}`,
+                // --- NEW FIELDS ---
+                subject: subject,
+                year: parseInt(parsed.year),
+                session: session,
+                season: parsed.season,
+                paperNumber: parseInt(parsed.paperNumber),
+                variantNumber: parseInt(parsed.variantNumber),
+                // --- EXISTING FIELDS ---
                 qp: null,
                 ms: null,
                 in: null,
               };
             }
-            if (parsed.type === 'qp') paperGroups[parsed.variant].qp = fileData;
-            if (parsed.type === 'ms') paperGroups[parsed.variant].ms = fileData;
-            if (parsed.type === 'in') paperGroups[parsed.variant].in = fileData;
+            if (parsed.type === 'qp') paperGroups[parsed.fullVariant].qp = fileData;
+            if (parsed.type === 'ms') paperGroups[parsed.fullVariant].ms = fileData;
+            if (parsed.type === 'in') paperGroups[parsed.fullVariant].in = fileData;
           } else {
-            // This is a session-wide document (er, gt)
             if (parsed.type === 'er') sessionDocs.er = fileData;
             if (parsed.type === 'gt') sessionDocs.gt = fileData;
           }
         }
         
-        // --- UPDATED: Storing data in the new JSON structure ---
         data[subject][session][year] = {
           sessionDocs: sessionDocs,
           paperList: Object.values(paperGroups).sort((a, b) => a.id.localeCompare(b.id)),

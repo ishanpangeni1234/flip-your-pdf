@@ -103,7 +103,14 @@ const Index = () => {
   // If a file is selected, show the PDFViewer directly without the layout wrapper
   // as PDFViewer is likely a full-page component itself.
   if (selectedFile) {
-    return <PDFViewer file={selectedFile} onClose={handleClose} />;
+    return (
+      <PDFViewer
+        initialFile={selectedFile}
+        paperSet={null}
+        initialFileType="qp"
+        onClose={handleClose}
+      />
+    );
   }
 
   // Otherwise, show the landing page content wrapped in the global Layout

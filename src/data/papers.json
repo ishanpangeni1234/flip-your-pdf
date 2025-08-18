@@ -8,8 +8,14 @@
         },
         "paperList": [
           {
-            "id": "s2011",
+            "id": "s202011",
             "series": "Paper 1 Variant 1",
+            "subject": "Business Studies",
+            "year": 2020,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 1,
+            "variantNumber": 1,
             "qp": {
               "name": "9609_s20_qp_11.pdf",
               "path": "/Past Paper/Business Studies/May-Jun/2020-May-Jun/9609_s20_qp_11.pdf"
@@ -21,8 +27,14 @@
             "in": null
           },
           {
-            "id": "s2012",
+            "id": "s202012",
             "series": "Paper 1 Variant 2",
+            "subject": "Business Studies",
+            "year": 2020,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 1,
+            "variantNumber": 2,
             "qp": {
               "name": "9609_s20_qp_12.pdf",
               "path": "/Past Paper/Business Studies/May-Jun/2020-May-Jun/9609_s20_qp_12.pdf"
@@ -34,8 +46,14 @@
             "in": null
           },
           {
-            "id": "s2013",
+            "id": "s202013",
             "series": "Paper 1 Variant 3",
+            "subject": "Business Studies",
+            "year": 2020,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 1,
+            "variantNumber": 3,
             "qp": {
               "name": "9609_s20_qp_13.pdf",
               "path": "/Past Paper/Business Studies/May-Jun/2020-May-Jun/9609_s20_qp_13.pdf"
@@ -47,8 +65,14 @@
             "in": null
           },
           {
-            "id": "s2021",
+            "id": "s202021",
             "series": "Paper 2 Variant 1",
+            "subject": "Business Studies",
+            "year": 2020,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 2,
+            "variantNumber": 1,
             "qp": {
               "name": "9609_s20_qp_21.pdf",
               "path": "/Past Paper/Business Studies/May-Jun/2020-May-Jun/9609_s20_qp_21.pdf"
@@ -60,8 +84,14 @@
             "in": null
           },
           {
-            "id": "s2022",
+            "id": "s202022",
             "series": "Paper 2 Variant 2",
+            "subject": "Business Studies",
+            "year": 2020,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 2,
+            "variantNumber": 2,
             "qp": {
               "name": "9609_s20_qp_22.pdf",
               "path": "/Past Paper/Business Studies/May-Jun/2020-May-Jun/9609_s20_qp_22.pdf"
@@ -73,8 +103,14 @@
             "in": null
           },
           {
-            "id": "s2023",
+            "id": "s202023",
             "series": "Paper 2 Variant 3",
+            "subject": "Business Studies",
+            "year": 2020,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 2,
+            "variantNumber": 3,
             "qp": {
               "name": "9609_s20_qp_23.pdf",
               "path": "/Past Paper/Business Studies/May-Jun/2020-May-Jun/9609_s20_qp_23.pdf"
@@ -86,8 +122,14 @@
             "in": null
           },
           {
-            "id": "s2031",
+            "id": "s202031",
             "series": "Paper 3 Variant 1",
+            "subject": "Business Studies",
+            "year": 2020,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 3,
+            "variantNumber": 1,
             "qp": {
               "name": "9609_s20_qp_31.pdf",
               "path": "/Past Paper/Business Studies/May-Jun/2020-May-Jun/9609_s20_qp_31.pdf"
@@ -102,8 +144,14 @@
             }
           },
           {
-            "id": "s2032",
+            "id": "s202032",
             "series": "Paper 3 Variant 2",
+            "subject": "Business Studies",
+            "year": 2020,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 3,
+            "variantNumber": 2,
             "qp": {
               "name": "9609_s20_qp_32.pdf",
               "path": "/Past Paper/Business Studies/May-Jun/2020-May-Jun/9609_s20_qp_32.pdf"
@@ -118,8 +166,14 @@
             }
           },
           {
-            "id": "s2033",
+            "id": "s202033",
             "series": "Paper 3 Variant 3",
+            "subject": "Business Studies",
+            "year": 2020,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 3,
+            "variantNumber": 3,
             "qp": {
               "name": "9609_s20_qp_33.pdf",
               "path": "/Past Paper/Business Studies/May-Jun/2020-May-Jun/9609_s20_qp_33.pdf"
@@ -148,8 +202,14 @@
         },
         "paperList": [
           {
-            "id": "s2111",
+            "id": "s202111",
             "series": "Paper 1 Variant 1",
+            "subject": "Business Studies",
+            "year": 2021,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 1,
+            "variantNumber": 1,
             "qp": {
               "name": "9609_s21_qp_11.pdf",
               "path": "/Past Paper/Business Studies/May-Jun/2021-May-Jun/9609_s21_qp_11.pdf"
@@ -161,8 +221,14 @@
             "in": null
           },
           {
-            "id": "s2112",
+            "id": "s202112",
             "series": "Paper 1 Variant 2",
+            "subject": "Business Studies",
+            "year": 2021,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 1,
+            "variantNumber": 2,
             "qp": {
               "name": "9609_s21_qp_12.pdf",
               "path": "/Past Paper/Business Studies/May-Jun/2021-May-Jun/9609_s21_qp_12.pdf"
@@ -174,8 +240,14 @@
             "in": null
           },
           {
-            "id": "s2113",
+            "id": "s202113",
             "series": "Paper 1 Variant 3",
+            "subject": "Business Studies",
+            "year": 2021,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 1,
+            "variantNumber": 3,
             "qp": {
               "name": "9609_s21_qp_13.pdf",
               "path": "/Past Paper/Business Studies/May-Jun/2021-May-Jun/9609_s21_qp_13.pdf"
@@ -187,8 +259,14 @@
             "in": null
           },
           {
-            "id": "s2114",
+            "id": "s202114",
             "series": "Paper 1 Variant 4",
+            "subject": "Business Studies",
+            "year": 2021,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 1,
+            "variantNumber": 4,
             "qp": {
               "name": "9609_s21_qp_14.pdf",
               "path": "/Past Paper/Business Studies/May-Jun/2021-May-Jun/9609_s21_qp_14.pdf"
@@ -200,8 +278,14 @@
             "in": null
           },
           {
-            "id": "s2121",
+            "id": "s202121",
             "series": "Paper 2 Variant 1",
+            "subject": "Business Studies",
+            "year": 2021,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 2,
+            "variantNumber": 1,
             "qp": {
               "name": "9609_s21_qp_21.pdf",
               "path": "/Past Paper/Business Studies/May-Jun/2021-May-Jun/9609_s21_qp_21.pdf"
@@ -213,8 +297,14 @@
             "in": null
           },
           {
-            "id": "s2122",
+            "id": "s202122",
             "series": "Paper 2 Variant 2",
+            "subject": "Business Studies",
+            "year": 2021,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 2,
+            "variantNumber": 2,
             "qp": {
               "name": "9609_s21_qp_22.pdf",
               "path": "/Past Paper/Business Studies/May-Jun/2021-May-Jun/9609_s21_qp_22.pdf"
@@ -226,8 +316,14 @@
             "in": null
           },
           {
-            "id": "s2123",
+            "id": "s202123",
             "series": "Paper 2 Variant 3",
+            "subject": "Business Studies",
+            "year": 2021,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 2,
+            "variantNumber": 3,
             "qp": {
               "name": "9609_s21_qp_23.pdf",
               "path": "/Past Paper/Business Studies/May-Jun/2021-May-Jun/9609_s21_qp_23.pdf"
@@ -239,8 +335,14 @@
             "in": null
           },
           {
-            "id": "s2124",
+            "id": "s202124",
             "series": "Paper 2 Variant 4",
+            "subject": "Business Studies",
+            "year": 2021,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 2,
+            "variantNumber": 4,
             "qp": {
               "name": "9609_s21_qp_24.pdf",
               "path": "/Past Paper/Business Studies/May-Jun/2021-May-Jun/9609_s21_qp_24.pdf"
@@ -252,8 +354,14 @@
             "in": null
           },
           {
-            "id": "s2131",
+            "id": "s202131",
             "series": "Paper 3 Variant 1",
+            "subject": "Business Studies",
+            "year": 2021,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 3,
+            "variantNumber": 1,
             "qp": {
               "name": "9609_s21_qp_31.pdf",
               "path": "/Past Paper/Business Studies/May-Jun/2021-May-Jun/9609_s21_qp_31.pdf"
@@ -268,8 +376,14 @@
             }
           },
           {
-            "id": "s2132",
+            "id": "s202132",
             "series": "Paper 3 Variant 2",
+            "subject": "Business Studies",
+            "year": 2021,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 3,
+            "variantNumber": 2,
             "qp": {
               "name": "9609_s21_qp_32.pdf",
               "path": "/Past Paper/Business Studies/May-Jun/2021-May-Jun/9609_s21_qp_32.pdf"
@@ -284,8 +398,14 @@
             }
           },
           {
-            "id": "s2133",
+            "id": "s202133",
             "series": "Paper 3 Variant 3",
+            "subject": "Business Studies",
+            "year": 2021,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 3,
+            "variantNumber": 3,
             "qp": {
               "name": "9609_s21_qp_33.pdf",
               "path": "/Past Paper/Business Studies/May-Jun/2021-May-Jun/9609_s21_qp_33.pdf"
@@ -300,8 +420,14 @@
             }
           },
           {
-            "id": "s2134",
+            "id": "s202134",
             "series": "Paper 3 Variant 4",
+            "subject": "Business Studies",
+            "year": 2021,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 3,
+            "variantNumber": 4,
             "qp": {
               "name": "9609_s21_qp_34.pdf",
               "path": "/Past Paper/Business Studies/May-Jun/2021-May-Jun/9609_s21_qp_34.pdf"
@@ -330,8 +456,14 @@
         },
         "paperList": [
           {
-            "id": "s2211",
+            "id": "s202211",
             "series": "Paper 1 Variant 1",
+            "subject": "Business Studies",
+            "year": 2022,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 1,
+            "variantNumber": 1,
             "qp": {
               "name": "9609_s22_qp_11.pdf",
               "path": "/Past Paper/Business Studies/May-Jun/2022-May-Jun/9609_s22_qp_11.pdf"
@@ -343,8 +475,14 @@
             "in": null
           },
           {
-            "id": "s2212",
+            "id": "s202212",
             "series": "Paper 1 Variant 2",
+            "subject": "Business Studies",
+            "year": 2022,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 1,
+            "variantNumber": 2,
             "qp": {
               "name": "9609_s22_qp_12.pdf",
               "path": "/Past Paper/Business Studies/May-Jun/2022-May-Jun/9609_s22_qp_12.pdf"
@@ -356,8 +494,14 @@
             "in": null
           },
           {
-            "id": "s2213",
+            "id": "s202213",
             "series": "Paper 1 Variant 3",
+            "subject": "Business Studies",
+            "year": 2022,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 1,
+            "variantNumber": 3,
             "qp": {
               "name": "9609_s22_qp_13.pdf",
               "path": "/Past Paper/Business Studies/May-Jun/2022-May-Jun/9609_s22_qp_13.pdf"
@@ -369,8 +513,14 @@
             "in": null
           },
           {
-            "id": "s2221",
+            "id": "s202221",
             "series": "Paper 2 Variant 1",
+            "subject": "Business Studies",
+            "year": 2022,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 2,
+            "variantNumber": 1,
             "qp": {
               "name": "9609_s22_qp_21.pdf",
               "path": "/Past Paper/Business Studies/May-Jun/2022-May-Jun/9609_s22_qp_21.pdf"
@@ -382,8 +532,14 @@
             "in": null
           },
           {
-            "id": "s2222",
+            "id": "s202222",
             "series": "Paper 2 Variant 2",
+            "subject": "Business Studies",
+            "year": 2022,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 2,
+            "variantNumber": 2,
             "qp": {
               "name": "9609_s22_qp_22.pdf",
               "path": "/Past Paper/Business Studies/May-Jun/2022-May-Jun/9609_s22_qp_22.pdf"
@@ -395,8 +551,14 @@
             "in": null
           },
           {
-            "id": "s2223",
+            "id": "s202223",
             "series": "Paper 2 Variant 3",
+            "subject": "Business Studies",
+            "year": 2022,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 2,
+            "variantNumber": 3,
             "qp": {
               "name": "9609_s22_qp_23.pdf",
               "path": "/Past Paper/Business Studies/May-Jun/2022-May-Jun/9609_s22_qp_23.pdf"
@@ -408,8 +570,14 @@
             "in": null
           },
           {
-            "id": "s2231",
+            "id": "s202231",
             "series": "Paper 3 Variant 1",
+            "subject": "Business Studies",
+            "year": 2022,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 3,
+            "variantNumber": 1,
             "qp": {
               "name": "9609_s22_qp_31.pdf",
               "path": "/Past Paper/Business Studies/May-Jun/2022-May-Jun/9609_s22_qp_31.pdf"
@@ -424,8 +592,14 @@
             }
           },
           {
-            "id": "s2232",
+            "id": "s202232",
             "series": "Paper 3 Variant 2",
+            "subject": "Business Studies",
+            "year": 2022,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 3,
+            "variantNumber": 2,
             "qp": {
               "name": "9609_s22_qp_32.pdf",
               "path": "/Past Paper/Business Studies/May-Jun/2022-May-Jun/9609_s22_qp_32.pdf"
@@ -440,8 +614,14 @@
             }
           },
           {
-            "id": "s2233",
+            "id": "s202233",
             "series": "Paper 3 Variant 3",
+            "subject": "Business Studies",
+            "year": 2022,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 3,
+            "variantNumber": 3,
             "qp": {
               "name": "9609_s22_qp_33.pdf",
               "path": "/Past Paper/Business Studies/May-Jun/2022-May-Jun/9609_s22_qp_33.pdf"
@@ -470,8 +650,14 @@
         },
         "paperList": [
           {
-            "id": "s2311",
+            "id": "s202311",
             "series": "Paper 1 Variant 1",
+            "subject": "Business Studies",
+            "year": 2023,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 1,
+            "variantNumber": 1,
             "qp": {
               "name": "9609_s23_qp_11.pdf",
               "path": "/Past Paper/Business Studies/May-Jun/2023-May-Jun/9609_s23_qp_11.pdf"
@@ -483,8 +669,14 @@
             "in": null
           },
           {
-            "id": "s2312",
+            "id": "s202312",
             "series": "Paper 1 Variant 2",
+            "subject": "Business Studies",
+            "year": 2023,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 1,
+            "variantNumber": 2,
             "qp": {
               "name": "9609_s23_qp_12.pdf",
               "path": "/Past Paper/Business Studies/May-Jun/2023-May-Jun/9609_s23_qp_12.pdf"
@@ -496,8 +688,14 @@
             "in": null
           },
           {
-            "id": "s2313",
+            "id": "s202313",
             "series": "Paper 1 Variant 3",
+            "subject": "Business Studies",
+            "year": 2023,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 1,
+            "variantNumber": 3,
             "qp": {
               "name": "9609_s23_qp_13.pdf",
               "path": "/Past Paper/Business Studies/May-Jun/2023-May-Jun/9609_s23_qp_13.pdf"
@@ -509,8 +707,14 @@
             "in": null
           },
           {
-            "id": "s2321",
+            "id": "s202321",
             "series": "Paper 2 Variant 1",
+            "subject": "Business Studies",
+            "year": 2023,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 2,
+            "variantNumber": 1,
             "qp": {
               "name": "9609_s23_qp_21.pdf",
               "path": "/Past Paper/Business Studies/May-Jun/2023-May-Jun/9609_s23_qp_21.pdf"
@@ -522,8 +726,14 @@
             "in": null
           },
           {
-            "id": "s2322",
+            "id": "s202322",
             "series": "Paper 2 Variant 2",
+            "subject": "Business Studies",
+            "year": 2023,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 2,
+            "variantNumber": 2,
             "qp": {
               "name": "9609_s23_qp_22.pdf",
               "path": "/Past Paper/Business Studies/May-Jun/2023-May-Jun/9609_s23_qp_22.pdf"
@@ -535,8 +745,14 @@
             "in": null
           },
           {
-            "id": "s2323",
+            "id": "s202323",
             "series": "Paper 2 Variant 3",
+            "subject": "Business Studies",
+            "year": 2023,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 2,
+            "variantNumber": 3,
             "qp": {
               "name": "9609_s23_qp_23.pdf",
               "path": "/Past Paper/Business Studies/May-Jun/2023-May-Jun/9609_s23_qp_23.pdf"
@@ -548,8 +764,14 @@
             "in": null
           },
           {
-            "id": "s2331",
+            "id": "s202331",
             "series": "Paper 3 Variant 1",
+            "subject": "Business Studies",
+            "year": 2023,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 3,
+            "variantNumber": 1,
             "qp": {
               "name": "9609_s23_qp_31.pdf",
               "path": "/Past Paper/Business Studies/May-Jun/2023-May-Jun/9609_s23_qp_31.pdf"
@@ -564,8 +786,14 @@
             }
           },
           {
-            "id": "s2332",
+            "id": "s202332",
             "series": "Paper 3 Variant 2",
+            "subject": "Business Studies",
+            "year": 2023,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 3,
+            "variantNumber": 2,
             "qp": {
               "name": "9609_s23_qp_32.pdf",
               "path": "/Past Paper/Business Studies/May-Jun/2023-May-Jun/9609_s23_qp_32.pdf"
@@ -580,8 +808,14 @@
             }
           },
           {
-            "id": "s2333",
+            "id": "s202333",
             "series": "Paper 3 Variant 3",
+            "subject": "Business Studies",
+            "year": 2023,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 3,
+            "variantNumber": 3,
             "qp": {
               "name": "9609_s23_qp_33.pdf",
               "path": "/Past Paper/Business Studies/May-Jun/2023-May-Jun/9609_s23_qp_33.pdf"
@@ -596,8 +830,14 @@
             }
           },
           {
-            "id": "s2341",
+            "id": "s202341",
             "series": "Paper 4 Variant 1",
+            "subject": "Business Studies",
+            "year": 2023,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 4,
+            "variantNumber": 1,
             "qp": {
               "name": "9609_s23_qp_41.pdf",
               "path": "/Past Paper/Business Studies/May-Jun/2023-May-Jun/9609_s23_qp_41.pdf"
@@ -609,8 +849,14 @@
             "in": null
           },
           {
-            "id": "s2342",
+            "id": "s202342",
             "series": "Paper 4 Variant 2",
+            "subject": "Business Studies",
+            "year": 2023,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 4,
+            "variantNumber": 2,
             "qp": {
               "name": "9609_s23_qp_42.pdf",
               "path": "/Past Paper/Business Studies/May-Jun/2023-May-Jun/9609_s23_qp_42.pdf"
@@ -622,8 +868,14 @@
             "in": null
           },
           {
-            "id": "s2343",
+            "id": "s202343",
             "series": "Paper 4 Variant 3",
+            "subject": "Business Studies",
+            "year": 2023,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 4,
+            "variantNumber": 3,
             "qp": {
               "name": "9609_s23_qp_43.pdf",
               "path": "/Past Paper/Business Studies/May-Jun/2023-May-Jun/9609_s23_qp_43.pdf"
@@ -646,8 +898,14 @@
         },
         "paperList": [
           {
-            "id": "s2411",
+            "id": "s202411",
             "series": "Paper 1 Variant 1",
+            "subject": "Business Studies",
+            "year": 2024,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 1,
+            "variantNumber": 1,
             "qp": {
               "name": "9609_s24_qp_11.pdf",
               "path": "/Past Paper/Business Studies/May-Jun/2024-May-Jun/9609_s24_qp_11.pdf"
@@ -659,8 +917,14 @@
             "in": null
           },
           {
-            "id": "s2412",
+            "id": "s202412",
             "series": "Paper 1 Variant 2",
+            "subject": "Business Studies",
+            "year": 2024,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 1,
+            "variantNumber": 2,
             "qp": {
               "name": "9609_s24_qp_12.pdf",
               "path": "/Past Paper/Business Studies/May-Jun/2024-May-Jun/9609_s24_qp_12.pdf"
@@ -672,8 +936,14 @@
             "in": null
           },
           {
-            "id": "s2413",
+            "id": "s202413",
             "series": "Paper 1 Variant 3",
+            "subject": "Business Studies",
+            "year": 2024,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 1,
+            "variantNumber": 3,
             "qp": {
               "name": "9609_s24_qp_13.pdf",
               "path": "/Past Paper/Business Studies/May-Jun/2024-May-Jun/9609_s24_qp_13.pdf"
@@ -685,8 +955,14 @@
             "in": null
           },
           {
-            "id": "s2421",
+            "id": "s202421",
             "series": "Paper 2 Variant 1",
+            "subject": "Business Studies",
+            "year": 2024,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 2,
+            "variantNumber": 1,
             "qp": {
               "name": "9609_s24_qp_21.pdf",
               "path": "/Past Paper/Business Studies/May-Jun/2024-May-Jun/9609_s24_qp_21.pdf"
@@ -698,8 +974,14 @@
             "in": null
           },
           {
-            "id": "s2422",
+            "id": "s202422",
             "series": "Paper 2 Variant 2",
+            "subject": "Business Studies",
+            "year": 2024,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 2,
+            "variantNumber": 2,
             "qp": {
               "name": "9609_s24_qp_22.pdf",
               "path": "/Past Paper/Business Studies/May-Jun/2024-May-Jun/9609_s24_qp_22.pdf"
@@ -711,8 +993,14 @@
             "in": null
           },
           {
-            "id": "s2423",
+            "id": "s202423",
             "series": "Paper 2 Variant 3",
+            "subject": "Business Studies",
+            "year": 2024,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 2,
+            "variantNumber": 3,
             "qp": {
               "name": "9609_s24_qp_23.pdf",
               "path": "/Past Paper/Business Studies/May-Jun/2024-May-Jun/9609_s24_qp_23.pdf"
@@ -724,8 +1012,14 @@
             "in": null
           },
           {
-            "id": "s2431",
+            "id": "s202431",
             "series": "Paper 3 Variant 1",
+            "subject": "Business Studies",
+            "year": 2024,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 3,
+            "variantNumber": 1,
             "qp": {
               "name": "9609_s24_qp_31.pdf",
               "path": "/Past Paper/Business Studies/May-Jun/2024-May-Jun/9609_s24_qp_31.pdf"
@@ -740,8 +1034,14 @@
             }
           },
           {
-            "id": "s2432",
+            "id": "s202432",
             "series": "Paper 3 Variant 2",
+            "subject": "Business Studies",
+            "year": 2024,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 3,
+            "variantNumber": 2,
             "qp": {
               "name": "9609_s24_qp_32.pdf",
               "path": "/Past Paper/Business Studies/May-Jun/2024-May-Jun/9609_s24_qp_32.pdf"
@@ -756,8 +1056,14 @@
             }
           },
           {
-            "id": "s2433",
+            "id": "s202433",
             "series": "Paper 3 Variant 3",
+            "subject": "Business Studies",
+            "year": 2024,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 3,
+            "variantNumber": 3,
             "qp": {
               "name": "9609_s24_qp_33.pdf",
               "path": "/Past Paper/Business Studies/May-Jun/2024-May-Jun/9609_s24_qp_33.pdf"
@@ -772,8 +1078,14 @@
             }
           },
           {
-            "id": "s2441",
+            "id": "s202441",
             "series": "Paper 4 Variant 1",
+            "subject": "Business Studies",
+            "year": 2024,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 4,
+            "variantNumber": 1,
             "qp": {
               "name": "9609_s24_qp_41.pdf",
               "path": "/Past Paper/Business Studies/May-Jun/2024-May-Jun/9609_s24_qp_41.pdf"
@@ -785,8 +1097,14 @@
             "in": null
           },
           {
-            "id": "s2442",
+            "id": "s202442",
             "series": "Paper 4 Variant 2",
+            "subject": "Business Studies",
+            "year": 2024,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 4,
+            "variantNumber": 2,
             "qp": {
               "name": "9609_s24_qp_42.pdf",
               "path": "/Past Paper/Business Studies/May-Jun/2024-May-Jun/9609_s24_qp_42.pdf"
@@ -798,8 +1116,14 @@
             "in": null
           },
           {
-            "id": "s2443",
+            "id": "s202443",
             "series": "Paper 4 Variant 3",
+            "subject": "Business Studies",
+            "year": 2024,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 4,
+            "variantNumber": 3,
             "qp": {
               "name": "9609_s24_qp_43.pdf",
               "path": "/Past Paper/Business Studies/May-Jun/2024-May-Jun/9609_s24_qp_43.pdf"
@@ -827,8 +1151,14 @@
         },
         "paperList": [
           {
-            "id": "w2011",
+            "id": "w202011",
             "series": "Paper 1 Variant 1",
+            "subject": "Business Studies",
+            "year": 2020,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 1,
+            "variantNumber": 1,
             "qp": {
               "name": "9609_w20_qp_11.pdf",
               "path": "/Past Paper/Business Studies/Oct-Nov/2020-Oct-Nov/9609_w20_qp_11.pdf"
@@ -840,8 +1170,14 @@
             "in": null
           },
           {
-            "id": "w2012",
+            "id": "w202012",
             "series": "Paper 1 Variant 2",
+            "subject": "Business Studies",
+            "year": 2020,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 1,
+            "variantNumber": 2,
             "qp": {
               "name": "9609_w20_qp_12.pdf",
               "path": "/Past Paper/Business Studies/Oct-Nov/2020-Oct-Nov/9609_w20_qp_12.pdf"
@@ -853,8 +1189,14 @@
             "in": null
           },
           {
-            "id": "w2013",
+            "id": "w202013",
             "series": "Paper 1 Variant 3",
+            "subject": "Business Studies",
+            "year": 2020,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 1,
+            "variantNumber": 3,
             "qp": {
               "name": "9609_w20_qp_13.pdf",
               "path": "/Past Paper/Business Studies/Oct-Nov/2020-Oct-Nov/9609_w20_qp_13.pdf"
@@ -866,8 +1208,14 @@
             "in": null
           },
           {
-            "id": "w2021",
+            "id": "w202021",
             "series": "Paper 2 Variant 1",
+            "subject": "Business Studies",
+            "year": 2020,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 2,
+            "variantNumber": 1,
             "qp": {
               "name": "9609_w20_qp_21.pdf",
               "path": "/Past Paper/Business Studies/Oct-Nov/2020-Oct-Nov/9609_w20_qp_21.pdf"
@@ -879,8 +1227,14 @@
             "in": null
           },
           {
-            "id": "w2022",
+            "id": "w202022",
             "series": "Paper 2 Variant 2",
+            "subject": "Business Studies",
+            "year": 2020,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 2,
+            "variantNumber": 2,
             "qp": {
               "name": "9609_w20_qp_22.pdf",
               "path": "/Past Paper/Business Studies/Oct-Nov/2020-Oct-Nov/9609_w20_qp_22.pdf"
@@ -892,8 +1246,14 @@
             "in": null
           },
           {
-            "id": "w2023",
+            "id": "w202023",
             "series": "Paper 2 Variant 3",
+            "subject": "Business Studies",
+            "year": 2020,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 2,
+            "variantNumber": 3,
             "qp": {
               "name": "9609_w20_qp_23.pdf",
               "path": "/Past Paper/Business Studies/Oct-Nov/2020-Oct-Nov/9609_w20_qp_23.pdf"
@@ -905,8 +1265,14 @@
             "in": null
           },
           {
-            "id": "w2031",
+            "id": "w202031",
             "series": "Paper 3 Variant 1",
+            "subject": "Business Studies",
+            "year": 2020,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 3,
+            "variantNumber": 1,
             "qp": {
               "name": "9609_w20_qp_31.pdf",
               "path": "/Past Paper/Business Studies/Oct-Nov/2020-Oct-Nov/9609_w20_qp_31.pdf"
@@ -921,8 +1287,14 @@
             }
           },
           {
-            "id": "w2032",
+            "id": "w202032",
             "series": "Paper 3 Variant 2",
+            "subject": "Business Studies",
+            "year": 2020,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 3,
+            "variantNumber": 2,
             "qp": {
               "name": "9609_w20_qp_32.pdf",
               "path": "/Past Paper/Business Studies/Oct-Nov/2020-Oct-Nov/9609_w20_qp_32.pdf"
@@ -937,8 +1309,14 @@
             }
           },
           {
-            "id": "w2033",
+            "id": "w202033",
             "series": "Paper 3 Variant 3",
+            "subject": "Business Studies",
+            "year": 2020,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 3,
+            "variantNumber": 3,
             "qp": {
               "name": "9609_w20_qp_33.pdf",
               "path": "/Past Paper/Business Studies/Oct-Nov/2020-Oct-Nov/9609_w20_qp_33.pdf"
@@ -967,8 +1345,14 @@
         },
         "paperList": [
           {
-            "id": "w2111",
+            "id": "w202111",
             "series": "Paper 1 Variant 1",
+            "subject": "Business Studies",
+            "year": 2021,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 1,
+            "variantNumber": 1,
             "qp": {
               "name": "9609_w21_qp_11.pdf",
               "path": "/Past Paper/Business Studies/Oct-Nov/2021-Oct-Nov/9609_w21_qp_11.pdf"
@@ -980,8 +1364,14 @@
             "in": null
           },
           {
-            "id": "w2112",
+            "id": "w202112",
             "series": "Paper 1 Variant 2",
+            "subject": "Business Studies",
+            "year": 2021,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 1,
+            "variantNumber": 2,
             "qp": {
               "name": "9609_w21_qp_12.pdf",
               "path": "/Past Paper/Business Studies/Oct-Nov/2021-Oct-Nov/9609_w21_qp_12.pdf"
@@ -993,8 +1383,14 @@
             "in": null
           },
           {
-            "id": "w2113",
+            "id": "w202113",
             "series": "Paper 1 Variant 3",
+            "subject": "Business Studies",
+            "year": 2021,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 1,
+            "variantNumber": 3,
             "qp": {
               "name": "9609_w21_qp_13.pdf",
               "path": "/Past Paper/Business Studies/Oct-Nov/2021-Oct-Nov/9609_w21_qp_13.pdf"
@@ -1006,8 +1402,14 @@
             "in": null
           },
           {
-            "id": "w2121",
+            "id": "w202121",
             "series": "Paper 2 Variant 1",
+            "subject": "Business Studies",
+            "year": 2021,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 2,
+            "variantNumber": 1,
             "qp": {
               "name": "9609_w21_qp_21.pdf",
               "path": "/Past Paper/Business Studies/Oct-Nov/2021-Oct-Nov/9609_w21_qp_21.pdf"
@@ -1019,8 +1421,14 @@
             "in": null
           },
           {
-            "id": "w2122",
+            "id": "w202122",
             "series": "Paper 2 Variant 2",
+            "subject": "Business Studies",
+            "year": 2021,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 2,
+            "variantNumber": 2,
             "qp": {
               "name": "9609_w21_qp_22.pdf",
               "path": "/Past Paper/Business Studies/Oct-Nov/2021-Oct-Nov/9609_w21_qp_22.pdf"
@@ -1032,8 +1440,14 @@
             "in": null
           },
           {
-            "id": "w2123",
+            "id": "w202123",
             "series": "Paper 2 Variant 3",
+            "subject": "Business Studies",
+            "year": 2021,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 2,
+            "variantNumber": 3,
             "qp": {
               "name": "9609_w21_qp_23.pdf",
               "path": "/Past Paper/Business Studies/Oct-Nov/2021-Oct-Nov/9609_w21_qp_23.pdf"
@@ -1045,8 +1459,14 @@
             "in": null
           },
           {
-            "id": "w2131",
+            "id": "w202131",
             "series": "Paper 3 Variant 1",
+            "subject": "Business Studies",
+            "year": 2021,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 3,
+            "variantNumber": 1,
             "qp": {
               "name": "9609_w21_qp_31.pdf",
               "path": "/Past Paper/Business Studies/Oct-Nov/2021-Oct-Nov/9609_w21_qp_31.pdf"
@@ -1061,8 +1481,14 @@
             }
           },
           {
-            "id": "w2132",
+            "id": "w202132",
             "series": "Paper 3 Variant 2",
+            "subject": "Business Studies",
+            "year": 2021,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 3,
+            "variantNumber": 2,
             "qp": {
               "name": "9609_w21_qp_32.pdf",
               "path": "/Past Paper/Business Studies/Oct-Nov/2021-Oct-Nov/9609_w21_qp_32.pdf"
@@ -1077,8 +1503,14 @@
             }
           },
           {
-            "id": "w2133",
+            "id": "w202133",
             "series": "Paper 3 Variant 3",
+            "subject": "Business Studies",
+            "year": 2021,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 3,
+            "variantNumber": 3,
             "qp": {
               "name": "9609_w21_qp_33.pdf",
               "path": "/Past Paper/Business Studies/Oct-Nov/2021-Oct-Nov/9609_w21_qp_33.pdf"
@@ -1107,8 +1539,14 @@
         },
         "paperList": [
           {
-            "id": "w2211",
+            "id": "w202211",
             "series": "Paper 1 Variant 1",
+            "subject": "Business Studies",
+            "year": 2022,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 1,
+            "variantNumber": 1,
             "qp": {
               "name": "9609_w22_qp_11.pdf",
               "path": "/Past Paper/Business Studies/Oct-Nov/2022-Oct-Nov/9609_w22_qp_11.pdf"
@@ -1120,8 +1558,14 @@
             "in": null
           },
           {
-            "id": "w2212",
+            "id": "w202212",
             "series": "Paper 1 Variant 2",
+            "subject": "Business Studies",
+            "year": 2022,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 1,
+            "variantNumber": 2,
             "qp": {
               "name": "9609_w22_qp_12.pdf",
               "path": "/Past Paper/Business Studies/Oct-Nov/2022-Oct-Nov/9609_w22_qp_12.pdf"
@@ -1133,8 +1577,14 @@
             "in": null
           },
           {
-            "id": "w2213",
+            "id": "w202213",
             "series": "Paper 1 Variant 3",
+            "subject": "Business Studies",
+            "year": 2022,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 1,
+            "variantNumber": 3,
             "qp": {
               "name": "9609_w22_qp_13.pdf",
               "path": "/Past Paper/Business Studies/Oct-Nov/2022-Oct-Nov/9609_w22_qp_13.pdf"
@@ -1146,8 +1596,14 @@
             "in": null
           },
           {
-            "id": "w2221",
+            "id": "w202221",
             "series": "Paper 2 Variant 1",
+            "subject": "Business Studies",
+            "year": 2022,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 2,
+            "variantNumber": 1,
             "qp": {
               "name": "9609_w22_qp_21.pdf",
               "path": "/Past Paper/Business Studies/Oct-Nov/2022-Oct-Nov/9609_w22_qp_21.pdf"
@@ -1159,8 +1615,14 @@
             "in": null
           },
           {
-            "id": "w2222",
+            "id": "w202222",
             "series": "Paper 2 Variant 2",
+            "subject": "Business Studies",
+            "year": 2022,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 2,
+            "variantNumber": 2,
             "qp": {
               "name": "9609_w22_qp_22.pdf",
               "path": "/Past Paper/Business Studies/Oct-Nov/2022-Oct-Nov/9609_w22_qp_22.pdf"
@@ -1172,8 +1634,14 @@
             "in": null
           },
           {
-            "id": "w2223",
+            "id": "w202223",
             "series": "Paper 2 Variant 3",
+            "subject": "Business Studies",
+            "year": 2022,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 2,
+            "variantNumber": 3,
             "qp": {
               "name": "9609_w22_qp_23.pdf",
               "path": "/Past Paper/Business Studies/Oct-Nov/2022-Oct-Nov/9609_w22_qp_23.pdf"
@@ -1185,8 +1653,14 @@
             "in": null
           },
           {
-            "id": "w2231",
+            "id": "w202231",
             "series": "Paper 3 Variant 1",
+            "subject": "Business Studies",
+            "year": 2022,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 3,
+            "variantNumber": 1,
             "qp": {
               "name": "9609_w22_qp_31.pdf",
               "path": "/Past Paper/Business Studies/Oct-Nov/2022-Oct-Nov/9609_w22_qp_31.pdf"
@@ -1201,8 +1675,14 @@
             }
           },
           {
-            "id": "w2232",
+            "id": "w202232",
             "series": "Paper 3 Variant 2",
+            "subject": "Business Studies",
+            "year": 2022,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 3,
+            "variantNumber": 2,
             "qp": {
               "name": "9609_w22_qp_32.pdf",
               "path": "/Past Paper/Business Studies/Oct-Nov/2022-Oct-Nov/9609_w22_qp_32.pdf"
@@ -1217,8 +1697,14 @@
             }
           },
           {
-            "id": "w2233",
+            "id": "w202233",
             "series": "Paper 3 Variant 3",
+            "subject": "Business Studies",
+            "year": 2022,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 3,
+            "variantNumber": 3,
             "qp": {
               "name": "9609_w22_qp_33.pdf",
               "path": "/Past Paper/Business Studies/Oct-Nov/2022-Oct-Nov/9609_w22_qp_33.pdf"
@@ -1247,8 +1733,14 @@
         },
         "paperList": [
           {
-            "id": "w2311",
+            "id": "w202311",
             "series": "Paper 1 Variant 1",
+            "subject": "Business Studies",
+            "year": 2023,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 1,
+            "variantNumber": 1,
             "qp": {
               "name": "9609_w23_qp_11.pdf",
               "path": "/Past Paper/Business Studies/Oct-Nov/2023-Oct-Nov/9609_w23_qp_11.pdf"
@@ -1260,8 +1752,14 @@
             "in": null
           },
           {
-            "id": "w2312",
+            "id": "w202312",
             "series": "Paper 1 Variant 2",
+            "subject": "Business Studies",
+            "year": 2023,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 1,
+            "variantNumber": 2,
             "qp": {
               "name": "9609_w23_qp_12.pdf",
               "path": "/Past Paper/Business Studies/Oct-Nov/2023-Oct-Nov/9609_w23_qp_12.pdf"
@@ -1273,8 +1771,14 @@
             "in": null
           },
           {
-            "id": "w2313",
+            "id": "w202313",
             "series": "Paper 1 Variant 3",
+            "subject": "Business Studies",
+            "year": 2023,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 1,
+            "variantNumber": 3,
             "qp": {
               "name": "9609_w23_qp_13.pdf",
               "path": "/Past Paper/Business Studies/Oct-Nov/2023-Oct-Nov/9609_w23_qp_13.pdf"
@@ -1286,8 +1790,14 @@
             "in": null
           },
           {
-            "id": "w2321",
+            "id": "w202321",
             "series": "Paper 2 Variant 1",
+            "subject": "Business Studies",
+            "year": 2023,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 2,
+            "variantNumber": 1,
             "qp": {
               "name": "9609_w23_qp_21.pdf",
               "path": "/Past Paper/Business Studies/Oct-Nov/2023-Oct-Nov/9609_w23_qp_21.pdf"
@@ -1299,8 +1809,14 @@
             "in": null
           },
           {
-            "id": "w2322",
+            "id": "w202322",
             "series": "Paper 2 Variant 2",
+            "subject": "Business Studies",
+            "year": 2023,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 2,
+            "variantNumber": 2,
             "qp": {
               "name": "9609_w23_qp_22.pdf",
               "path": "/Past Paper/Business Studies/Oct-Nov/2023-Oct-Nov/9609_w23_qp_22.pdf"
@@ -1312,8 +1828,14 @@
             "in": null
           },
           {
-            "id": "w2323",
+            "id": "w202323",
             "series": "Paper 2 Variant 3",
+            "subject": "Business Studies",
+            "year": 2023,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 2,
+            "variantNumber": 3,
             "qp": {
               "name": "9609_w23_qp_23.pdf",
               "path": "/Past Paper/Business Studies/Oct-Nov/2023-Oct-Nov/9609_w23_qp_23.pdf"
@@ -1325,8 +1847,14 @@
             "in": null
           },
           {
-            "id": "w2331",
+            "id": "w202331",
             "series": "Paper 3 Variant 1",
+            "subject": "Business Studies",
+            "year": 2023,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 3,
+            "variantNumber": 1,
             "qp": {
               "name": "9609_w23_qp_31.pdf",
               "path": "/Past Paper/Business Studies/Oct-Nov/2023-Oct-Nov/9609_w23_qp_31.pdf"
@@ -1341,8 +1869,14 @@
             }
           },
           {
-            "id": "w2332",
+            "id": "w202332",
             "series": "Paper 3 Variant 2",
+            "subject": "Business Studies",
+            "year": 2023,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 3,
+            "variantNumber": 2,
             "qp": {
               "name": "9609_w23_qp_32.pdf",
               "path": "/Past Paper/Business Studies/Oct-Nov/2023-Oct-Nov/9609_w23_qp_32.pdf"
@@ -1357,8 +1891,14 @@
             }
           },
           {
-            "id": "w2333",
+            "id": "w202333",
             "series": "Paper 3 Variant 3",
+            "subject": "Business Studies",
+            "year": 2023,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 3,
+            "variantNumber": 3,
             "qp": {
               "name": "9609_w23_qp_33.pdf",
               "path": "/Past Paper/Business Studies/Oct-Nov/2023-Oct-Nov/9609_w23_qp_33.pdf"
@@ -1373,8 +1913,14 @@
             }
           },
           {
-            "id": "w2341",
+            "id": "w202341",
             "series": "Paper 4 Variant 1",
+            "subject": "Business Studies",
+            "year": 2023,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 4,
+            "variantNumber": 1,
             "qp": {
               "name": "9609_w23_qp_41.pdf",
               "path": "/Past Paper/Business Studies/Oct-Nov/2023-Oct-Nov/9609_w23_qp_41.pdf"
@@ -1386,8 +1932,14 @@
             "in": null
           },
           {
-            "id": "w2342",
+            "id": "w202342",
             "series": "Paper 4 Variant 2",
+            "subject": "Business Studies",
+            "year": 2023,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 4,
+            "variantNumber": 2,
             "qp": {
               "name": "9609_w23_qp_42.pdf",
               "path": "/Past Paper/Business Studies/Oct-Nov/2023-Oct-Nov/9609_w23_qp_42.pdf"
@@ -1399,8 +1951,14 @@
             "in": null
           },
           {
-            "id": "w2343",
+            "id": "w202343",
             "series": "Paper 4 Variant 3",
+            "subject": "Business Studies",
+            "year": 2023,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 4,
+            "variantNumber": 3,
             "qp": {
               "name": "9609_w23_qp_43.pdf",
               "path": "/Past Paper/Business Studies/Oct-Nov/2023-Oct-Nov/9609_w23_qp_43.pdf"
@@ -1423,8 +1981,14 @@
         },
         "paperList": [
           {
-            "id": "w2411",
+            "id": "w202411",
             "series": "Paper 1 Variant 1",
+            "subject": "Business Studies",
+            "year": 2024,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 1,
+            "variantNumber": 1,
             "qp": {
               "name": "9609_w24_qp_11.pdf",
               "path": "/Past Paper/Business Studies/Oct-Nov/2024-Oct-Nov/9609_w24_qp_11.pdf"
@@ -1436,8 +2000,14 @@
             "in": null
           },
           {
-            "id": "w2412",
+            "id": "w202412",
             "series": "Paper 1 Variant 2",
+            "subject": "Business Studies",
+            "year": 2024,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 1,
+            "variantNumber": 2,
             "qp": {
               "name": "9609_w24_qp_12.pdf",
               "path": "/Past Paper/Business Studies/Oct-Nov/2024-Oct-Nov/9609_w24_qp_12.pdf"
@@ -1449,8 +2019,14 @@
             "in": null
           },
           {
-            "id": "w2413",
+            "id": "w202413",
             "series": "Paper 1 Variant 3",
+            "subject": "Business Studies",
+            "year": 2024,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 1,
+            "variantNumber": 3,
             "qp": {
               "name": "9609_w24_qp_13.pdf",
               "path": "/Past Paper/Business Studies/Oct-Nov/2024-Oct-Nov/9609_w24_qp_13.pdf"
@@ -1462,8 +2038,14 @@
             "in": null
           },
           {
-            "id": "w2421",
+            "id": "w202421",
             "series": "Paper 2 Variant 1",
+            "subject": "Business Studies",
+            "year": 2024,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 2,
+            "variantNumber": 1,
             "qp": {
               "name": "9609_w24_qp_21.pdf",
               "path": "/Past Paper/Business Studies/Oct-Nov/2024-Oct-Nov/9609_w24_qp_21.pdf"
@@ -1475,8 +2057,14 @@
             "in": null
           },
           {
-            "id": "w2422",
+            "id": "w202422",
             "series": "Paper 2 Variant 2",
+            "subject": "Business Studies",
+            "year": 2024,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 2,
+            "variantNumber": 2,
             "qp": {
               "name": "9609_w24_qp_22.pdf",
               "path": "/Past Paper/Business Studies/Oct-Nov/2024-Oct-Nov/9609_w24_qp_22.pdf"
@@ -1488,8 +2076,14 @@
             "in": null
           },
           {
-            "id": "w2423",
+            "id": "w202423",
             "series": "Paper 2 Variant 3",
+            "subject": "Business Studies",
+            "year": 2024,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 2,
+            "variantNumber": 3,
             "qp": {
               "name": "9609_w24_qp_23.pdf",
               "path": "/Past Paper/Business Studies/Oct-Nov/2024-Oct-Nov/9609_w24_qp_23.pdf"
@@ -1501,8 +2095,14 @@
             "in": null
           },
           {
-            "id": "w2431",
+            "id": "w202431",
             "series": "Paper 3 Variant 1",
+            "subject": "Business Studies",
+            "year": 2024,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 3,
+            "variantNumber": 1,
             "qp": {
               "name": "9609_w24_qp_31.pdf",
               "path": "/Past Paper/Business Studies/Oct-Nov/2024-Oct-Nov/9609_w24_qp_31.pdf"
@@ -1517,8 +2117,14 @@
             }
           },
           {
-            "id": "w2432",
+            "id": "w202432",
             "series": "Paper 3 Variant 2",
+            "subject": "Business Studies",
+            "year": 2024,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 3,
+            "variantNumber": 2,
             "qp": {
               "name": "9609_w24_qp_32.pdf",
               "path": "/Past Paper/Business Studies/Oct-Nov/2024-Oct-Nov/9609_w24_qp_32.pdf"
@@ -1533,8 +2139,14 @@
             }
           },
           {
-            "id": "w2433",
+            "id": "w202433",
             "series": "Paper 3 Variant 3",
+            "subject": "Business Studies",
+            "year": 2024,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 3,
+            "variantNumber": 3,
             "qp": {
               "name": "9609_w24_qp_33.pdf",
               "path": "/Past Paper/Business Studies/Oct-Nov/2024-Oct-Nov/9609_w24_qp_33.pdf"
@@ -1549,8 +2161,14 @@
             }
           },
           {
-            "id": "w2441",
+            "id": "w202441",
             "series": "Paper 4 Variant 1",
+            "subject": "Business Studies",
+            "year": 2024,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 4,
+            "variantNumber": 1,
             "qp": {
               "name": "9609_w24_qp_41.pdf",
               "path": "/Past Paper/Business Studies/Oct-Nov/2024-Oct-Nov/9609_w24_qp_41.pdf"
@@ -1562,8 +2180,14 @@
             "in": null
           },
           {
-            "id": "w2442",
+            "id": "w202442",
             "series": "Paper 4 Variant 2",
+            "subject": "Business Studies",
+            "year": 2024,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 4,
+            "variantNumber": 2,
             "qp": {
               "name": "9609_w24_qp_42.pdf",
               "path": "/Past Paper/Business Studies/Oct-Nov/2024-Oct-Nov/9609_w24_qp_42.pdf"
@@ -1575,8 +2199,14 @@
             "in": null
           },
           {
-            "id": "w2443",
+            "id": "w202443",
             "series": "Paper 4 Variant 3",
+            "subject": "Business Studies",
+            "year": 2024,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 4,
+            "variantNumber": 3,
             "qp": {
               "name": "9609_w24_qp_43.pdf",
               "path": "/Past Paper/Business Studies/Oct-Nov/2024-Oct-Nov/9609_w24_qp_43.pdf"
@@ -1606,8 +2236,14 @@
         },
         "paperList": [
           {
-            "id": "s2111",
+            "id": "s202111",
             "series": "Paper 1 Variant 1",
+            "subject": "Computer",
+            "year": 2021,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 1,
+            "variantNumber": 1,
             "qp": {
               "name": "9618_s21_qp_11.pdf",
               "path": "/Past Paper/Computer/May-Jun/2021-May-Jun/9618_s21_qp_11.pdf"
@@ -1619,8 +2255,14 @@
             "in": null
           },
           {
-            "id": "s2112",
+            "id": "s202112",
             "series": "Paper 1 Variant 2",
+            "subject": "Computer",
+            "year": 2021,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 1,
+            "variantNumber": 2,
             "qp": {
               "name": "9618_s21_qp_12.pdf",
               "path": "/Past Paper/Computer/May-Jun/2021-May-Jun/9618_s21_qp_12.pdf"
@@ -1632,8 +2274,14 @@
             "in": null
           },
           {
-            "id": "s2113",
+            "id": "s202113",
             "series": "Paper 1 Variant 3",
+            "subject": "Computer",
+            "year": 2021,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 1,
+            "variantNumber": 3,
             "qp": {
               "name": "9618_s21_qp_13.pdf",
               "path": "/Past Paper/Computer/May-Jun/2021-May-Jun/9618_s21_qp_13.pdf"
@@ -1645,8 +2293,14 @@
             "in": null
           },
           {
-            "id": "s2121",
+            "id": "s202121",
             "series": "Paper 2 Variant 1",
+            "subject": "Computer",
+            "year": 2021,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 2,
+            "variantNumber": 1,
             "qp": {
               "name": "9618_s21_qp_21.pdf",
               "path": "/Past Paper/Computer/May-Jun/2021-May-Jun/9618_s21_qp_21.pdf"
@@ -1661,8 +2315,14 @@
             }
           },
           {
-            "id": "s2122",
+            "id": "s202122",
             "series": "Paper 2 Variant 2",
+            "subject": "Computer",
+            "year": 2021,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 2,
+            "variantNumber": 2,
             "qp": {
               "name": "9618_s21_qp_22.pdf",
               "path": "/Past Paper/Computer/May-Jun/2021-May-Jun/9618_s21_qp_22.pdf"
@@ -1677,8 +2337,14 @@
             }
           },
           {
-            "id": "s2123",
+            "id": "s202123",
             "series": "Paper 2 Variant 3",
+            "subject": "Computer",
+            "year": 2021,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 2,
+            "variantNumber": 3,
             "qp": {
               "name": "9618_s21_qp_23.pdf",
               "path": "/Past Paper/Computer/May-Jun/2021-May-Jun/9618_s21_qp_23.pdf"
@@ -1693,8 +2359,14 @@
             }
           },
           {
-            "id": "s2131",
+            "id": "s202131",
             "series": "Paper 3 Variant 1",
+            "subject": "Computer",
+            "year": 2021,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 3,
+            "variantNumber": 1,
             "qp": {
               "name": "9618_s21_qp_31.pdf",
               "path": "/Past Paper/Computer/May-Jun/2021-May-Jun/9618_s21_qp_31.pdf"
@@ -1706,8 +2378,14 @@
             "in": null
           },
           {
-            "id": "s2132",
+            "id": "s202132",
             "series": "Paper 3 Variant 2",
+            "subject": "Computer",
+            "year": 2021,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 3,
+            "variantNumber": 2,
             "qp": {
               "name": "9618_s21_qp_32.pdf",
               "path": "/Past Paper/Computer/May-Jun/2021-May-Jun/9618_s21_qp_32.pdf"
@@ -1719,8 +2397,14 @@
             "in": null
           },
           {
-            "id": "s2133",
+            "id": "s202133",
             "series": "Paper 3 Variant 3",
+            "subject": "Computer",
+            "year": 2021,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 3,
+            "variantNumber": 3,
             "qp": {
               "name": "9618_s21_qp_33.pdf",
               "path": "/Past Paper/Computer/May-Jun/2021-May-Jun/9618_s21_qp_33.pdf"
@@ -1732,8 +2416,14 @@
             "in": null
           },
           {
-            "id": "s2141",
+            "id": "s202141",
             "series": "Paper 4 Variant 1",
+            "subject": "Computer",
+            "year": 2021,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 4,
+            "variantNumber": 1,
             "qp": {
               "name": "9618_s21_qp_41.pdf",
               "path": "/Past Paper/Computer/May-Jun/2021-May-Jun/9618_s21_qp_41.pdf"
@@ -1745,8 +2435,14 @@
             "in": null
           },
           {
-            "id": "s2142",
+            "id": "s202142",
             "series": "Paper 4 Variant 2",
+            "subject": "Computer",
+            "year": 2021,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 4,
+            "variantNumber": 2,
             "qp": {
               "name": "9618_s21_qp_42.pdf",
               "path": "/Past Paper/Computer/May-Jun/2021-May-Jun/9618_s21_qp_42.pdf"
@@ -1758,8 +2454,14 @@
             "in": null
           },
           {
-            "id": "s2143",
+            "id": "s202143",
             "series": "Paper 4 Variant 3",
+            "subject": "Computer",
+            "year": 2021,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 4,
+            "variantNumber": 3,
             "qp": {
               "name": "9618_s21_qp_43.pdf",
               "path": "/Past Paper/Computer/May-Jun/2021-May-Jun/9618_s21_qp_43.pdf"
@@ -1785,8 +2487,14 @@
         },
         "paperList": [
           {
-            "id": "s2111",
+            "id": "s202111",
             "series": "Paper 1 Variant 1",
+            "subject": "Computer",
+            "year": 2021,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 1,
+            "variantNumber": 1,
             "qp": {
               "name": "9618_s21_qp_11.pdf",
               "path": "/Past Paper/Computer/May-Jun/2022-May-Jun/9618_s21_qp_11.pdf"
@@ -1798,8 +2506,14 @@
             "in": null
           },
           {
-            "id": "s2112",
+            "id": "s202112",
             "series": "Paper 1 Variant 2",
+            "subject": "Computer",
+            "year": 2021,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 1,
+            "variantNumber": 2,
             "qp": {
               "name": "9618_s21_qp_12.pdf",
               "path": "/Past Paper/Computer/May-Jun/2022-May-Jun/9618_s21_qp_12.pdf"
@@ -1811,8 +2525,14 @@
             "in": null
           },
           {
-            "id": "s2113",
+            "id": "s202113",
             "series": "Paper 1 Variant 3",
+            "subject": "Computer",
+            "year": 2021,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 1,
+            "variantNumber": 3,
             "qp": {
               "name": "9618_s21_qp_13.pdf",
               "path": "/Past Paper/Computer/May-Jun/2022-May-Jun/9618_s21_qp_13.pdf"
@@ -1824,8 +2544,14 @@
             "in": null
           },
           {
-            "id": "s2121",
+            "id": "s202121",
             "series": "Paper 2 Variant 1",
+            "subject": "Computer",
+            "year": 2021,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 2,
+            "variantNumber": 1,
             "qp": {
               "name": "9618_s21_qp_21.pdf",
               "path": "/Past Paper/Computer/May-Jun/2022-May-Jun/9618_s21_qp_21.pdf"
@@ -1840,8 +2566,14 @@
             }
           },
           {
-            "id": "s2122",
+            "id": "s202122",
             "series": "Paper 2 Variant 2",
+            "subject": "Computer",
+            "year": 2021,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 2,
+            "variantNumber": 2,
             "qp": {
               "name": "9618_s21_qp_22.pdf",
               "path": "/Past Paper/Computer/May-Jun/2022-May-Jun/9618_s21_qp_22.pdf"
@@ -1856,8 +2588,14 @@
             }
           },
           {
-            "id": "s2123",
+            "id": "s202123",
             "series": "Paper 2 Variant 3",
+            "subject": "Computer",
+            "year": 2021,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 2,
+            "variantNumber": 3,
             "qp": {
               "name": "9618_s21_qp_23.pdf",
               "path": "/Past Paper/Computer/May-Jun/2022-May-Jun/9618_s21_qp_23.pdf"
@@ -1872,8 +2610,14 @@
             }
           },
           {
-            "id": "s2131",
+            "id": "s202131",
             "series": "Paper 3 Variant 1",
+            "subject": "Computer",
+            "year": 2021,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 3,
+            "variantNumber": 1,
             "qp": {
               "name": "9618_s21_qp_31.pdf",
               "path": "/Past Paper/Computer/May-Jun/2022-May-Jun/9618_s21_qp_31.pdf"
@@ -1885,8 +2629,14 @@
             "in": null
           },
           {
-            "id": "s2132",
+            "id": "s202132",
             "series": "Paper 3 Variant 2",
+            "subject": "Computer",
+            "year": 2021,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 3,
+            "variantNumber": 2,
             "qp": {
               "name": "9618_s21_qp_32.pdf",
               "path": "/Past Paper/Computer/May-Jun/2022-May-Jun/9618_s21_qp_32.pdf"
@@ -1898,8 +2648,14 @@
             "in": null
           },
           {
-            "id": "s2133",
+            "id": "s202133",
             "series": "Paper 3 Variant 3",
+            "subject": "Computer",
+            "year": 2021,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 3,
+            "variantNumber": 3,
             "qp": {
               "name": "9618_s21_qp_33.pdf",
               "path": "/Past Paper/Computer/May-Jun/2022-May-Jun/9618_s21_qp_33.pdf"
@@ -1911,8 +2667,14 @@
             "in": null
           },
           {
-            "id": "s2141",
+            "id": "s202141",
             "series": "Paper 4 Variant 1",
+            "subject": "Computer",
+            "year": 2021,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 4,
+            "variantNumber": 1,
             "qp": {
               "name": "9618_s21_qp_41.pdf",
               "path": "/Past Paper/Computer/May-Jun/2022-May-Jun/9618_s21_qp_41.pdf"
@@ -1924,8 +2686,14 @@
             "in": null
           },
           {
-            "id": "s2142",
+            "id": "s202142",
             "series": "Paper 4 Variant 2",
+            "subject": "Computer",
+            "year": 2021,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 4,
+            "variantNumber": 2,
             "qp": {
               "name": "9618_s21_qp_42.pdf",
               "path": "/Past Paper/Computer/May-Jun/2022-May-Jun/9618_s21_qp_42.pdf"
@@ -1937,8 +2705,14 @@
             "in": null
           },
           {
-            "id": "s2143",
+            "id": "s202143",
             "series": "Paper 4 Variant 3",
+            "subject": "Computer",
+            "year": 2021,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 4,
+            "variantNumber": 3,
             "qp": {
               "name": "9618_s21_qp_43.pdf",
               "path": "/Past Paper/Computer/May-Jun/2022-May-Jun/9618_s21_qp_43.pdf"
@@ -1964,8 +2738,14 @@
         },
         "paperList": [
           {
-            "id": "s2311",
+            "id": "s202311",
             "series": "Paper 1 Variant 1",
+            "subject": "Computer",
+            "year": 2023,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 1,
+            "variantNumber": 1,
             "qp": {
               "name": "9618_s23_qp_11.pdf",
               "path": "/Past Paper/Computer/May-Jun/2023-May-Jun/9618_s23_qp_11.pdf"
@@ -1977,8 +2757,14 @@
             "in": null
           },
           {
-            "id": "s2312",
+            "id": "s202312",
             "series": "Paper 1 Variant 2",
+            "subject": "Computer",
+            "year": 2023,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 1,
+            "variantNumber": 2,
             "qp": {
               "name": "9618_s23_qp_12.pdf",
               "path": "/Past Paper/Computer/May-Jun/2023-May-Jun/9618_s23_qp_12.pdf"
@@ -1990,8 +2776,14 @@
             "in": null
           },
           {
-            "id": "s2313",
+            "id": "s202313",
             "series": "Paper 1 Variant 3",
+            "subject": "Computer",
+            "year": 2023,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 1,
+            "variantNumber": 3,
             "qp": {
               "name": "9618_s23_qp_13.pdf",
               "path": "/Past Paper/Computer/May-Jun/2023-May-Jun/9618_s23_qp_13.pdf"
@@ -2003,8 +2795,14 @@
             "in": null
           },
           {
-            "id": "s2321",
+            "id": "s202321",
             "series": "Paper 2 Variant 1",
+            "subject": "Computer",
+            "year": 2023,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 2,
+            "variantNumber": 1,
             "qp": {
               "name": "9618_s23_qp_21.pdf",
               "path": "/Past Paper/Computer/May-Jun/2023-May-Jun/9618_s23_qp_21.pdf"
@@ -2019,8 +2817,14 @@
             }
           },
           {
-            "id": "s2322",
+            "id": "s202322",
             "series": "Paper 2 Variant 2",
+            "subject": "Computer",
+            "year": 2023,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 2,
+            "variantNumber": 2,
             "qp": {
               "name": "9618_s23_qp_22.pdf",
               "path": "/Past Paper/Computer/May-Jun/2023-May-Jun/9618_s23_qp_22.pdf"
@@ -2035,8 +2839,14 @@
             }
           },
           {
-            "id": "s2323",
+            "id": "s202323",
             "series": "Paper 2 Variant 3",
+            "subject": "Computer",
+            "year": 2023,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 2,
+            "variantNumber": 3,
             "qp": {
               "name": "9618_s23_qp_23.pdf",
               "path": "/Past Paper/Computer/May-Jun/2023-May-Jun/9618_s23_qp_23.pdf"
@@ -2051,8 +2861,14 @@
             }
           },
           {
-            "id": "s2331",
+            "id": "s202331",
             "series": "Paper 3 Variant 1",
+            "subject": "Computer",
+            "year": 2023,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 3,
+            "variantNumber": 1,
             "qp": {
               "name": "9618_s23_qp_31.pdf",
               "path": "/Past Paper/Computer/May-Jun/2023-May-Jun/9618_s23_qp_31.pdf"
@@ -2064,8 +2880,14 @@
             "in": null
           },
           {
-            "id": "s2332",
+            "id": "s202332",
             "series": "Paper 3 Variant 2",
+            "subject": "Computer",
+            "year": 2023,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 3,
+            "variantNumber": 2,
             "qp": {
               "name": "9618_s23_qp_32.pdf",
               "path": "/Past Paper/Computer/May-Jun/2023-May-Jun/9618_s23_qp_32.pdf"
@@ -2077,8 +2899,14 @@
             "in": null
           },
           {
-            "id": "s2333",
+            "id": "s202333",
             "series": "Paper 3 Variant 3",
+            "subject": "Computer",
+            "year": 2023,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 3,
+            "variantNumber": 3,
             "qp": {
               "name": "9618_s23_qp_33.pdf",
               "path": "/Past Paper/Computer/May-Jun/2023-May-Jun/9618_s23_qp_33.pdf"
@@ -2090,8 +2918,14 @@
             "in": null
           },
           {
-            "id": "s2341",
+            "id": "s202341",
             "series": "Paper 4 Variant 1",
+            "subject": "Computer",
+            "year": 2023,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 4,
+            "variantNumber": 1,
             "qp": {
               "name": "9618_s23_qp_41.pdf",
               "path": "/Past Paper/Computer/May-Jun/2023-May-Jun/9618_s23_qp_41.pdf"
@@ -2103,8 +2937,14 @@
             "in": null
           },
           {
-            "id": "s2342",
+            "id": "s202342",
             "series": "Paper 4 Variant 2",
+            "subject": "Computer",
+            "year": 2023,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 4,
+            "variantNumber": 2,
             "qp": {
               "name": "9618_s23_qp_42.pdf",
               "path": "/Past Paper/Computer/May-Jun/2023-May-Jun/9618_s23_qp_42.pdf"
@@ -2116,8 +2956,14 @@
             "in": null
           },
           {
-            "id": "s2343",
+            "id": "s202343",
             "series": "Paper 4 Variant 3",
+            "subject": "Computer",
+            "year": 2023,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 4,
+            "variantNumber": 3,
             "qp": {
               "name": "9618_s23_qp_43.pdf",
               "path": "/Past Paper/Computer/May-Jun/2023-May-Jun/9618_s23_qp_43.pdf"
@@ -2137,8 +2983,14 @@
         },
         "paperList": [
           {
-            "id": "s2411",
+            "id": "s202411",
             "series": "Paper 1 Variant 1",
+            "subject": "Computer",
+            "year": 2024,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 1,
+            "variantNumber": 1,
             "qp": {
               "name": "9618_s24_qp_11.pdf",
               "path": "/Past Paper/Computer/May-Jun/2024-May-June/9618_s24_qp_11.pdf"
@@ -2150,8 +3002,14 @@
             "in": null
           },
           {
-            "id": "s2412",
+            "id": "s202412",
             "series": "Paper 1 Variant 2",
+            "subject": "Computer",
+            "year": 2024,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 1,
+            "variantNumber": 2,
             "qp": {
               "name": "9618_s24_qp_12.pdf",
               "path": "/Past Paper/Computer/May-Jun/2024-May-June/9618_s24_qp_12.pdf"
@@ -2163,8 +3021,14 @@
             "in": null
           },
           {
-            "id": "s2413",
+            "id": "s202413",
             "series": "Paper 1 Variant 3",
+            "subject": "Computer",
+            "year": 2024,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 1,
+            "variantNumber": 3,
             "qp": {
               "name": "9618_s24_qp_13.pdf",
               "path": "/Past Paper/Computer/May-Jun/2024-May-June/9618_s24_qp_13.pdf"
@@ -2176,8 +3040,14 @@
             "in": null
           },
           {
-            "id": "s2421",
+            "id": "s202421",
             "series": "Paper 2 Variant 1",
+            "subject": "Computer",
+            "year": 2024,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 2,
+            "variantNumber": 1,
             "qp": {
               "name": "9618_s24_qp_21.pdf",
               "path": "/Past Paper/Computer/May-Jun/2024-May-June/9618_s24_qp_21.pdf"
@@ -2192,8 +3062,14 @@
             }
           },
           {
-            "id": "s2422",
+            "id": "s202422",
             "series": "Paper 2 Variant 2",
+            "subject": "Computer",
+            "year": 2024,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 2,
+            "variantNumber": 2,
             "qp": {
               "name": "9618_s24_qp_22.pdf",
               "path": "/Past Paper/Computer/May-Jun/2024-May-June/9618_s24_qp_22.pdf"
@@ -2208,8 +3084,14 @@
             }
           },
           {
-            "id": "s2423",
+            "id": "s202423",
             "series": "Paper 2 Variant 3",
+            "subject": "Computer",
+            "year": 2024,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 2,
+            "variantNumber": 3,
             "qp": {
               "name": "9618_s24_qp_23.pdf",
               "path": "/Past Paper/Computer/May-Jun/2024-May-June/9618_s24_qp_23.pdf"
@@ -2224,8 +3106,14 @@
             }
           },
           {
-            "id": "s2431",
+            "id": "s202431",
             "series": "Paper 3 Variant 1",
+            "subject": "Computer",
+            "year": 2024,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 3,
+            "variantNumber": 1,
             "qp": {
               "name": "9618_s24_qp_31.pdf",
               "path": "/Past Paper/Computer/May-Jun/2024-May-June/9618_s24_qp_31.pdf"
@@ -2237,8 +3125,14 @@
             "in": null
           },
           {
-            "id": "s2432",
+            "id": "s202432",
             "series": "Paper 3 Variant 2",
+            "subject": "Computer",
+            "year": 2024,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 3,
+            "variantNumber": 2,
             "qp": {
               "name": "9618_s24_qp_32.pdf",
               "path": "/Past Paper/Computer/May-Jun/2024-May-June/9618_s24_qp_32.pdf"
@@ -2250,8 +3144,14 @@
             "in": null
           },
           {
-            "id": "s2433",
+            "id": "s202433",
             "series": "Paper 3 Variant 3",
+            "subject": "Computer",
+            "year": 2024,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 3,
+            "variantNumber": 3,
             "qp": {
               "name": "9618_s24_qp_33.pdf",
               "path": "/Past Paper/Computer/May-Jun/2024-May-June/9618_s24_qp_33.pdf"
@@ -2263,8 +3163,14 @@
             "in": null
           },
           {
-            "id": "s2441",
+            "id": "s202441",
             "series": "Paper 4 Variant 1",
+            "subject": "Computer",
+            "year": 2024,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 4,
+            "variantNumber": 1,
             "qp": {
               "name": "9618_s24_qp_41.pdf",
               "path": "/Past Paper/Computer/May-Jun/2024-May-June/9618_s24_qp_41.pdf"
@@ -2276,8 +3182,14 @@
             "in": null
           },
           {
-            "id": "s2442",
+            "id": "s202442",
             "series": "Paper 4 Variant 2",
+            "subject": "Computer",
+            "year": 2024,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 4,
+            "variantNumber": 2,
             "qp": {
               "name": "9618_s24_qp_42.pdf",
               "path": "/Past Paper/Computer/May-Jun/2024-May-June/9618_s24_qp_42.pdf"
@@ -2289,8 +3201,14 @@
             "in": null
           },
           {
-            "id": "s2443",
+            "id": "s202443",
             "series": "Paper 4 Variant 3",
+            "subject": "Computer",
+            "year": 2024,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 4,
+            "variantNumber": 3,
             "qp": {
               "name": "9618_s24_qp_43.pdf",
               "path": "/Past Paper/Computer/May-Jun/2024-May-June/9618_s24_qp_43.pdf"
@@ -2315,8 +3233,14 @@
         },
         "paperList": [
           {
-            "id": "w2111",
+            "id": "w202111",
             "series": "Paper 1 Variant 1",
+            "subject": "Computer",
+            "year": 2021,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 1,
+            "variantNumber": 1,
             "qp": {
               "name": "9618_w21_qp_11.pdf",
               "path": "/Past Paper/Computer/Oct-Nov/2021-Oct-Nov/9618_w21_qp_11.pdf"
@@ -2328,8 +3252,14 @@
             "in": null
           },
           {
-            "id": "w2112",
+            "id": "w202112",
             "series": "Paper 1 Variant 2",
+            "subject": "Computer",
+            "year": 2021,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 1,
+            "variantNumber": 2,
             "qp": {
               "name": "9618_w21_qp_12.pdf",
               "path": "/Past Paper/Computer/Oct-Nov/2021-Oct-Nov/9618_w21_qp_12.pdf"
@@ -2341,8 +3271,14 @@
             "in": null
           },
           {
-            "id": "w2113",
+            "id": "w202113",
             "series": "Paper 1 Variant 3",
+            "subject": "Computer",
+            "year": 2021,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 1,
+            "variantNumber": 3,
             "qp": {
               "name": "9618_w21_qp_13.pdf",
               "path": "/Past Paper/Computer/Oct-Nov/2021-Oct-Nov/9618_w21_qp_13.pdf"
@@ -2354,8 +3290,14 @@
             "in": null
           },
           {
-            "id": "w2121",
+            "id": "w202121",
             "series": "Paper 2 Variant 1",
+            "subject": "Computer",
+            "year": 2021,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 2,
+            "variantNumber": 1,
             "qp": {
               "name": "9618_w21_qp_21.pdf",
               "path": "/Past Paper/Computer/Oct-Nov/2021-Oct-Nov/9618_w21_qp_21.pdf"
@@ -2370,8 +3312,14 @@
             }
           },
           {
-            "id": "w2122",
+            "id": "w202122",
             "series": "Paper 2 Variant 2",
+            "subject": "Computer",
+            "year": 2021,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 2,
+            "variantNumber": 2,
             "qp": {
               "name": "9618_w21_qp_22.pdf",
               "path": "/Past Paper/Computer/Oct-Nov/2021-Oct-Nov/9618_w21_qp_22.pdf"
@@ -2386,8 +3334,14 @@
             }
           },
           {
-            "id": "w2123",
+            "id": "w202123",
             "series": "Paper 2 Variant 3",
+            "subject": "Computer",
+            "year": 2021,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 2,
+            "variantNumber": 3,
             "qp": {
               "name": "9618_w21_qp_23.pdf",
               "path": "/Past Paper/Computer/Oct-Nov/2021-Oct-Nov/9618_w21_qp_23.pdf"
@@ -2402,8 +3356,14 @@
             }
           },
           {
-            "id": "w2131",
+            "id": "w202131",
             "series": "Paper 3 Variant 1",
+            "subject": "Computer",
+            "year": 2021,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 3,
+            "variantNumber": 1,
             "qp": {
               "name": "9618_w21_qp_31.pdf",
               "path": "/Past Paper/Computer/Oct-Nov/2021-Oct-Nov/9618_w21_qp_31.pdf"
@@ -2415,8 +3375,14 @@
             "in": null
           },
           {
-            "id": "w2132",
+            "id": "w202132",
             "series": "Paper 3 Variant 2",
+            "subject": "Computer",
+            "year": 2021,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 3,
+            "variantNumber": 2,
             "qp": {
               "name": "9618_w21_qp_32.pdf",
               "path": "/Past Paper/Computer/Oct-Nov/2021-Oct-Nov/9618_w21_qp_32.pdf"
@@ -2428,8 +3394,14 @@
             "in": null
           },
           {
-            "id": "w2141",
+            "id": "w202141",
             "series": "Paper 4 Variant 1",
+            "subject": "Computer",
+            "year": 2021,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 4,
+            "variantNumber": 1,
             "qp": {
               "name": "9618_w21_qp_41.pdf",
               "path": "/Past Paper/Computer/Oct-Nov/2021-Oct-Nov/9618_w21_qp_41.pdf"
@@ -2441,8 +3413,14 @@
             "in": null
           },
           {
-            "id": "w2142",
+            "id": "w202142",
             "series": "Paper 4 Variant 2",
+            "subject": "Computer",
+            "year": 2021,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 4,
+            "variantNumber": 2,
             "qp": {
               "name": "9618_w21_qp_42.pdf",
               "path": "/Past Paper/Computer/Oct-Nov/2021-Oct-Nov/9618_w21_qp_42.pdf"
@@ -2468,8 +3446,14 @@
         },
         "paperList": [
           {
-            "id": "w2211",
+            "id": "w202211",
             "series": "Paper 1 Variant 1",
+            "subject": "Computer",
+            "year": 2022,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 1,
+            "variantNumber": 1,
             "qp": {
               "name": "9618_w22_qp_11.pdf",
               "path": "/Past Paper/Computer/Oct-Nov/2022-Oct-Nov/9618_w22_qp_11.pdf"
@@ -2481,8 +3465,14 @@
             "in": null
           },
           {
-            "id": "w2212",
+            "id": "w202212",
             "series": "Paper 1 Variant 2",
+            "subject": "Computer",
+            "year": 2022,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 1,
+            "variantNumber": 2,
             "qp": {
               "name": "9618_w22_qp_12.pdf",
               "path": "/Past Paper/Computer/Oct-Nov/2022-Oct-Nov/9618_w22_qp_12.pdf"
@@ -2494,8 +3484,14 @@
             "in": null
           },
           {
-            "id": "w2213",
+            "id": "w202213",
             "series": "Paper 1 Variant 3",
+            "subject": "Computer",
+            "year": 2022,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 1,
+            "variantNumber": 3,
             "qp": {
               "name": "9618_w22_qp_13.pdf",
               "path": "/Past Paper/Computer/Oct-Nov/2022-Oct-Nov/9618_w22_qp_13.pdf"
@@ -2507,8 +3503,14 @@
             "in": null
           },
           {
-            "id": "w2221",
+            "id": "w202221",
             "series": "Paper 2 Variant 1",
+            "subject": "Computer",
+            "year": 2022,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 2,
+            "variantNumber": 1,
             "qp": {
               "name": "9618_w22_qp_21.pdf",
               "path": "/Past Paper/Computer/Oct-Nov/2022-Oct-Nov/9618_w22_qp_21.pdf"
@@ -2523,8 +3525,14 @@
             }
           },
           {
-            "id": "w2222",
+            "id": "w202222",
             "series": "Paper 2 Variant 2",
+            "subject": "Computer",
+            "year": 2022,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 2,
+            "variantNumber": 2,
             "qp": {
               "name": "9618_w22_qp_22.pdf",
               "path": "/Past Paper/Computer/Oct-Nov/2022-Oct-Nov/9618_w22_qp_22.pdf"
@@ -2539,8 +3547,14 @@
             }
           },
           {
-            "id": "w2223",
+            "id": "w202223",
             "series": "Paper 2 Variant 3",
+            "subject": "Computer",
+            "year": 2022,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 2,
+            "variantNumber": 3,
             "qp": {
               "name": "9618_w22_qp_23.pdf",
               "path": "/Past Paper/Computer/Oct-Nov/2022-Oct-Nov/9618_w22_qp_23.pdf"
@@ -2555,8 +3569,14 @@
             }
           },
           {
-            "id": "w2231",
+            "id": "w202231",
             "series": "Paper 3 Variant 1",
+            "subject": "Computer",
+            "year": 2022,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 3,
+            "variantNumber": 1,
             "qp": {
               "name": "9618_w22_qp_31.pdf",
               "path": "/Past Paper/Computer/Oct-Nov/2022-Oct-Nov/9618_w22_qp_31.pdf"
@@ -2568,8 +3588,14 @@
             "in": null
           },
           {
-            "id": "w2232",
+            "id": "w202232",
             "series": "Paper 3 Variant 2",
+            "subject": "Computer",
+            "year": 2022,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 3,
+            "variantNumber": 2,
             "qp": {
               "name": "9618_w22_qp_32.pdf",
               "path": "/Past Paper/Computer/Oct-Nov/2022-Oct-Nov/9618_w22_qp_32.pdf"
@@ -2581,8 +3607,14 @@
             "in": null
           },
           {
-            "id": "w2233",
+            "id": "w202233",
             "series": "Paper 3 Variant 3",
+            "subject": "Computer",
+            "year": 2022,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 3,
+            "variantNumber": 3,
             "qp": {
               "name": "9618_w22_qp_33.pdf",
               "path": "/Past Paper/Computer/Oct-Nov/2022-Oct-Nov/9618_w22_qp_33.pdf"
@@ -2594,8 +3626,14 @@
             "in": null
           },
           {
-            "id": "w2241",
+            "id": "w202241",
             "series": "Paper 4 Variant 1",
+            "subject": "Computer",
+            "year": 2022,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 4,
+            "variantNumber": 1,
             "qp": {
               "name": "9618_w22_qp_41.pdf",
               "path": "/Past Paper/Computer/Oct-Nov/2022-Oct-Nov/9618_w22_qp_41.pdf"
@@ -2607,8 +3645,14 @@
             "in": null
           },
           {
-            "id": "w2242",
+            "id": "w202242",
             "series": "Paper 4 Variant 2",
+            "subject": "Computer",
+            "year": 2022,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 4,
+            "variantNumber": 2,
             "qp": {
               "name": "9618_w22_qp_42.pdf",
               "path": "/Past Paper/Computer/Oct-Nov/2022-Oct-Nov/9618_w22_qp_42.pdf"
@@ -2620,8 +3664,14 @@
             "in": null
           },
           {
-            "id": "w2243",
+            "id": "w202243",
             "series": "Paper 4 Variant 3",
+            "subject": "Computer",
+            "year": 2022,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 4,
+            "variantNumber": 3,
             "qp": {
               "name": "9618_w22_qp_43.pdf",
               "path": "/Past Paper/Computer/Oct-Nov/2022-Oct-Nov/9618_w22_qp_43.pdf"
@@ -2647,8 +3697,14 @@
         },
         "paperList": [
           {
-            "id": "w2311",
+            "id": "w202311",
             "series": "Paper 1 Variant 1",
+            "subject": "Computer",
+            "year": 2023,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 1,
+            "variantNumber": 1,
             "qp": {
               "name": "9618_w23_qp_11.pdf",
               "path": "/Past Paper/Computer/Oct-Nov/2023-Oct-Nov/9618_w23_qp_11.pdf"
@@ -2660,8 +3716,14 @@
             "in": null
           },
           {
-            "id": "w2312",
+            "id": "w202312",
             "series": "Paper 1 Variant 2",
+            "subject": "Computer",
+            "year": 2023,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 1,
+            "variantNumber": 2,
             "qp": {
               "name": "9618_w23_qp_12.pdf",
               "path": "/Past Paper/Computer/Oct-Nov/2023-Oct-Nov/9618_w23_qp_12.pdf"
@@ -2673,8 +3735,14 @@
             "in": null
           },
           {
-            "id": "w2313",
+            "id": "w202313",
             "series": "Paper 1 Variant 3",
+            "subject": "Computer",
+            "year": 2023,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 1,
+            "variantNumber": 3,
             "qp": {
               "name": "9618_w23_qp_13.pdf",
               "path": "/Past Paper/Computer/Oct-Nov/2023-Oct-Nov/9618_w23_qp_13.pdf"
@@ -2686,8 +3754,14 @@
             "in": null
           },
           {
-            "id": "w2321",
+            "id": "w202321",
             "series": "Paper 2 Variant 1",
+            "subject": "Computer",
+            "year": 2023,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 2,
+            "variantNumber": 1,
             "qp": {
               "name": "9618_w23_qp_21.pdf",
               "path": "/Past Paper/Computer/Oct-Nov/2023-Oct-Nov/9618_w23_qp_21.pdf"
@@ -2702,8 +3776,14 @@
             }
           },
           {
-            "id": "w2322",
+            "id": "w202322",
             "series": "Paper 2 Variant 2",
+            "subject": "Computer",
+            "year": 2023,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 2,
+            "variantNumber": 2,
             "qp": {
               "name": "9618_w23_qp_22.pdf",
               "path": "/Past Paper/Computer/Oct-Nov/2023-Oct-Nov/9618_w23_qp_22.pdf"
@@ -2718,8 +3798,14 @@
             }
           },
           {
-            "id": "w2323",
+            "id": "w202323",
             "series": "Paper 2 Variant 3",
+            "subject": "Computer",
+            "year": 2023,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 2,
+            "variantNumber": 3,
             "qp": {
               "name": "9618_w23_qp_23.pdf",
               "path": "/Past Paper/Computer/Oct-Nov/2023-Oct-Nov/9618_w23_qp_23.pdf"
@@ -2734,8 +3820,14 @@
             }
           },
           {
-            "id": "w2331",
+            "id": "w202331",
             "series": "Paper 3 Variant 1",
+            "subject": "Computer",
+            "year": 2023,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 3,
+            "variantNumber": 1,
             "qp": {
               "name": "9618_w23_qp_31.pdf",
               "path": "/Past Paper/Computer/Oct-Nov/2023-Oct-Nov/9618_w23_qp_31.pdf"
@@ -2747,8 +3839,14 @@
             "in": null
           },
           {
-            "id": "w2332",
+            "id": "w202332",
             "series": "Paper 3 Variant 2",
+            "subject": "Computer",
+            "year": 2023,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 3,
+            "variantNumber": 2,
             "qp": {
               "name": "9618_w23_qp_32.pdf",
               "path": "/Past Paper/Computer/Oct-Nov/2023-Oct-Nov/9618_w23_qp_32.pdf"
@@ -2760,8 +3858,14 @@
             "in": null
           },
           {
-            "id": "w2333",
+            "id": "w202333",
             "series": "Paper 3 Variant 3",
+            "subject": "Computer",
+            "year": 2023,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 3,
+            "variantNumber": 3,
             "qp": {
               "name": "9618_w23_qp_33.pdf",
               "path": "/Past Paper/Computer/Oct-Nov/2023-Oct-Nov/9618_w23_qp_33.pdf"
@@ -2773,8 +3877,14 @@
             "in": null
           },
           {
-            "id": "w2341",
+            "id": "w202341",
             "series": "Paper 4 Variant 1",
+            "subject": "Computer",
+            "year": 2023,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 4,
+            "variantNumber": 1,
             "qp": {
               "name": "9618_w23_qp_41.pdf",
               "path": "/Past Paper/Computer/Oct-Nov/2023-Oct-Nov/9618_w23_qp_41.pdf"
@@ -2786,8 +3896,14 @@
             "in": null
           },
           {
-            "id": "w2342",
+            "id": "w202342",
             "series": "Paper 4 Variant 2",
+            "subject": "Computer",
+            "year": 2023,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 4,
+            "variantNumber": 2,
             "qp": {
               "name": "9618_w23_qp_42.pdf",
               "path": "/Past Paper/Computer/Oct-Nov/2023-Oct-Nov/9618_w23_qp_42.pdf"
@@ -2799,8 +3915,14 @@
             "in": null
           },
           {
-            "id": "w2343",
+            "id": "w202343",
             "series": "Paper 4 Variant 3",
+            "subject": "Computer",
+            "year": 2023,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 4,
+            "variantNumber": 3,
             "qp": {
               "name": "9618_w23_qp_43.pdf",
               "path": "/Past Paper/Computer/Oct-Nov/2023-Oct-Nov/9618_w23_qp_43.pdf"
@@ -2823,8 +3945,14 @@
         },
         "paperList": [
           {
-            "id": "w2411",
+            "id": "w202411",
             "series": "Paper 1 Variant 1",
+            "subject": "Computer",
+            "year": 2024,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 1,
+            "variantNumber": 1,
             "qp": {
               "name": "9618_w24_qp_11.pdf",
               "path": "/Past Paper/Computer/Oct-Nov/2024-Oct-Nov/9618_w24_qp_11.pdf"
@@ -2836,8 +3964,14 @@
             "in": null
           },
           {
-            "id": "w2412",
+            "id": "w202412",
             "series": "Paper 1 Variant 2",
+            "subject": "Computer",
+            "year": 2024,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 1,
+            "variantNumber": 2,
             "qp": {
               "name": "9618_w24_qp_12.pdf",
               "path": "/Past Paper/Computer/Oct-Nov/2024-Oct-Nov/9618_w24_qp_12.pdf"
@@ -2849,8 +3983,14 @@
             "in": null
           },
           {
-            "id": "w2413",
+            "id": "w202413",
             "series": "Paper 1 Variant 3",
+            "subject": "Computer",
+            "year": 2024,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 1,
+            "variantNumber": 3,
             "qp": {
               "name": "9618_w24_qp_13.pdf",
               "path": "/Past Paper/Computer/Oct-Nov/2024-Oct-Nov/9618_w24_qp_13.pdf"
@@ -2862,8 +4002,14 @@
             "in": null
           },
           {
-            "id": "w2421",
+            "id": "w202421",
             "series": "Paper 2 Variant 1",
+            "subject": "Computer",
+            "year": 2024,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 2,
+            "variantNumber": 1,
             "qp": {
               "name": "9618_w24_qp_21.pdf",
               "path": "/Past Paper/Computer/Oct-Nov/2024-Oct-Nov/9618_w24_qp_21.pdf"
@@ -2878,8 +4024,14 @@
             }
           },
           {
-            "id": "w2422",
+            "id": "w202422",
             "series": "Paper 2 Variant 2",
+            "subject": "Computer",
+            "year": 2024,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 2,
+            "variantNumber": 2,
             "qp": {
               "name": "9618_w24_qp_22.pdf",
               "path": "/Past Paper/Computer/Oct-Nov/2024-Oct-Nov/9618_w24_qp_22.pdf"
@@ -2894,8 +4046,14 @@
             }
           },
           {
-            "id": "w2423",
+            "id": "w202423",
             "series": "Paper 2 Variant 3",
+            "subject": "Computer",
+            "year": 2024,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 2,
+            "variantNumber": 3,
             "qp": {
               "name": "9618_w24_qp_23.pdf",
               "path": "/Past Paper/Computer/Oct-Nov/2024-Oct-Nov/9618_w24_qp_23.pdf"
@@ -2910,8 +4068,14 @@
             }
           },
           {
-            "id": "w2431",
+            "id": "w202431",
             "series": "Paper 3 Variant 1",
+            "subject": "Computer",
+            "year": 2024,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 3,
+            "variantNumber": 1,
             "qp": {
               "name": "9618_w24_qp_31.pdf",
               "path": "/Past Paper/Computer/Oct-Nov/2024-Oct-Nov/9618_w24_qp_31.pdf"
@@ -2923,8 +4087,14 @@
             "in": null
           },
           {
-            "id": "w2432",
+            "id": "w202432",
             "series": "Paper 3 Variant 2",
+            "subject": "Computer",
+            "year": 2024,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 3,
+            "variantNumber": 2,
             "qp": {
               "name": "9618_w24_qp_32.pdf",
               "path": "/Past Paper/Computer/Oct-Nov/2024-Oct-Nov/9618_w24_qp_32.pdf"
@@ -2936,8 +4106,14 @@
             "in": null
           },
           {
-            "id": "w2433",
+            "id": "w202433",
             "series": "Paper 3 Variant 3",
+            "subject": "Computer",
+            "year": 2024,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 3,
+            "variantNumber": 3,
             "qp": {
               "name": "9618_w24_qp_33.pdf",
               "path": "/Past Paper/Computer/Oct-Nov/2024-Oct-Nov/9618_w24_qp_33.pdf"
@@ -2949,8 +4125,14 @@
             "in": null
           },
           {
-            "id": "w2441",
+            "id": "w202441",
             "series": "Paper 4 Variant 1",
+            "subject": "Computer",
+            "year": 2024,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 4,
+            "variantNumber": 1,
             "qp": {
               "name": "9618_w24_qp_41.pdf",
               "path": "/Past Paper/Computer/Oct-Nov/2024-Oct-Nov/9618_w24_qp_41.pdf"
@@ -2962,8 +4144,14 @@
             "in": null
           },
           {
-            "id": "w2442",
+            "id": "w202442",
             "series": "Paper 4 Variant 2",
+            "subject": "Computer",
+            "year": 2024,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 4,
+            "variantNumber": 2,
             "qp": {
               "name": "9618_w24_qp_42.pdf",
               "path": "/Past Paper/Computer/Oct-Nov/2024-Oct-Nov/9618_w24_qp_42.pdf"
@@ -2975,8 +4163,14 @@
             "in": null
           },
           {
-            "id": "w2443",
+            "id": "w202443",
             "series": "Paper 4 Variant 3",
+            "subject": "Computer",
+            "year": 2024,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 4,
+            "variantNumber": 3,
             "qp": {
               "name": "9618_w24_qp_43.pdf",
               "path": "/Past Paper/Computer/Oct-Nov/2024-Oct-Nov/9618_w24_qp_43.pdf"
@@ -3000,8 +4194,14 @@
         },
         "paperList": [
           {
-            "id": "s2011",
+            "id": "s202011",
             "series": "Paper 1 Variant 1",
+            "subject": "Economics",
+            "year": 2020,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 1,
+            "variantNumber": 1,
             "qp": {
               "name": "9708_s20_qp_11.pdf",
               "path": "/Past Paper/Economics/May-Jun/2020-May-Jun/9708_s20_qp_11.pdf"
@@ -3013,8 +4213,14 @@
             "in": null
           },
           {
-            "id": "s2012",
+            "id": "s202012",
             "series": "Paper 1 Variant 2",
+            "subject": "Economics",
+            "year": 2020,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 1,
+            "variantNumber": 2,
             "qp": {
               "name": "9708_s20_qp_12.pdf",
               "path": "/Past Paper/Economics/May-Jun/2020-May-Jun/9708_s20_qp_12.pdf"
@@ -3026,8 +4232,14 @@
             "in": null
           },
           {
-            "id": "s2013",
+            "id": "s202013",
             "series": "Paper 1 Variant 3",
+            "subject": "Economics",
+            "year": 2020,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 1,
+            "variantNumber": 3,
             "qp": {
               "name": "9708_s20_qp_13.pdf",
               "path": "/Past Paper/Economics/May-Jun/2020-May-Jun/9708_s20_qp_13.pdf"
@@ -3039,8 +4251,14 @@
             "in": null
           },
           {
-            "id": "s2021",
+            "id": "s202021",
             "series": "Paper 2 Variant 1",
+            "subject": "Economics",
+            "year": 2020,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 2,
+            "variantNumber": 1,
             "qp": {
               "name": "9708_s20_qp_21.pdf",
               "path": "/Past Paper/Economics/May-Jun/2020-May-Jun/9708_s20_qp_21.pdf"
@@ -3052,8 +4270,14 @@
             "in": null
           },
           {
-            "id": "s2022",
+            "id": "s202022",
             "series": "Paper 2 Variant 2",
+            "subject": "Economics",
+            "year": 2020,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 2,
+            "variantNumber": 2,
             "qp": {
               "name": "9708_s20_qp_22.pdf",
               "path": "/Past Paper/Economics/May-Jun/2020-May-Jun/9708_s20_qp_22.pdf"
@@ -3065,8 +4289,14 @@
             "in": null
           },
           {
-            "id": "s2023",
+            "id": "s202023",
             "series": "Paper 2 Variant 3",
+            "subject": "Economics",
+            "year": 2020,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 2,
+            "variantNumber": 3,
             "qp": {
               "name": "9708_s20_qp_23.pdf",
               "path": "/Past Paper/Economics/May-Jun/2020-May-Jun/9708_s20_qp_23.pdf"
@@ -3078,8 +4308,14 @@
             "in": null
           },
           {
-            "id": "s2031",
+            "id": "s202031",
             "series": "Paper 3 Variant 1",
+            "subject": "Economics",
+            "year": 2020,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 3,
+            "variantNumber": 1,
             "qp": {
               "name": "9708_s20_qp_31.pdf",
               "path": "/Past Paper/Economics/May-Jun/2020-May-Jun/9708_s20_qp_31.pdf"
@@ -3091,8 +4327,14 @@
             "in": null
           },
           {
-            "id": "s2032",
+            "id": "s202032",
             "series": "Paper 3 Variant 2",
+            "subject": "Economics",
+            "year": 2020,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 3,
+            "variantNumber": 2,
             "qp": {
               "name": "9708_s20_qp_32.pdf",
               "path": "/Past Paper/Economics/May-Jun/2020-May-Jun/9708_s20_qp_32.pdf"
@@ -3104,8 +4346,14 @@
             "in": null
           },
           {
-            "id": "s2033",
+            "id": "s202033",
             "series": "Paper 3 Variant 3",
+            "subject": "Economics",
+            "year": 2020,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 3,
+            "variantNumber": 3,
             "qp": {
               "name": "9708_s20_qp_33.pdf",
               "path": "/Past Paper/Economics/May-Jun/2020-May-Jun/9708_s20_qp_33.pdf"
@@ -3117,8 +4365,14 @@
             "in": null
           },
           {
-            "id": "s2041",
+            "id": "s202041",
             "series": "Paper 4 Variant 1",
+            "subject": "Economics",
+            "year": 2020,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 4,
+            "variantNumber": 1,
             "qp": {
               "name": "9708_s20_qp_41.pdf",
               "path": "/Past Paper/Economics/May-Jun/2020-May-Jun/9708_s20_qp_41.pdf"
@@ -3130,8 +4384,14 @@
             "in": null
           },
           {
-            "id": "s2042",
+            "id": "s202042",
             "series": "Paper 4 Variant 2",
+            "subject": "Economics",
+            "year": 2020,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 4,
+            "variantNumber": 2,
             "qp": {
               "name": "9708_s20_qp_42.pdf",
               "path": "/Past Paper/Economics/May-Jun/2020-May-Jun/9708_s20_qp_42.pdf"
@@ -3143,8 +4403,14 @@
             "in": null
           },
           {
-            "id": "s2043",
+            "id": "s202043",
             "series": "Paper 4 Variant 3",
+            "subject": "Economics",
+            "year": 2020,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 4,
+            "variantNumber": 3,
             "qp": {
               "name": "9708_s20_qp_43.pdf",
               "path": "/Past Paper/Economics/May-Jun/2020-May-Jun/9708_s20_qp_43.pdf"
@@ -3167,8 +4433,14 @@
         },
         "paperList": [
           {
-            "id": "s2111",
+            "id": "s202111",
             "series": "Paper 1 Variant 1",
+            "subject": "Economics",
+            "year": 2021,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 1,
+            "variantNumber": 1,
             "qp": {
               "name": "9708_s21_qp_11.pdf",
               "path": "/Past Paper/Economics/May-Jun/2021-May-Jun/9708_s21_qp_11.pdf"
@@ -3180,8 +4452,14 @@
             "in": null
           },
           {
-            "id": "s2112",
+            "id": "s202112",
             "series": "Paper 1 Variant 2",
+            "subject": "Economics",
+            "year": 2021,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 1,
+            "variantNumber": 2,
             "qp": {
               "name": "9708_s21_qp_12.pdf",
               "path": "/Past Paper/Economics/May-Jun/2021-May-Jun/9708_s21_qp_12.pdf"
@@ -3193,8 +4471,14 @@
             "in": null
           },
           {
-            "id": "s2113",
+            "id": "s202113",
             "series": "Paper 1 Variant 3",
+            "subject": "Economics",
+            "year": 2021,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 1,
+            "variantNumber": 3,
             "qp": {
               "name": "9708_s21_qp_13.pdf",
               "path": "/Past Paper/Economics/May-Jun/2021-May-Jun/9708_s21_qp_13.pdf"
@@ -3206,8 +4490,14 @@
             "in": null
           },
           {
-            "id": "s2121",
+            "id": "s202121",
             "series": "Paper 2 Variant 1",
+            "subject": "Economics",
+            "year": 2021,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 2,
+            "variantNumber": 1,
             "qp": {
               "name": "9708_s21_qp_21.pdf",
               "path": "/Past Paper/Economics/May-Jun/2021-May-Jun/9708_s21_qp_21.pdf"
@@ -3219,8 +4509,14 @@
             "in": null
           },
           {
-            "id": "s2122",
+            "id": "s202122",
             "series": "Paper 2 Variant 2",
+            "subject": "Economics",
+            "year": 2021,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 2,
+            "variantNumber": 2,
             "qp": {
               "name": "9708_s21_qp_22.pdf",
               "path": "/Past Paper/Economics/May-Jun/2021-May-Jun/9708_s21_qp_22.pdf"
@@ -3232,8 +4528,14 @@
             "in": null
           },
           {
-            "id": "s2123",
+            "id": "s202123",
             "series": "Paper 2 Variant 3",
+            "subject": "Economics",
+            "year": 2021,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 2,
+            "variantNumber": 3,
             "qp": {
               "name": "9708_s21_qp_23.pdf",
               "path": "/Past Paper/Economics/May-Jun/2021-May-Jun/9708_s21_qp_23.pdf"
@@ -3245,8 +4547,14 @@
             "in": null
           },
           {
-            "id": "s2131",
+            "id": "s202131",
             "series": "Paper 3 Variant 1",
+            "subject": "Economics",
+            "year": 2021,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 3,
+            "variantNumber": 1,
             "qp": {
               "name": "9708_s21_qp_31.pdf",
               "path": "/Past Paper/Economics/May-Jun/2021-May-Jun/9708_s21_qp_31.pdf"
@@ -3258,8 +4566,14 @@
             "in": null
           },
           {
-            "id": "s2132",
+            "id": "s202132",
             "series": "Paper 3 Variant 2",
+            "subject": "Economics",
+            "year": 2021,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 3,
+            "variantNumber": 2,
             "qp": {
               "name": "9708_s21_qp_32.pdf",
               "path": "/Past Paper/Economics/May-Jun/2021-May-Jun/9708_s21_qp_32.pdf"
@@ -3271,8 +4585,14 @@
             "in": null
           },
           {
-            "id": "s2133",
+            "id": "s202133",
             "series": "Paper 3 Variant 3",
+            "subject": "Economics",
+            "year": 2021,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 3,
+            "variantNumber": 3,
             "qp": {
               "name": "9708_s21_qp_33.pdf",
               "path": "/Past Paper/Economics/May-Jun/2021-May-Jun/9708_s21_qp_33.pdf"
@@ -3284,8 +4604,14 @@
             "in": null
           },
           {
-            "id": "s2141",
+            "id": "s202141",
             "series": "Paper 4 Variant 1",
+            "subject": "Economics",
+            "year": 2021,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 4,
+            "variantNumber": 1,
             "qp": {
               "name": "9708_s21_qp_41.pdf",
               "path": "/Past Paper/Economics/May-Jun/2021-May-Jun/9708_s21_qp_41.pdf"
@@ -3297,8 +4623,14 @@
             "in": null
           },
           {
-            "id": "s2142",
+            "id": "s202142",
             "series": "Paper 4 Variant 2",
+            "subject": "Economics",
+            "year": 2021,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 4,
+            "variantNumber": 2,
             "qp": {
               "name": "9708_s21_qp_42.pdf",
               "path": "/Past Paper/Economics/May-Jun/2021-May-Jun/9708_s21_qp_42.pdf"
@@ -3310,8 +4642,14 @@
             "in": null
           },
           {
-            "id": "s2143",
+            "id": "s202143",
             "series": "Paper 4 Variant 3",
+            "subject": "Economics",
+            "year": 2021,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 4,
+            "variantNumber": 3,
             "qp": {
               "name": "9708_s21_qp_43.pdf",
               "path": "/Past Paper/Economics/May-Jun/2021-May-Jun/9708_s21_qp_43.pdf"
@@ -3337,8 +4675,14 @@
         },
         "paperList": [
           {
-            "id": "s2211",
+            "id": "s202211",
             "series": "Paper 1 Variant 1",
+            "subject": "Economics",
+            "year": 2022,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 1,
+            "variantNumber": 1,
             "qp": {
               "name": "9708_s22_qp_11.pdf",
               "path": "/Past Paper/Economics/May-Jun/2022-May-Jun/9708_s22_qp_11.pdf"
@@ -3350,8 +4694,14 @@
             "in": null
           },
           {
-            "id": "s2212",
+            "id": "s202212",
             "series": "Paper 1 Variant 2",
+            "subject": "Economics",
+            "year": 2022,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 1,
+            "variantNumber": 2,
             "qp": {
               "name": "9708_s22_qp_12.pdf",
               "path": "/Past Paper/Economics/May-Jun/2022-May-Jun/9708_s22_qp_12.pdf"
@@ -3363,8 +4713,14 @@
             "in": null
           },
           {
-            "id": "s2213",
+            "id": "s202213",
             "series": "Paper 1 Variant 3",
+            "subject": "Economics",
+            "year": 2022,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 1,
+            "variantNumber": 3,
             "qp": {
               "name": "9708_s22_qp_13.pdf",
               "path": "/Past Paper/Economics/May-Jun/2022-May-Jun/9708_s22_qp_13.pdf"
@@ -3376,8 +4732,14 @@
             "in": null
           },
           {
-            "id": "s2214",
+            "id": "s202214",
             "series": "Paper 1 Variant 4",
+            "subject": "Economics",
+            "year": 2022,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 1,
+            "variantNumber": 4,
             "qp": {
               "name": "9708_s22_qp_14.pdf",
               "path": "/Past Paper/Economics/May-Jun/2022-May-Jun/9708_s22_qp_14.pdf"
@@ -3389,8 +4751,14 @@
             "in": null
           },
           {
-            "id": "s2221",
+            "id": "s202221",
             "series": "Paper 2 Variant 1",
+            "subject": "Economics",
+            "year": 2022,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 2,
+            "variantNumber": 1,
             "qp": {
               "name": "9708_s22_qp_21.pdf",
               "path": "/Past Paper/Economics/May-Jun/2022-May-Jun/9708_s22_qp_21.pdf"
@@ -3402,8 +4770,14 @@
             "in": null
           },
           {
-            "id": "s2222",
+            "id": "s202222",
             "series": "Paper 2 Variant 2",
+            "subject": "Economics",
+            "year": 2022,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 2,
+            "variantNumber": 2,
             "qp": {
               "name": "9708_s22_qp_22.pdf",
               "path": "/Past Paper/Economics/May-Jun/2022-May-Jun/9708_s22_qp_22.pdf"
@@ -3415,8 +4789,14 @@
             "in": null
           },
           {
-            "id": "s2223",
+            "id": "s202223",
             "series": "Paper 2 Variant 3",
+            "subject": "Economics",
+            "year": 2022,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 2,
+            "variantNumber": 3,
             "qp": {
               "name": "9708_s22_qp_23.pdf",
               "path": "/Past Paper/Economics/May-Jun/2022-May-Jun/9708_s22_qp_23.pdf"
@@ -3428,8 +4808,14 @@
             "in": null
           },
           {
-            "id": "s2231",
+            "id": "s202231",
             "series": "Paper 3 Variant 1",
+            "subject": "Economics",
+            "year": 2022,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 3,
+            "variantNumber": 1,
             "qp": {
               "name": "9708_s22_qp_31.pdf",
               "path": "/Past Paper/Economics/May-Jun/2022-May-Jun/9708_s22_qp_31.pdf"
@@ -3441,8 +4827,14 @@
             "in": null
           },
           {
-            "id": "s2232",
+            "id": "s202232",
             "series": "Paper 3 Variant 2",
+            "subject": "Economics",
+            "year": 2022,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 3,
+            "variantNumber": 2,
             "qp": {
               "name": "9708_s22_qp_32.pdf",
               "path": "/Past Paper/Economics/May-Jun/2022-May-Jun/9708_s22_qp_32.pdf"
@@ -3454,8 +4846,14 @@
             "in": null
           },
           {
-            "id": "s2233",
+            "id": "s202233",
             "series": "Paper 3 Variant 3",
+            "subject": "Economics",
+            "year": 2022,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 3,
+            "variantNumber": 3,
             "qp": {
               "name": "9708_s22_qp_33.pdf",
               "path": "/Past Paper/Economics/May-Jun/2022-May-Jun/9708_s22_qp_33.pdf"
@@ -3467,8 +4865,14 @@
             "in": null
           },
           {
-            "id": "s2241",
+            "id": "s202241",
             "series": "Paper 4 Variant 1",
+            "subject": "Economics",
+            "year": 2022,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 4,
+            "variantNumber": 1,
             "qp": {
               "name": "9708_s22_qp_41.pdf",
               "path": "/Past Paper/Economics/May-Jun/2022-May-Jun/9708_s22_qp_41.pdf"
@@ -3480,8 +4884,14 @@
             "in": null
           },
           {
-            "id": "s2242",
+            "id": "s202242",
             "series": "Paper 4 Variant 2",
+            "subject": "Economics",
+            "year": 2022,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 4,
+            "variantNumber": 2,
             "qp": {
               "name": "9708_s22_qp_42.pdf",
               "path": "/Past Paper/Economics/May-Jun/2022-May-Jun/9708_s22_qp_42.pdf"
@@ -3493,8 +4903,14 @@
             "in": null
           },
           {
-            "id": "s2243",
+            "id": "s202243",
             "series": "Paper 4 Variant 3",
+            "subject": "Economics",
+            "year": 2022,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 4,
+            "variantNumber": 3,
             "qp": {
               "name": "9708_s22_qp_43.pdf",
               "path": "/Past Paper/Economics/May-Jun/2022-May-Jun/9708_s22_qp_43.pdf"
@@ -3520,8 +4936,14 @@
         },
         "paperList": [
           {
-            "id": "s2311",
+            "id": "s202311",
             "series": "Paper 1 Variant 1",
+            "subject": "Economics",
+            "year": 2023,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 1,
+            "variantNumber": 1,
             "qp": {
               "name": "9708_s23_qp_11.pdf",
               "path": "/Past Paper/Economics/May-Jun/2023-May-Jun/9708_s23_qp_11.pdf"
@@ -3533,8 +4955,14 @@
             "in": null
           },
           {
-            "id": "s2312",
+            "id": "s202312",
             "series": "Paper 1 Variant 2",
+            "subject": "Economics",
+            "year": 2023,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 1,
+            "variantNumber": 2,
             "qp": {
               "name": "9708_s23_qp_12.pdf",
               "path": "/Past Paper/Economics/May-Jun/2023-May-Jun/9708_s23_qp_12.pdf"
@@ -3546,8 +4974,14 @@
             "in": null
           },
           {
-            "id": "s2313",
+            "id": "s202313",
             "series": "Paper 1 Variant 3",
+            "subject": "Economics",
+            "year": 2023,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 1,
+            "variantNumber": 3,
             "qp": {
               "name": "9708_s23_qp_13.pdf",
               "path": "/Past Paper/Economics/May-Jun/2023-May-Jun/9708_s23_qp_13.pdf"
@@ -3559,8 +4993,14 @@
             "in": null
           },
           {
-            "id": "s2321",
+            "id": "s202321",
             "series": "Paper 2 Variant 1",
+            "subject": "Economics",
+            "year": 2023,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 2,
+            "variantNumber": 1,
             "qp": {
               "name": "9708_s23_qp_21.pdf",
               "path": "/Past Paper/Economics/May-Jun/2023-May-Jun/9708_s23_qp_21.pdf"
@@ -3572,8 +5012,14 @@
             "in": null
           },
           {
-            "id": "s2322",
+            "id": "s202322",
             "series": "Paper 2 Variant 2",
+            "subject": "Economics",
+            "year": 2023,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 2,
+            "variantNumber": 2,
             "qp": {
               "name": "9708_s23_qp_22.pdf",
               "path": "/Past Paper/Economics/May-Jun/2023-May-Jun/9708_s23_qp_22.pdf"
@@ -3585,8 +5031,14 @@
             "in": null
           },
           {
-            "id": "s2323",
+            "id": "s202323",
             "series": "Paper 2 Variant 3",
+            "subject": "Economics",
+            "year": 2023,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 2,
+            "variantNumber": 3,
             "qp": {
               "name": "9708_s23_qp_23.pdf",
               "path": "/Past Paper/Economics/May-Jun/2023-May-Jun/9708_s23_qp_23.pdf"
@@ -3598,8 +5050,14 @@
             "in": null
           },
           {
-            "id": "s2331",
+            "id": "s202331",
             "series": "Paper 3 Variant 1",
+            "subject": "Economics",
+            "year": 2023,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 3,
+            "variantNumber": 1,
             "qp": {
               "name": "9708_s23_qp_31.pdf",
               "path": "/Past Paper/Economics/May-Jun/2023-May-Jun/9708_s23_qp_31.pdf"
@@ -3611,8 +5069,14 @@
             "in": null
           },
           {
-            "id": "s2332",
+            "id": "s202332",
             "series": "Paper 3 Variant 2",
+            "subject": "Economics",
+            "year": 2023,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 3,
+            "variantNumber": 2,
             "qp": {
               "name": "9708_s23_qp_32.pdf",
               "path": "/Past Paper/Economics/May-Jun/2023-May-Jun/9708_s23_qp_32.pdf"
@@ -3624,8 +5088,14 @@
             "in": null
           },
           {
-            "id": "s2333",
+            "id": "s202333",
             "series": "Paper 3 Variant 3",
+            "subject": "Economics",
+            "year": 2023,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 3,
+            "variantNumber": 3,
             "qp": {
               "name": "9708_s23_qp_33.pdf",
               "path": "/Past Paper/Economics/May-Jun/2023-May-Jun/9708_s23_qp_33.pdf"
@@ -3637,8 +5107,14 @@
             "in": null
           },
           {
-            "id": "s2341",
+            "id": "s202341",
             "series": "Paper 4 Variant 1",
+            "subject": "Economics",
+            "year": 2023,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 4,
+            "variantNumber": 1,
             "qp": {
               "name": "9708_s23_qp_41.pdf",
               "path": "/Past Paper/Economics/May-Jun/2023-May-Jun/9708_s23_qp_41.pdf"
@@ -3650,8 +5126,14 @@
             "in": null
           },
           {
-            "id": "s2342",
+            "id": "s202342",
             "series": "Paper 4 Variant 2",
+            "subject": "Economics",
+            "year": 2023,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 4,
+            "variantNumber": 2,
             "qp": {
               "name": "9708_s23_qp_42.pdf",
               "path": "/Past Paper/Economics/May-Jun/2023-May-Jun/9708_s23_qp_42.pdf"
@@ -3663,8 +5145,14 @@
             "in": null
           },
           {
-            "id": "s2343",
+            "id": "s202343",
             "series": "Paper 4 Variant 3",
+            "subject": "Economics",
+            "year": 2023,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 4,
+            "variantNumber": 3,
             "qp": {
               "name": "9708_s23_qp_43.pdf",
               "path": "/Past Paper/Economics/May-Jun/2023-May-Jun/9708_s23_qp_43.pdf"
@@ -3687,8 +5175,14 @@
         },
         "paperList": [
           {
-            "id": "s2411",
+            "id": "s202411",
             "series": "Paper 1 Variant 1",
+            "subject": "Economics",
+            "year": 2024,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 1,
+            "variantNumber": 1,
             "qp": {
               "name": "9708_s24_qp_11.pdf",
               "path": "/Past Paper/Economics/May-Jun/2024-May-Jun/9708_s24_qp_11.pdf"
@@ -3700,8 +5194,14 @@
             "in": null
           },
           {
-            "id": "s2413",
+            "id": "s202413",
             "series": "Paper 1 Variant 3",
+            "subject": "Economics",
+            "year": 2024,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 1,
+            "variantNumber": 3,
             "qp": {
               "name": "9708_s24_qp_13.pdf",
               "path": "/Past Paper/Economics/May-Jun/2024-May-Jun/9708_s24_qp_13.pdf"
@@ -3713,8 +5213,14 @@
             "in": null
           },
           {
-            "id": "s2421",
+            "id": "s202421",
             "series": "Paper 2 Variant 1",
+            "subject": "Economics",
+            "year": 2024,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 2,
+            "variantNumber": 1,
             "qp": {
               "name": "9708_s24_qp_21.pdf",
               "path": "/Past Paper/Economics/May-Jun/2024-May-Jun/9708_s24_qp_21.pdf"
@@ -3726,8 +5232,14 @@
             "in": null
           },
           {
-            "id": "s2422",
+            "id": "s202422",
             "series": "Paper 2 Variant 2",
+            "subject": "Economics",
+            "year": 2024,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 2,
+            "variantNumber": 2,
             "qp": {
               "name": "9708_s24_qp_22.pdf",
               "path": "/Past Paper/Economics/May-Jun/2024-May-Jun/9708_s24_qp_22.pdf"
@@ -3739,8 +5251,14 @@
             "in": null
           },
           {
-            "id": "s2423",
+            "id": "s202423",
             "series": "Paper 2 Variant 3",
+            "subject": "Economics",
+            "year": 2024,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 2,
+            "variantNumber": 3,
             "qp": {
               "name": "9708_s24_qp_23.pdf",
               "path": "/Past Paper/Economics/May-Jun/2024-May-Jun/9708_s24_qp_23.pdf"
@@ -3752,8 +5270,14 @@
             "in": null
           },
           {
-            "id": "s2431",
+            "id": "s202431",
             "series": "Paper 3 Variant 1",
+            "subject": "Economics",
+            "year": 2024,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 3,
+            "variantNumber": 1,
             "qp": {
               "name": "9708_s24_qp_31.pdf",
               "path": "/Past Paper/Economics/May-Jun/2024-May-Jun/9708_s24_qp_31.pdf"
@@ -3765,8 +5289,14 @@
             "in": null
           },
           {
-            "id": "s2432",
+            "id": "s202432",
             "series": "Paper 3 Variant 2",
+            "subject": "Economics",
+            "year": 2024,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 3,
+            "variantNumber": 2,
             "qp": {
               "name": "9708_s24_qp_32.pdf",
               "path": "/Past Paper/Economics/May-Jun/2024-May-Jun/9708_s24_qp_32.pdf"
@@ -3778,8 +5308,14 @@
             "in": null
           },
           {
-            "id": "s2433",
+            "id": "s202433",
             "series": "Paper 3 Variant 3",
+            "subject": "Economics",
+            "year": 2024,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 3,
+            "variantNumber": 3,
             "qp": {
               "name": "9708_s24_qp_33.pdf",
               "path": "/Past Paper/Economics/May-Jun/2024-May-Jun/9708_s24_qp_33.pdf"
@@ -3791,8 +5327,14 @@
             "in": null
           },
           {
-            "id": "s2441",
+            "id": "s202441",
             "series": "Paper 4 Variant 1",
+            "subject": "Economics",
+            "year": 2024,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 4,
+            "variantNumber": 1,
             "qp": {
               "name": "9708_s24_qp_41.pdf",
               "path": "/Past Paper/Economics/May-Jun/2024-May-Jun/9708_s24_qp_41.pdf"
@@ -3804,8 +5346,14 @@
             "in": null
           },
           {
-            "id": "s2442",
+            "id": "s202442",
             "series": "Paper 4 Variant 2",
+            "subject": "Economics",
+            "year": 2024,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 4,
+            "variantNumber": 2,
             "qp": {
               "name": "9708_s24_qp_42.pdf",
               "path": "/Past Paper/Economics/May-Jun/2024-May-Jun/9708_s24_qp_42.pdf"
@@ -3817,8 +5365,14 @@
             "in": null
           },
           {
-            "id": "s2443",
+            "id": "s202443",
             "series": "Paper 4 Variant 3",
+            "subject": "Economics",
+            "year": 2024,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 4,
+            "variantNumber": 3,
             "qp": {
               "name": "9708_s24_qp_43.pdf",
               "path": "/Past Paper/Economics/May-Jun/2024-May-Jun/9708_s24_qp_43.pdf"
@@ -3846,8 +5400,14 @@
         },
         "paperList": [
           {
-            "id": "w2011",
+            "id": "w202011",
             "series": "Paper 1 Variant 1",
+            "subject": "Economics",
+            "year": 2020,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 1,
+            "variantNumber": 1,
             "qp": {
               "name": "9708_w20_qp_11.pdf",
               "path": "/Past Paper/Economics/Oct-Nov/2020-Oct-Nov/9708_w20_qp_11.pdf"
@@ -3859,8 +5419,14 @@
             "in": null
           },
           {
-            "id": "w2012",
+            "id": "w202012",
             "series": "Paper 1 Variant 2",
+            "subject": "Economics",
+            "year": 2020,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 1,
+            "variantNumber": 2,
             "qp": {
               "name": "9708_w20_qp_12.pdf",
               "path": "/Past Paper/Economics/Oct-Nov/2020-Oct-Nov/9708_w20_qp_12.pdf"
@@ -3872,8 +5438,14 @@
             "in": null
           },
           {
-            "id": "w2013",
+            "id": "w202013",
             "series": "Paper 1 Variant 3",
+            "subject": "Economics",
+            "year": 2020,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 1,
+            "variantNumber": 3,
             "qp": {
               "name": "9708_w20_qp_13.pdf",
               "path": "/Past Paper/Economics/Oct-Nov/2020-Oct-Nov/9708_w20_qp_13.pdf"
@@ -3885,8 +5457,14 @@
             "in": null
           },
           {
-            "id": "w2021",
+            "id": "w202021",
             "series": "Paper 2 Variant 1",
+            "subject": "Economics",
+            "year": 2020,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 2,
+            "variantNumber": 1,
             "qp": {
               "name": "9708_w20_qp_21.pdf",
               "path": "/Past Paper/Economics/Oct-Nov/2020-Oct-Nov/9708_w20_qp_21.pdf"
@@ -3898,8 +5476,14 @@
             "in": null
           },
           {
-            "id": "w2022",
+            "id": "w202022",
             "series": "Paper 2 Variant 2",
+            "subject": "Economics",
+            "year": 2020,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 2,
+            "variantNumber": 2,
             "qp": {
               "name": "9708_w20_qp_22.pdf",
               "path": "/Past Paper/Economics/Oct-Nov/2020-Oct-Nov/9708_w20_qp_22.pdf"
@@ -3911,8 +5495,14 @@
             "in": null
           },
           {
-            "id": "w2023",
+            "id": "w202023",
             "series": "Paper 2 Variant 3",
+            "subject": "Economics",
+            "year": 2020,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 2,
+            "variantNumber": 3,
             "qp": {
               "name": "9708_w20_qp_23.pdf",
               "path": "/Past Paper/Economics/Oct-Nov/2020-Oct-Nov/9708_w20_qp_23.pdf"
@@ -3924,8 +5514,14 @@
             "in": null
           },
           {
-            "id": "w2031",
+            "id": "w202031",
             "series": "Paper 3 Variant 1",
+            "subject": "Economics",
+            "year": 2020,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 3,
+            "variantNumber": 1,
             "qp": {
               "name": "9708_w20_qp_31.pdf",
               "path": "/Past Paper/Economics/Oct-Nov/2020-Oct-Nov/9708_w20_qp_31.pdf"
@@ -3937,8 +5533,14 @@
             "in": null
           },
           {
-            "id": "w2032",
+            "id": "w202032",
             "series": "Paper 3 Variant 2",
+            "subject": "Economics",
+            "year": 2020,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 3,
+            "variantNumber": 2,
             "qp": {
               "name": "9708_w20_qp_32.pdf",
               "path": "/Past Paper/Economics/Oct-Nov/2020-Oct-Nov/9708_w20_qp_32.pdf"
@@ -3950,8 +5552,14 @@
             "in": null
           },
           {
-            "id": "w2033",
+            "id": "w202033",
             "series": "Paper 3 Variant 3",
+            "subject": "Economics",
+            "year": 2020,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 3,
+            "variantNumber": 3,
             "qp": {
               "name": "9708_w20_qp_33.pdf",
               "path": "/Past Paper/Economics/Oct-Nov/2020-Oct-Nov/9708_w20_qp_33.pdf"
@@ -3963,8 +5571,14 @@
             "in": null
           },
           {
-            "id": "w2041",
+            "id": "w202041",
             "series": "Paper 4 Variant 1",
+            "subject": "Economics",
+            "year": 2020,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 4,
+            "variantNumber": 1,
             "qp": {
               "name": "9708_w20_qp_41.pdf",
               "path": "/Past Paper/Economics/Oct-Nov/2020-Oct-Nov/9708_w20_qp_41.pdf"
@@ -3976,8 +5590,14 @@
             "in": null
           },
           {
-            "id": "w2042",
+            "id": "w202042",
             "series": "Paper 4 Variant 2",
+            "subject": "Economics",
+            "year": 2020,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 4,
+            "variantNumber": 2,
             "qp": {
               "name": "9708_w20_qp_42.pdf",
               "path": "/Past Paper/Economics/Oct-Nov/2020-Oct-Nov/9708_w20_qp_42.pdf"
@@ -3989,8 +5609,14 @@
             "in": null
           },
           {
-            "id": "w2043",
+            "id": "w202043",
             "series": "Paper 4 Variant 3",
+            "subject": "Economics",
+            "year": 2020,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 4,
+            "variantNumber": 3,
             "qp": {
               "name": "9708_w20_qp_43.pdf",
               "path": "/Past Paper/Economics/Oct-Nov/2020-Oct-Nov/9708_w20_qp_43.pdf"
@@ -4016,8 +5642,14 @@
         },
         "paperList": [
           {
-            "id": "w2111",
+            "id": "w202111",
             "series": "Paper 1 Variant 1",
+            "subject": "Economics",
+            "year": 2021,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 1,
+            "variantNumber": 1,
             "qp": {
               "name": "9708_w21_qp_11.pdf",
               "path": "/Past Paper/Economics/Oct-Nov/2021-Oct-Nov/9708_w21_qp_11.pdf"
@@ -4029,8 +5661,14 @@
             "in": null
           },
           {
-            "id": "w2112",
+            "id": "w202112",
             "series": "Paper 1 Variant 2",
+            "subject": "Economics",
+            "year": 2021,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 1,
+            "variantNumber": 2,
             "qp": {
               "name": "9708_w21_qp_12.pdf",
               "path": "/Past Paper/Economics/Oct-Nov/2021-Oct-Nov/9708_w21_qp_12.pdf"
@@ -4042,8 +5680,14 @@
             "in": null
           },
           {
-            "id": "w2113",
+            "id": "w202113",
             "series": "Paper 1 Variant 3",
+            "subject": "Economics",
+            "year": 2021,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 1,
+            "variantNumber": 3,
             "qp": {
               "name": "9708_w21_qp_13.pdf",
               "path": "/Past Paper/Economics/Oct-Nov/2021-Oct-Nov/9708_w21_qp_13.pdf"
@@ -4055,8 +5699,14 @@
             "in": null
           },
           {
-            "id": "w2121",
+            "id": "w202121",
             "series": "Paper 2 Variant 1",
+            "subject": "Economics",
+            "year": 2021,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 2,
+            "variantNumber": 1,
             "qp": {
               "name": "9708_w21_qp_21.pdf",
               "path": "/Past Paper/Economics/Oct-Nov/2021-Oct-Nov/9708_w21_qp_21.pdf"
@@ -4068,8 +5718,14 @@
             "in": null
           },
           {
-            "id": "w2122",
+            "id": "w202122",
             "series": "Paper 2 Variant 2",
+            "subject": "Economics",
+            "year": 2021,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 2,
+            "variantNumber": 2,
             "qp": {
               "name": "9708_w21_qp_22.pdf",
               "path": "/Past Paper/Economics/Oct-Nov/2021-Oct-Nov/9708_w21_qp_22.pdf"
@@ -4081,8 +5737,14 @@
             "in": null
           },
           {
-            "id": "w2123",
+            "id": "w202123",
             "series": "Paper 2 Variant 3",
+            "subject": "Economics",
+            "year": 2021,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 2,
+            "variantNumber": 3,
             "qp": {
               "name": "9708_w21_qp_23.pdf",
               "path": "/Past Paper/Economics/Oct-Nov/2021-Oct-Nov/9708_w21_qp_23.pdf"
@@ -4094,8 +5756,14 @@
             "in": null
           },
           {
-            "id": "w2131",
+            "id": "w202131",
             "series": "Paper 3 Variant 1",
+            "subject": "Economics",
+            "year": 2021,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 3,
+            "variantNumber": 1,
             "qp": {
               "name": "9708_w21_qp_31.pdf",
               "path": "/Past Paper/Economics/Oct-Nov/2021-Oct-Nov/9708_w21_qp_31.pdf"
@@ -4107,8 +5775,14 @@
             "in": null
           },
           {
-            "id": "w2132",
+            "id": "w202132",
             "series": "Paper 3 Variant 2",
+            "subject": "Economics",
+            "year": 2021,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 3,
+            "variantNumber": 2,
             "qp": {
               "name": "9708_w21_qp_32.pdf",
               "path": "/Past Paper/Economics/Oct-Nov/2021-Oct-Nov/9708_w21_qp_32.pdf"
@@ -4120,8 +5794,14 @@
             "in": null
           },
           {
-            "id": "w2133",
+            "id": "w202133",
             "series": "Paper 3 Variant 3",
+            "subject": "Economics",
+            "year": 2021,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 3,
+            "variantNumber": 3,
             "qp": {
               "name": "9708_w21_qp_33.pdf",
               "path": "/Past Paper/Economics/Oct-Nov/2021-Oct-Nov/9708_w21_qp_33.pdf"
@@ -4133,8 +5813,14 @@
             "in": null
           },
           {
-            "id": "w2141",
+            "id": "w202141",
             "series": "Paper 4 Variant 1",
+            "subject": "Economics",
+            "year": 2021,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 4,
+            "variantNumber": 1,
             "qp": {
               "name": "9708_w21_qp_41.pdf",
               "path": "/Past Paper/Economics/Oct-Nov/2021-Oct-Nov/9708_w21_qp_41.pdf"
@@ -4146,8 +5832,14 @@
             "in": null
           },
           {
-            "id": "w2142",
+            "id": "w202142",
             "series": "Paper 4 Variant 2",
+            "subject": "Economics",
+            "year": 2021,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 4,
+            "variantNumber": 2,
             "qp": {
               "name": "9708_w21_qp_42.pdf",
               "path": "/Past Paper/Economics/Oct-Nov/2021-Oct-Nov/9708_w21_qp_42.pdf"
@@ -4159,8 +5851,14 @@
             "in": null
           },
           {
-            "id": "w2143",
+            "id": "w202143",
             "series": "Paper 4 Variant 3",
+            "subject": "Economics",
+            "year": 2021,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 4,
+            "variantNumber": 3,
             "qp": {
               "name": "9708_w21_qp_43.pdf",
               "path": "/Past Paper/Economics/Oct-Nov/2021-Oct-Nov/9708_w21_qp_43.pdf"
@@ -4186,8 +5884,14 @@
         },
         "paperList": [
           {
-            "id": "w2211",
+            "id": "w202211",
             "series": "Paper 1 Variant 1",
+            "subject": "Economics",
+            "year": 2022,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 1,
+            "variantNumber": 1,
             "qp": {
               "name": "9708_w22_qp_11.pdf",
               "path": "/Past Paper/Economics/Oct-Nov/2022-Oct-Nov/9708_w22_qp_11.pdf"
@@ -4199,8 +5903,14 @@
             "in": null
           },
           {
-            "id": "w2212",
+            "id": "w202212",
             "series": "Paper 1 Variant 2",
+            "subject": "Economics",
+            "year": 2022,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 1,
+            "variantNumber": 2,
             "qp": {
               "name": "9708_w22_qp_12.pdf",
               "path": "/Past Paper/Economics/Oct-Nov/2022-Oct-Nov/9708_w22_qp_12.pdf"
@@ -4212,8 +5922,14 @@
             "in": null
           },
           {
-            "id": "w2213",
+            "id": "w202213",
             "series": "Paper 1 Variant 3",
+            "subject": "Economics",
+            "year": 2022,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 1,
+            "variantNumber": 3,
             "qp": {
               "name": "9708_w22_qp_13.pdf",
               "path": "/Past Paper/Economics/Oct-Nov/2022-Oct-Nov/9708_w22_qp_13.pdf"
@@ -4225,8 +5941,14 @@
             "in": null
           },
           {
-            "id": "w2221",
+            "id": "w202221",
             "series": "Paper 2 Variant 1",
+            "subject": "Economics",
+            "year": 2022,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 2,
+            "variantNumber": 1,
             "qp": {
               "name": "9708_w22_qp_21.pdf",
               "path": "/Past Paper/Economics/Oct-Nov/2022-Oct-Nov/9708_w22_qp_21.pdf"
@@ -4238,8 +5960,14 @@
             "in": null
           },
           {
-            "id": "w2222",
+            "id": "w202222",
             "series": "Paper 2 Variant 2",
+            "subject": "Economics",
+            "year": 2022,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 2,
+            "variantNumber": 2,
             "qp": {
               "name": "9708_w22_qp_22.pdf",
               "path": "/Past Paper/Economics/Oct-Nov/2022-Oct-Nov/9708_w22_qp_22.pdf"
@@ -4251,8 +5979,14 @@
             "in": null
           },
           {
-            "id": "w2223",
+            "id": "w202223",
             "series": "Paper 2 Variant 3",
+            "subject": "Economics",
+            "year": 2022,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 2,
+            "variantNumber": 3,
             "qp": {
               "name": "9708_w22_qp_23.pdf",
               "path": "/Past Paper/Economics/Oct-Nov/2022-Oct-Nov/9708_w22_qp_23.pdf"
@@ -4264,8 +5998,14 @@
             "in": null
           },
           {
-            "id": "w2231",
+            "id": "w202231",
             "series": "Paper 3 Variant 1",
+            "subject": "Economics",
+            "year": 2022,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 3,
+            "variantNumber": 1,
             "qp": {
               "name": "9708_w22_qp_31.pdf",
               "path": "/Past Paper/Economics/Oct-Nov/2022-Oct-Nov/9708_w22_qp_31.pdf"
@@ -4277,8 +6017,14 @@
             "in": null
           },
           {
-            "id": "w2232",
+            "id": "w202232",
             "series": "Paper 3 Variant 2",
+            "subject": "Economics",
+            "year": 2022,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 3,
+            "variantNumber": 2,
             "qp": {
               "name": "9708_w22_qp_32.pdf",
               "path": "/Past Paper/Economics/Oct-Nov/2022-Oct-Nov/9708_w22_qp_32.pdf"
@@ -4290,8 +6036,14 @@
             "in": null
           },
           {
-            "id": "w2233",
+            "id": "w202233",
             "series": "Paper 3 Variant 3",
+            "subject": "Economics",
+            "year": 2022,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 3,
+            "variantNumber": 3,
             "qp": {
               "name": "9708_w22_qp_33.pdf",
               "path": "/Past Paper/Economics/Oct-Nov/2022-Oct-Nov/9708_w22_qp_33.pdf"
@@ -4303,8 +6055,14 @@
             "in": null
           },
           {
-            "id": "w2241",
+            "id": "w202241",
             "series": "Paper 4 Variant 1",
+            "subject": "Economics",
+            "year": 2022,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 4,
+            "variantNumber": 1,
             "qp": {
               "name": "9708_w22_qp_41.pdf",
               "path": "/Past Paper/Economics/Oct-Nov/2022-Oct-Nov/9708_w22_qp_41.pdf"
@@ -4316,8 +6074,14 @@
             "in": null
           },
           {
-            "id": "w2242",
+            "id": "w202242",
             "series": "Paper 4 Variant 2",
+            "subject": "Economics",
+            "year": 2022,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 4,
+            "variantNumber": 2,
             "qp": {
               "name": "9708_w22_qp_42.pdf",
               "path": "/Past Paper/Economics/Oct-Nov/2022-Oct-Nov/9708_w22_qp_42.pdf"
@@ -4329,8 +6093,14 @@
             "in": null
           },
           {
-            "id": "w2243",
+            "id": "w202243",
             "series": "Paper 4 Variant 3",
+            "subject": "Economics",
+            "year": 2022,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 4,
+            "variantNumber": 3,
             "qp": {
               "name": "9708_w22_qp_43.pdf",
               "path": "/Past Paper/Economics/Oct-Nov/2022-Oct-Nov/9708_w22_qp_43.pdf"
@@ -4356,8 +6126,14 @@
         },
         "paperList": [
           {
-            "id": "w2311",
+            "id": "w202311",
             "series": "Paper 1 Variant 1",
+            "subject": "Economics",
+            "year": 2023,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 1,
+            "variantNumber": 1,
             "qp": {
               "name": "9708_w23_qp_11.pdf",
               "path": "/Past Paper/Economics/Oct-Nov/2023-Oct-Nov/9708_w23_qp_11.pdf"
@@ -4369,8 +6145,14 @@
             "in": null
           },
           {
-            "id": "w2312",
+            "id": "w202312",
             "series": "Paper 1 Variant 2",
+            "subject": "Economics",
+            "year": 2023,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 1,
+            "variantNumber": 2,
             "qp": {
               "name": "9708_w23_qp_12.pdf",
               "path": "/Past Paper/Economics/Oct-Nov/2023-Oct-Nov/9708_w23_qp_12.pdf"
@@ -4382,8 +6164,14 @@
             "in": null
           },
           {
-            "id": "w2313",
+            "id": "w202313",
             "series": "Paper 1 Variant 3",
+            "subject": "Economics",
+            "year": 2023,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 1,
+            "variantNumber": 3,
             "qp": {
               "name": "9708_w23_qp_13.pdf",
               "path": "/Past Paper/Economics/Oct-Nov/2023-Oct-Nov/9708_w23_qp_13.pdf"
@@ -4395,8 +6183,14 @@
             "in": null
           },
           {
-            "id": "w2321",
+            "id": "w202321",
             "series": "Paper 2 Variant 1",
+            "subject": "Economics",
+            "year": 2023,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 2,
+            "variantNumber": 1,
             "qp": {
               "name": "9708_w23_qp_21.pdf",
               "path": "/Past Paper/Economics/Oct-Nov/2023-Oct-Nov/9708_w23_qp_21.pdf"
@@ -4408,8 +6202,14 @@
             "in": null
           },
           {
-            "id": "w2322",
+            "id": "w202322",
             "series": "Paper 2 Variant 2",
+            "subject": "Economics",
+            "year": 2023,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 2,
+            "variantNumber": 2,
             "qp": {
               "name": "9708_w23_qp_22.pdf",
               "path": "/Past Paper/Economics/Oct-Nov/2023-Oct-Nov/9708_w23_qp_22.pdf"
@@ -4421,8 +6221,14 @@
             "in": null
           },
           {
-            "id": "w2323",
+            "id": "w202323",
             "series": "Paper 2 Variant 3",
+            "subject": "Economics",
+            "year": 2023,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 2,
+            "variantNumber": 3,
             "qp": {
               "name": "9708_w23_qp_23.pdf",
               "path": "/Past Paper/Economics/Oct-Nov/2023-Oct-Nov/9708_w23_qp_23.pdf"
@@ -4434,8 +6240,14 @@
             "in": null
           },
           {
-            "id": "w2331",
+            "id": "w202331",
             "series": "Paper 3 Variant 1",
+            "subject": "Economics",
+            "year": 2023,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 3,
+            "variantNumber": 1,
             "qp": {
               "name": "9708_w23_qp_31.pdf",
               "path": "/Past Paper/Economics/Oct-Nov/2023-Oct-Nov/9708_w23_qp_31.pdf"
@@ -4447,8 +6259,14 @@
             "in": null
           },
           {
-            "id": "w2332",
+            "id": "w202332",
             "series": "Paper 3 Variant 2",
+            "subject": "Economics",
+            "year": 2023,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 3,
+            "variantNumber": 2,
             "qp": {
               "name": "9708_w23_qp_32.pdf",
               "path": "/Past Paper/Economics/Oct-Nov/2023-Oct-Nov/9708_w23_qp_32.pdf"
@@ -4460,8 +6278,14 @@
             "in": null
           },
           {
-            "id": "w2333",
+            "id": "w202333",
             "series": "Paper 3 Variant 3",
+            "subject": "Economics",
+            "year": 2023,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 3,
+            "variantNumber": 3,
             "qp": {
               "name": "9708_w23_qp_33.pdf",
               "path": "/Past Paper/Economics/Oct-Nov/2023-Oct-Nov/9708_w23_qp_33.pdf"
@@ -4473,8 +6297,14 @@
             "in": null
           },
           {
-            "id": "w2341",
+            "id": "w202341",
             "series": "Paper 4 Variant 1",
+            "subject": "Economics",
+            "year": 2023,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 4,
+            "variantNumber": 1,
             "qp": {
               "name": "9708_w23_qp_41.pdf",
               "path": "/Past Paper/Economics/Oct-Nov/2023-Oct-Nov/9708_w23_qp_41.pdf"
@@ -4486,8 +6316,14 @@
             "in": null
           },
           {
-            "id": "w2342",
+            "id": "w202342",
             "series": "Paper 4 Variant 2",
+            "subject": "Economics",
+            "year": 2023,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 4,
+            "variantNumber": 2,
             "qp": {
               "name": "9708_w23_qp_42.pdf",
               "path": "/Past Paper/Economics/Oct-Nov/2023-Oct-Nov/9708_w23_qp_42.pdf"
@@ -4499,8 +6335,14 @@
             "in": null
           },
           {
-            "id": "w2343",
+            "id": "w202343",
             "series": "Paper 4 Variant 3",
+            "subject": "Economics",
+            "year": 2023,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 4,
+            "variantNumber": 3,
             "qp": {
               "name": "9708_w23_qp_43.pdf",
               "path": "/Past Paper/Economics/Oct-Nov/2023-Oct-Nov/9708_w23_qp_43.pdf"
@@ -4523,8 +6365,14 @@
         },
         "paperList": [
           {
-            "id": "w2411",
+            "id": "w202411",
             "series": "Paper 1 Variant 1",
+            "subject": "Economics",
+            "year": 2024,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 1,
+            "variantNumber": 1,
             "qp": {
               "name": "9708_w24_qp_11.pdf",
               "path": "/Past Paper/Economics/Oct-Nov/2024-Oct-Nov/9708_w24_qp_11.pdf"
@@ -4536,8 +6384,14 @@
             "in": null
           },
           {
-            "id": "w2412",
+            "id": "w202412",
             "series": "Paper 1 Variant 2",
+            "subject": "Economics",
+            "year": 2024,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 1,
+            "variantNumber": 2,
             "qp": {
               "name": "9708_w24_qp_12.pdf",
               "path": "/Past Paper/Economics/Oct-Nov/2024-Oct-Nov/9708_w24_qp_12.pdf"
@@ -4549,8 +6403,14 @@
             "in": null
           },
           {
-            "id": "w2413",
+            "id": "w202413",
             "series": "Paper 1 Variant 3",
+            "subject": "Economics",
+            "year": 2024,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 1,
+            "variantNumber": 3,
             "qp": {
               "name": "9708_w24_qp_13.pdf",
               "path": "/Past Paper/Economics/Oct-Nov/2024-Oct-Nov/9708_w24_qp_13.pdf"
@@ -4562,8 +6422,14 @@
             "in": null
           },
           {
-            "id": "w2421",
+            "id": "w202421",
             "series": "Paper 2 Variant 1",
+            "subject": "Economics",
+            "year": 2024,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 2,
+            "variantNumber": 1,
             "qp": {
               "name": "9708_w24_qp_21.pdf",
               "path": "/Past Paper/Economics/Oct-Nov/2024-Oct-Nov/9708_w24_qp_21.pdf"
@@ -4575,8 +6441,14 @@
             "in": null
           },
           {
-            "id": "w2422",
+            "id": "w202422",
             "series": "Paper 2 Variant 2",
+            "subject": "Economics",
+            "year": 2024,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 2,
+            "variantNumber": 2,
             "qp": {
               "name": "9708_w24_qp_22.pdf",
               "path": "/Past Paper/Economics/Oct-Nov/2024-Oct-Nov/9708_w24_qp_22.pdf"
@@ -4588,8 +6460,14 @@
             "in": null
           },
           {
-            "id": "w2423",
+            "id": "w202423",
             "series": "Paper 2 Variant 3",
+            "subject": "Economics",
+            "year": 2024,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 2,
+            "variantNumber": 3,
             "qp": {
               "name": "9708_w24_qp_23.pdf",
               "path": "/Past Paper/Economics/Oct-Nov/2024-Oct-Nov/9708_w24_qp_23.pdf"
@@ -4601,8 +6479,14 @@
             "in": null
           },
           {
-            "id": "w2431",
+            "id": "w202431",
             "series": "Paper 3 Variant 1",
+            "subject": "Economics",
+            "year": 2024,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 3,
+            "variantNumber": 1,
             "qp": {
               "name": "9708_w24_qp_31.pdf",
               "path": "/Past Paper/Economics/Oct-Nov/2024-Oct-Nov/9708_w24_qp_31.pdf"
@@ -4614,8 +6498,14 @@
             "in": null
           },
           {
-            "id": "w2432",
+            "id": "w202432",
             "series": "Paper 3 Variant 2",
+            "subject": "Economics",
+            "year": 2024,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 3,
+            "variantNumber": 2,
             "qp": {
               "name": "9708_w24_qp_32.pdf",
               "path": "/Past Paper/Economics/Oct-Nov/2024-Oct-Nov/9708_w24_qp_32.pdf"
@@ -4627,8 +6517,14 @@
             "in": null
           },
           {
-            "id": "w2433",
+            "id": "w202433",
             "series": "Paper 3 Variant 3",
+            "subject": "Economics",
+            "year": 2024,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 3,
+            "variantNumber": 3,
             "qp": {
               "name": "9708_w24_qp_33.pdf",
               "path": "/Past Paper/Economics/Oct-Nov/2024-Oct-Nov/9708_w24_qp_33.pdf"
@@ -4640,8 +6536,14 @@
             "in": null
           },
           {
-            "id": "w2441",
+            "id": "w202441",
             "series": "Paper 4 Variant 1",
+            "subject": "Economics",
+            "year": 2024,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 4,
+            "variantNumber": 1,
             "qp": {
               "name": "9708_w24_qp_41.pdf",
               "path": "/Past Paper/Economics/Oct-Nov/2024-Oct-Nov/9708_w24_qp_41.pdf"
@@ -4653,8 +6555,14 @@
             "in": null
           },
           {
-            "id": "w2442",
+            "id": "w202442",
             "series": "Paper 4 Variant 2",
+            "subject": "Economics",
+            "year": 2024,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 4,
+            "variantNumber": 2,
             "qp": {
               "name": "9708_w24_qp_42.pdf",
               "path": "/Past Paper/Economics/Oct-Nov/2024-Oct-Nov/9708_w24_qp_42.pdf"
@@ -4666,8 +6574,14 @@
             "in": null
           },
           {
-            "id": "w2443",
+            "id": "w202443",
             "series": "Paper 4 Variant 3",
+            "subject": "Economics",
+            "year": 2024,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 4,
+            "variantNumber": 3,
             "qp": {
               "name": "9708_w24_qp_43.pdf",
               "path": "/Past Paper/Economics/Oct-Nov/2024-Oct-Nov/9708_w24_qp_43.pdf"
@@ -4691,8 +6605,14 @@
         },
         "paperList": [
           {
-            "id": "s2011",
+            "id": "s202011",
             "series": "Paper 1 Variant 1",
+            "subject": "English General Paper",
+            "year": 2020,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 1,
+            "variantNumber": 1,
             "qp": {
               "name": "8021_s20_qp_11.pdf",
               "path": "/Past Paper/English General Paper/May-Jun/2020-May-Jun/8021_s20_qp_11.pdf"
@@ -4704,8 +6624,14 @@
             "in": null
           },
           {
-            "id": "s2012",
+            "id": "s202012",
             "series": "Paper 1 Variant 2",
+            "subject": "English General Paper",
+            "year": 2020,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 1,
+            "variantNumber": 2,
             "qp": {
               "name": "8021_s20_qp_12.pdf",
               "path": "/Past Paper/English General Paper/May-Jun/2020-May-Jun/8021_s20_qp_12.pdf"
@@ -4717,8 +6643,14 @@
             "in": null
           },
           {
-            "id": "s2013",
+            "id": "s202013",
             "series": "Paper 1 Variant 3",
+            "subject": "English General Paper",
+            "year": 2020,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 1,
+            "variantNumber": 3,
             "qp": {
               "name": "8021_s20_qp_13.pdf",
               "path": "/Past Paper/English General Paper/May-Jun/2020-May-Jun/8021_s20_qp_13.pdf"
@@ -4730,8 +6662,14 @@
             "in": null
           },
           {
-            "id": "s2021",
+            "id": "s202021",
             "series": "Paper 2 Variant 1",
+            "subject": "English General Paper",
+            "year": 2020,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 2,
+            "variantNumber": 1,
             "qp": {
               "name": "8021_s20_qp_21.pdf",
               "path": "/Past Paper/English General Paper/May-Jun/2020-May-Jun/8021_s20_qp_21.pdf"
@@ -4746,8 +6684,14 @@
             }
           },
           {
-            "id": "s2022",
+            "id": "s202022",
             "series": "Paper 2 Variant 2",
+            "subject": "English General Paper",
+            "year": 2020,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 2,
+            "variantNumber": 2,
             "qp": {
               "name": "8021_s20_qp_22.pdf",
               "path": "/Past Paper/English General Paper/May-Jun/2020-May-Jun/8021_s20_qp_22.pdf"
@@ -4762,8 +6706,14 @@
             }
           },
           {
-            "id": "s2023",
+            "id": "s202023",
             "series": "Paper 2 Variant 3",
+            "subject": "English General Paper",
+            "year": 2020,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 2,
+            "variantNumber": 3,
             "qp": {
               "name": "8021_s20_qp_23.pdf",
               "path": "/Past Paper/English General Paper/May-Jun/2020-May-Jun/8021_s20_qp_23.pdf"
@@ -4792,8 +6742,14 @@
         },
         "paperList": [
           {
-            "id": "s2111",
+            "id": "s202111",
             "series": "Paper 1 Variant 1",
+            "subject": "English General Paper",
+            "year": 2021,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 1,
+            "variantNumber": 1,
             "qp": {
               "name": "8021_s21_qp_11.pdf",
               "path": "/Past Paper/English General Paper/May-Jun/2021-May-Jun/8021_s21_qp_11.pdf"
@@ -4805,8 +6761,14 @@
             "in": null
           },
           {
-            "id": "s2112",
+            "id": "s202112",
             "series": "Paper 1 Variant 2",
+            "subject": "English General Paper",
+            "year": 2021,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 1,
+            "variantNumber": 2,
             "qp": {
               "name": "8021_s21_qp_12.pdf",
               "path": "/Past Paper/English General Paper/May-Jun/2021-May-Jun/8021_s21_qp_12.pdf"
@@ -4818,8 +6780,14 @@
             "in": null
           },
           {
-            "id": "s2113",
+            "id": "s202113",
             "series": "Paper 1 Variant 3",
+            "subject": "English General Paper",
+            "year": 2021,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 1,
+            "variantNumber": 3,
             "qp": {
               "name": "8021_s21_qp_13.pdf",
               "path": "/Past Paper/English General Paper/May-Jun/2021-May-Jun/8021_s21_qp_13.pdf"
@@ -4831,8 +6799,14 @@
             "in": null
           },
           {
-            "id": "s2121",
+            "id": "s202121",
             "series": "Paper 2 Variant 1",
+            "subject": "English General Paper",
+            "year": 2021,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 2,
+            "variantNumber": 1,
             "qp": {
               "name": "8021_s21_qp_21.pdf",
               "path": "/Past Paper/English General Paper/May-Jun/2021-May-Jun/8021_s21_qp_21.pdf"
@@ -4847,8 +6821,14 @@
             }
           },
           {
-            "id": "s2122",
+            "id": "s202122",
             "series": "Paper 2 Variant 2",
+            "subject": "English General Paper",
+            "year": 2021,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 2,
+            "variantNumber": 2,
             "qp": {
               "name": "8021_s21_qp_22.pdf",
               "path": "/Past Paper/English General Paper/May-Jun/2021-May-Jun/8021_s21_qp_22.pdf"
@@ -4863,8 +6843,14 @@
             }
           },
           {
-            "id": "s2123",
+            "id": "s202123",
             "series": "Paper 2 Variant 3",
+            "subject": "English General Paper",
+            "year": 2021,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 2,
+            "variantNumber": 3,
             "qp": {
               "name": "8021_s21_qp_23.pdf",
               "path": "/Past Paper/English General Paper/May-Jun/2021-May-Jun/8021_s21_qp_23.pdf"
@@ -4893,8 +6879,14 @@
         },
         "paperList": [
           {
-            "id": "s2211",
+            "id": "s202211",
             "series": "Paper 1 Variant 1",
+            "subject": "English General Paper",
+            "year": 2022,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 1,
+            "variantNumber": 1,
             "qp": {
               "name": "8021_s22_qp_11.pdf",
               "path": "/Past Paper/English General Paper/May-Jun/2022-May-Jun/8021_s22_qp_11.pdf"
@@ -4906,8 +6898,14 @@
             "in": null
           },
           {
-            "id": "s2212",
+            "id": "s202212",
             "series": "Paper 1 Variant 2",
+            "subject": "English General Paper",
+            "year": 2022,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 1,
+            "variantNumber": 2,
             "qp": {
               "name": "8021_s22_qp_12.pdf",
               "path": "/Past Paper/English General Paper/May-Jun/2022-May-Jun/8021_s22_qp_12.pdf"
@@ -4919,8 +6917,14 @@
             "in": null
           },
           {
-            "id": "s2213",
+            "id": "s202213",
             "series": "Paper 1 Variant 3",
+            "subject": "English General Paper",
+            "year": 2022,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 1,
+            "variantNumber": 3,
             "qp": {
               "name": "8021_s22_qp_13.pdf",
               "path": "/Past Paper/English General Paper/May-Jun/2022-May-Jun/8021_s22_qp_13.pdf"
@@ -4932,8 +6936,14 @@
             "in": null
           },
           {
-            "id": "s2221",
+            "id": "s202221",
             "series": "Paper 2 Variant 1",
+            "subject": "English General Paper",
+            "year": 2022,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 2,
+            "variantNumber": 1,
             "qp": {
               "name": "8021_s22_qp_21.pdf",
               "path": "/Past Paper/English General Paper/May-Jun/2022-May-Jun/8021_s22_qp_21.pdf"
@@ -4945,8 +6955,14 @@
             "in": null
           },
           {
-            "id": "s2222",
+            "id": "s202222",
             "series": "Paper 2 Variant 2",
+            "subject": "English General Paper",
+            "year": 2022,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 2,
+            "variantNumber": 2,
             "qp": {
               "name": "8021_s22_qp_22.pdf",
               "path": "/Past Paper/English General Paper/May-Jun/2022-May-Jun/8021_s22_qp_22.pdf"
@@ -4958,8 +6974,14 @@
             "in": null
           },
           {
-            "id": "s2223",
+            "id": "s202223",
             "series": "Paper 2 Variant 3",
+            "subject": "English General Paper",
+            "year": 2022,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 2,
+            "variantNumber": 3,
             "qp": {
               "name": "8021_s22_qp_23.pdf",
               "path": "/Past Paper/English General Paper/May-Jun/2022-May-Jun/8021_s22_qp_23.pdf"
@@ -4985,8 +7007,14 @@
         },
         "paperList": [
           {
-            "id": "s2311",
+            "id": "s202311",
             "series": "Paper 1 Variant 1",
+            "subject": "English General Paper",
+            "year": 2023,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 1,
+            "variantNumber": 1,
             "qp": {
               "name": "8021_s23_qp_11.pdf",
               "path": "/Past Paper/English General Paper/May-Jun/2023-May-Jun/8021_s23_qp_11.pdf"
@@ -4998,8 +7026,14 @@
             "in": null
           },
           {
-            "id": "s2312",
+            "id": "s202312",
             "series": "Paper 1 Variant 2",
+            "subject": "English General Paper",
+            "year": 2023,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 1,
+            "variantNumber": 2,
             "qp": {
               "name": "8021_s23_qp_12.pdf",
               "path": "/Past Paper/English General Paper/May-Jun/2023-May-Jun/8021_s23_qp_12.pdf"
@@ -5011,8 +7045,14 @@
             "in": null
           },
           {
-            "id": "s2313",
+            "id": "s202313",
             "series": "Paper 1 Variant 3",
+            "subject": "English General Paper",
+            "year": 2023,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 1,
+            "variantNumber": 3,
             "qp": {
               "name": "8021_s23_qp_13.pdf",
               "path": "/Past Paper/English General Paper/May-Jun/2023-May-Jun/8021_s23_qp_13.pdf"
@@ -5024,8 +7064,14 @@
             "in": null
           },
           {
-            "id": "s2321",
+            "id": "s202321",
             "series": "Paper 2 Variant 1",
+            "subject": "English General Paper",
+            "year": 2023,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 2,
+            "variantNumber": 1,
             "qp": {
               "name": "8021_s23_qp_21.pdf",
               "path": "/Past Paper/English General Paper/May-Jun/2023-May-Jun/8021_s23_qp_21.pdf"
@@ -5040,8 +7086,14 @@
             }
           },
           {
-            "id": "s2322",
+            "id": "s202322",
             "series": "Paper 2 Variant 2",
+            "subject": "English General Paper",
+            "year": 2023,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 2,
+            "variantNumber": 2,
             "qp": {
               "name": "8021_s23_qp_22.pdf",
               "path": "/Past Paper/English General Paper/May-Jun/2023-May-Jun/8021_s23_qp_22.pdf"
@@ -5056,8 +7108,14 @@
             }
           },
           {
-            "id": "s2323",
+            "id": "s202323",
             "series": "Paper 2 Variant 3",
+            "subject": "English General Paper",
+            "year": 2023,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 2,
+            "variantNumber": 3,
             "qp": {
               "name": "8021_s23_qp_23.pdf",
               "path": "/Past Paper/English General Paper/May-Jun/2023-May-Jun/8021_s23_qp_23.pdf"
@@ -5083,8 +7141,14 @@
         },
         "paperList": [
           {
-            "id": "s2411",
+            "id": "s202411",
             "series": "Paper 1 Variant 1",
+            "subject": "English General Paper",
+            "year": 2024,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 1,
+            "variantNumber": 1,
             "qp": {
               "name": "8021_s24_qp_11.pdf",
               "path": "/Past Paper/English General Paper/May-Jun/2024-May-Jun/8021_s24_qp_11.pdf"
@@ -5096,8 +7160,14 @@
             "in": null
           },
           {
-            "id": "s2412",
+            "id": "s202412",
             "series": "Paper 1 Variant 2",
+            "subject": "English General Paper",
+            "year": 2024,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 1,
+            "variantNumber": 2,
             "qp": {
               "name": "8021_s24_qp_12.pdf",
               "path": "/Past Paper/English General Paper/May-Jun/2024-May-Jun/8021_s24_qp_12.pdf"
@@ -5109,8 +7179,14 @@
             "in": null
           },
           {
-            "id": "s2413",
+            "id": "s202413",
             "series": "Paper 1 Variant 3",
+            "subject": "English General Paper",
+            "year": 2024,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 1,
+            "variantNumber": 3,
             "qp": {
               "name": "8021_s24_qp_13.pdf",
               "path": "/Past Paper/English General Paper/May-Jun/2024-May-Jun/8021_s24_qp_13.pdf"
@@ -5122,8 +7198,14 @@
             "in": null
           },
           {
-            "id": "s2421",
+            "id": "s202421",
             "series": "Paper 2 Variant 1",
+            "subject": "English General Paper",
+            "year": 2024,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 2,
+            "variantNumber": 1,
             "qp": {
               "name": "8021_s24_qp_21.pdf",
               "path": "/Past Paper/English General Paper/May-Jun/2024-May-Jun/8021_s24_qp_21.pdf"
@@ -5138,8 +7220,14 @@
             }
           },
           {
-            "id": "s2422",
+            "id": "s202422",
             "series": "Paper 2 Variant 2",
+            "subject": "English General Paper",
+            "year": 2024,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 2,
+            "variantNumber": 2,
             "qp": {
               "name": "8021_s24_qp_22.pdf",
               "path": "/Past Paper/English General Paper/May-Jun/2024-May-Jun/8021_s24_qp_22.pdf"
@@ -5154,8 +7242,14 @@
             }
           },
           {
-            "id": "s2423",
+            "id": "s202423",
             "series": "Paper 2 Variant 3",
+            "subject": "English General Paper",
+            "year": 2024,
+            "session": "May-Jun",
+            "season": "s",
+            "paperNumber": 2,
+            "variantNumber": 3,
             "qp": {
               "name": "8021_s24_qp_23.pdf",
               "path": "/Past Paper/English General Paper/May-Jun/2024-May-Jun/8021_s24_qp_23.pdf"
@@ -5186,8 +7280,14 @@
         },
         "paperList": [
           {
-            "id": "w2011",
+            "id": "w202011",
             "series": "Paper 1 Variant 1",
+            "subject": "English General Paper",
+            "year": 2020,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 1,
+            "variantNumber": 1,
             "qp": {
               "name": "8021_w20_qp_11.pdf",
               "path": "/Past Paper/English General Paper/Oct-Nov/2020-Oct-Nov/8021_w20_qp_11.pdf"
@@ -5199,8 +7299,14 @@
             "in": null
           },
           {
-            "id": "w2012",
+            "id": "w202012",
             "series": "Paper 1 Variant 2",
+            "subject": "English General Paper",
+            "year": 2020,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 1,
+            "variantNumber": 2,
             "qp": {
               "name": "8021_w20_qp_12.pdf",
               "path": "/Past Paper/English General Paper/Oct-Nov/2020-Oct-Nov/8021_w20_qp_12.pdf"
@@ -5212,8 +7318,14 @@
             "in": null
           },
           {
-            "id": "w2013",
+            "id": "w202013",
             "series": "Paper 1 Variant 3",
+            "subject": "English General Paper",
+            "year": 2020,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 1,
+            "variantNumber": 3,
             "qp": {
               "name": "8021_w20_qp_13.pdf",
               "path": "/Past Paper/English General Paper/Oct-Nov/2020-Oct-Nov/8021_w20_qp_13.pdf"
@@ -5225,8 +7337,14 @@
             "in": null
           },
           {
-            "id": "w2021",
+            "id": "w202021",
             "series": "Paper 2 Variant 1",
+            "subject": "English General Paper",
+            "year": 2020,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 2,
+            "variantNumber": 1,
             "qp": {
               "name": "8021_w20_qp_21.pdf",
               "path": "/Past Paper/English General Paper/Oct-Nov/2020-Oct-Nov/8021_w20_qp_21.pdf"
@@ -5241,8 +7359,14 @@
             }
           },
           {
-            "id": "w2022",
+            "id": "w202022",
             "series": "Paper 2 Variant 2",
+            "subject": "English General Paper",
+            "year": 2020,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 2,
+            "variantNumber": 2,
             "qp": {
               "name": "8021_w20_qp_22.pdf",
               "path": "/Past Paper/English General Paper/Oct-Nov/2020-Oct-Nov/8021_w20_qp_22.pdf"
@@ -5257,8 +7381,14 @@
             }
           },
           {
-            "id": "w2023",
+            "id": "w202023",
             "series": "Paper 2 Variant 3",
+            "subject": "English General Paper",
+            "year": 2020,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 2,
+            "variantNumber": 3,
             "qp": {
               "name": "8021_w20_qp_23.pdf",
               "path": "/Past Paper/English General Paper/Oct-Nov/2020-Oct-Nov/8021_w20_qp_23.pdf"
@@ -5287,8 +7417,14 @@
         },
         "paperList": [
           {
-            "id": "w2111",
+            "id": "w202111",
             "series": "Paper 1 Variant 1",
+            "subject": "English General Paper",
+            "year": 2021,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 1,
+            "variantNumber": 1,
             "qp": {
               "name": "8021_w21_qp_11.pdf",
               "path": "/Past Paper/English General Paper/Oct-Nov/2021-Oct-Nov/8021_w21_qp_11.pdf"
@@ -5300,8 +7436,14 @@
             "in": null
           },
           {
-            "id": "w2112",
+            "id": "w202112",
             "series": "Paper 1 Variant 2",
+            "subject": "English General Paper",
+            "year": 2021,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 1,
+            "variantNumber": 2,
             "qp": {
               "name": "8021_w21_qp_12.pdf",
               "path": "/Past Paper/English General Paper/Oct-Nov/2021-Oct-Nov/8021_w21_qp_12.pdf"
@@ -5313,8 +7455,14 @@
             "in": null
           },
           {
-            "id": "w2113",
+            "id": "w202113",
             "series": "Paper 1 Variant 3",
+            "subject": "English General Paper",
+            "year": 2021,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 1,
+            "variantNumber": 3,
             "qp": {
               "name": "8021_w21_qp_13.pdf",
               "path": "/Past Paper/English General Paper/Oct-Nov/2021-Oct-Nov/8021_w21_qp_13.pdf"
@@ -5326,8 +7474,14 @@
             "in": null
           },
           {
-            "id": "w2121",
+            "id": "w202121",
             "series": "Paper 2 Variant 1",
+            "subject": "English General Paper",
+            "year": 2021,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 2,
+            "variantNumber": 1,
             "qp": {
               "name": "8021_w21_qp_21.pdf",
               "path": "/Past Paper/English General Paper/Oct-Nov/2021-Oct-Nov/8021_w21_qp_21.pdf"
@@ -5342,8 +7496,14 @@
             }
           },
           {
-            "id": "w2122",
+            "id": "w202122",
             "series": "Paper 2 Variant 2",
+            "subject": "English General Paper",
+            "year": 2021,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 2,
+            "variantNumber": 2,
             "qp": {
               "name": "8021_w21_qp_22.pdf",
               "path": "/Past Paper/English General Paper/Oct-Nov/2021-Oct-Nov/8021_w21_qp_22.pdf"
@@ -5358,8 +7518,14 @@
             }
           },
           {
-            "id": "w2123",
+            "id": "w202123",
             "series": "Paper 2 Variant 3",
+            "subject": "English General Paper",
+            "year": 2021,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 2,
+            "variantNumber": 3,
             "qp": {
               "name": "8021_w21_qp_23.pdf",
               "path": "/Past Paper/English General Paper/Oct-Nov/2021-Oct-Nov/8021_w21_qp_23.pdf"
@@ -5388,8 +7554,14 @@
         },
         "paperList": [
           {
-            "id": "w2211",
+            "id": "w202211",
             "series": "Paper 1 Variant 1",
+            "subject": "English General Paper",
+            "year": 2022,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 1,
+            "variantNumber": 1,
             "qp": {
               "name": "8021_w22_qp_11.pdf",
               "path": "/Past Paper/English General Paper/Oct-Nov/2022-Oct-Nov/8021_w22_qp_11.pdf"
@@ -5401,8 +7573,14 @@
             "in": null
           },
           {
-            "id": "w2212",
+            "id": "w202212",
             "series": "Paper 1 Variant 2",
+            "subject": "English General Paper",
+            "year": 2022,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 1,
+            "variantNumber": 2,
             "qp": {
               "name": "8021_w22_qp_12.pdf",
               "path": "/Past Paper/English General Paper/Oct-Nov/2022-Oct-Nov/8021_w22_qp_12.pdf"
@@ -5414,8 +7592,14 @@
             "in": null
           },
           {
-            "id": "w2213",
+            "id": "w202213",
             "series": "Paper 1 Variant 3",
+            "subject": "English General Paper",
+            "year": 2022,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 1,
+            "variantNumber": 3,
             "qp": {
               "name": "8021_w22_qp_13.pdf",
               "path": "/Past Paper/English General Paper/Oct-Nov/2022-Oct-Nov/8021_w22_qp_13.pdf"
@@ -5427,8 +7611,14 @@
             "in": null
           },
           {
-            "id": "w2221",
+            "id": "w202221",
             "series": "Paper 2 Variant 1",
+            "subject": "English General Paper",
+            "year": 2022,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 2,
+            "variantNumber": 1,
             "qp": {
               "name": "8021_w22_qp_21.pdf",
               "path": "/Past Paper/English General Paper/Oct-Nov/2022-Oct-Nov/8021_w22_qp_21.pdf"
@@ -5443,8 +7633,14 @@
             }
           },
           {
-            "id": "w2222",
+            "id": "w202222",
             "series": "Paper 2 Variant 2",
+            "subject": "English General Paper",
+            "year": 2022,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 2,
+            "variantNumber": 2,
             "qp": {
               "name": "8021_w22_qp_22.pdf",
               "path": "/Past Paper/English General Paper/Oct-Nov/2022-Oct-Nov/8021_w22_qp_22.pdf"
@@ -5459,8 +7655,14 @@
             }
           },
           {
-            "id": "w2223",
+            "id": "w202223",
             "series": "Paper 2 Variant 3",
+            "subject": "English General Paper",
+            "year": 2022,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 2,
+            "variantNumber": 3,
             "qp": {
               "name": "8021_w22_qp_23.pdf",
               "path": "/Past Paper/English General Paper/Oct-Nov/2022-Oct-Nov/8021_w22_qp_23.pdf"
@@ -5489,8 +7691,14 @@
         },
         "paperList": [
           {
-            "id": "w2311",
+            "id": "w202311",
             "series": "Paper 1 Variant 1",
+            "subject": "English General Paper",
+            "year": 2023,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 1,
+            "variantNumber": 1,
             "qp": {
               "name": "8021_w23_qp_11.pdf",
               "path": "/Past Paper/English General Paper/Oct-Nov/2023-Oct-Nov/8021_w23_qp_11.pdf"
@@ -5502,8 +7710,14 @@
             "in": null
           },
           {
-            "id": "w2312",
+            "id": "w202312",
             "series": "Paper 1 Variant 2",
+            "subject": "English General Paper",
+            "year": 2023,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 1,
+            "variantNumber": 2,
             "qp": {
               "name": "8021_w23_qp_12.pdf",
               "path": "/Past Paper/English General Paper/Oct-Nov/2023-Oct-Nov/8021_w23_qp_12.pdf"
@@ -5515,8 +7729,14 @@
             "in": null
           },
           {
-            "id": "w2313",
+            "id": "w202313",
             "series": "Paper 1 Variant 3",
+            "subject": "English General Paper",
+            "year": 2023,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 1,
+            "variantNumber": 3,
             "qp": {
               "name": "8021_w23_qp_13.pdf",
               "path": "/Past Paper/English General Paper/Oct-Nov/2023-Oct-Nov/8021_w23_qp_13.pdf"
@@ -5528,8 +7748,14 @@
             "in": null
           },
           {
-            "id": "w2321",
+            "id": "w202321",
             "series": "Paper 2 Variant 1",
+            "subject": "English General Paper",
+            "year": 2023,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 2,
+            "variantNumber": 1,
             "qp": {
               "name": "8021_w23_qp_21.pdf",
               "path": "/Past Paper/English General Paper/Oct-Nov/2023-Oct-Nov/8021_w23_qp_21.pdf"
@@ -5544,8 +7770,14 @@
             }
           },
           {
-            "id": "w2322",
+            "id": "w202322",
             "series": "Paper 2 Variant 2",
+            "subject": "English General Paper",
+            "year": 2023,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 2,
+            "variantNumber": 2,
             "qp": {
               "name": "8021_w23_qp_22.pdf",
               "path": "/Past Paper/English General Paper/Oct-Nov/2023-Oct-Nov/8021_w23_qp_22.pdf"
@@ -5560,8 +7792,14 @@
             }
           },
           {
-            "id": "w2323",
+            "id": "w202323",
             "series": "Paper 2 Variant 3",
+            "subject": "English General Paper",
+            "year": 2023,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 2,
+            "variantNumber": 3,
             "qp": {
               "name": "8021_w23_qp_23.pdf",
               "path": "/Past Paper/English General Paper/Oct-Nov/2023-Oct-Nov/8021_w23_qp_23.pdf"
@@ -5587,8 +7825,14 @@
         },
         "paperList": [
           {
-            "id": "w2411",
+            "id": "w202411",
             "series": "Paper 1 Variant 1",
+            "subject": "English General Paper",
+            "year": 2024,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 1,
+            "variantNumber": 1,
             "qp": {
               "name": "8021_w24_qp_11.pdf",
               "path": "/Past Paper/English General Paper/Oct-Nov/2024-Oct-Nov/8021_w24_qp_11.pdf"
@@ -5600,8 +7844,14 @@
             "in": null
           },
           {
-            "id": "w2412",
+            "id": "w202412",
             "series": "Paper 1 Variant 2",
+            "subject": "English General Paper",
+            "year": 2024,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 1,
+            "variantNumber": 2,
             "qp": {
               "name": "8021_w24_qp_12.pdf",
               "path": "/Past Paper/English General Paper/Oct-Nov/2024-Oct-Nov/8021_w24_qp_12.pdf"
@@ -5613,8 +7863,14 @@
             "in": null
           },
           {
-            "id": "w2413",
+            "id": "w202413",
             "series": "Paper 1 Variant 3",
+            "subject": "English General Paper",
+            "year": 2024,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 1,
+            "variantNumber": 3,
             "qp": {
               "name": "8021_w24_qp_13.pdf",
               "path": "/Past Paper/English General Paper/Oct-Nov/2024-Oct-Nov/8021_w24_qp_13.pdf"
@@ -5626,8 +7882,14 @@
             "in": null
           },
           {
-            "id": "w2421",
+            "id": "w202421",
             "series": "Paper 2 Variant 1",
+            "subject": "English General Paper",
+            "year": 2024,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 2,
+            "variantNumber": 1,
             "qp": {
               "name": "8021_w24_qp_21.pdf",
               "path": "/Past Paper/English General Paper/Oct-Nov/2024-Oct-Nov/8021_w24_qp_21.pdf"
@@ -5642,8 +7904,14 @@
             }
           },
           {
-            "id": "w2422",
+            "id": "w202422",
             "series": "Paper 2 Variant 2",
+            "subject": "English General Paper",
+            "year": 2024,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 2,
+            "variantNumber": 2,
             "qp": {
               "name": "8021_w24_qp_22.pdf",
               "path": "/Past Paper/English General Paper/Oct-Nov/2024-Oct-Nov/8021_w24_qp_22.pdf"
@@ -5658,8 +7926,14 @@
             }
           },
           {
-            "id": "w2423",
+            "id": "w202423",
             "series": "Paper 2 Variant 3",
+            "subject": "English General Paper",
+            "year": 2024,
+            "session": "Oct-Nov",
+            "season": "w",
+            "paperNumber": 2,
+            "variantNumber": 3,
             "qp": {
               "name": "8021_w24_qp_23.pdf",
               "path": "/Past Paper/English General Paper/Oct-Nov/2024-Oct-Nov/8021_w24_qp_23.pdf"
