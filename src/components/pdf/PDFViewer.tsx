@@ -26,22 +26,26 @@ import { ThumbnailSidebar, PDFToolbar } from "./pdf-ui-components";
 
 pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js';
 
+// --- CHANGE 1: Expanded PaperSet to include all document types ---
 interface PaperSet {
   id: string;
   series: string;
   qp: { name: string; path: string } | null;
   ms: { name: string; path: string } | null;
   in: { name: string; path: string } | null;
+  er: { name: string; path: string } | null;
+  gt: { name: string; path: string } | null;
 }
 
 interface PDFViewerProps {
   initialFile: File;
   paperSet: PaperSet | null;
-  initialFileType: 'qp' | 'ms' | 'in' | null;
+  initialFileType: 'qp' | 'ms' | 'in' | 'er' | 'gt' | null;
   onClose: () => void;
 }
 
-type DocType = 'qp' | 'ms' | 'in';
+// --- CHANGE 2: Expanded DocType to include all document types ---
+type DocType = 'qp' | 'ms' | 'in' | 'er' | 'gt';
 
 interface DocumentState {
   numPages: number;
@@ -56,31 +60,40 @@ interface DocumentState {
 
 export const PDFViewer = ({ initialFile, paperSet, initialFileType, onClose }: PDFViewerProps) => {
   // --- State Management for Multi-Document Handling ---
-  const [documents, setDocuments] = useState<{ qp: File | null; ms: File | null; in: File | null }>({
+  // --- CHANGE 3: Expanded `documents` state ---
+  const [documents, setDocuments] = useState<{ qp: File | null; ms: File | null; in: File | null; er: File | null; gt: File | null }>({
     qp: initialFileType === 'qp' ? initialFile : null,
     ms: initialFileType === 'ms' ? initialFile : null,
     in: initialFileType === 'in' ? initialFile : null,
+    er: initialFileType === 'er' ? initialFile : null,
+    gt: initialFileType === 'gt' ? initialFile : null,
   });
   const [activeDocumentType, setActiveDocumentType] = useState<DocType>(initialFileType || 'qp');
   const [isPreloading, setIsPreloading] = useState<boolean>(false);
   const canSwitch = !!paperSet && [paperSet.qp, paperSet.ms, paperSet.in].filter(Boolean).length > 1;
 
-  // Decoupled state for each document
+  // --- CHANGE 4: Expanded `pageStates` state ---
   const [pageStates, setPageStates] = useState({ 
     qp: { page: 1, scale: 1.0 }, 
     ms: { page: 1, scale: 1.0 },
     in: { page: 1, scale: 1.0 },
+    er: { page: 1, scale: 1.0 },
+    gt: { page: 1, scale: 1.0 },
+  });
+  // --- CHANGE 5: Expanded `docStates` state ---
+  const createInitialDocState = (): DocumentState => ({
+    numPages: 0, pdfProxy: null, renderedPages: new Set(), pageDimensions: null, searchQuery: "", searchResults: [], currentMatchIndex: 0, isSearching: false
   });
   const [docStates, setDocStates] = useState<Record<DocType, DocumentState>>({
-    qp: { numPages: 0, pdfProxy: null, renderedPages: new Set(), pageDimensions: null, searchQuery: "", searchResults: [], currentMatchIndex: 0, isSearching: false },
-    ms: { numPages: 0, pdfProxy: null, renderedPages: new Set(), pageDimensions: null, searchQuery: "", searchResults: [], currentMatchIndex: 0, isSearching: false },
-    in: { numPages: 0, pdfProxy: null, renderedPages: new Set(), pageDimensions: null, searchQuery: "", searchResults: [], currentMatchIndex: 0, isSearching: false },
+    qp: createInitialDocState(),
+    ms: createInitialDocState(),
+    in: createInitialDocState(),
+    er: createInitialDocState(),
+    gt: createInitialDocState(),
   });
-  // NEW: State to store scroll positions for each document
+  // --- CHANGE 6: Expanded `scrollPositions` state ---
   const [scrollPositions, setScrollPositions] = useState({
-    qp: 0,
-    ms: 0,
-    in: 0,
+    qp: 0, ms: 0, in: 0, er: 0, gt: 0,
   });
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -100,7 +113,8 @@ export const PDFViewer = ({ initialFile, paperSet, initialFileType, onClose }: P
   const [ephemeralChatName, setEphemeralChatName] = useState<string | null>(null);
 
   const viewerRef = useRef<HTMLDivElement | null>(null);
-  const pageRefs = useRef<Record<DocType, (HTMLDivElement | null)[]>>({ qp: [], ms: [], in: [] });
+  // --- CHANGE 7: Expanded `pageRefs` state ---
+  const pageRefs = useRef<Record<DocType, (HTMLDivElement | null)[]>>({ qp: [], ms: [], in: [], er: [], gt: [] });
   const panelGroupRef = useRef<ImperativePanelGroupHandle>(null);
   
   // --- Active State Accessors ---
@@ -127,12 +141,12 @@ export const PDFViewer = ({ initialFile, paperSet, initialFileType, onClose }: P
     }));
   };
 
-  // --- Cyclical Switching Logic ---
+  // --- Cyclical Switching Logic (Intentionally kept to qp/ms/in) ---
   const getNextDocumentInfo = useCallback(() => {
     if (!canSwitch || !paperSet) return null;
 
     const cycleOrder: DocType[] = ['qp', 'ms', 'in'];
-    const docNames: Record<DocType, string> = { qp: "Question Paper", ms: "Mark Scheme", in: "Insert" };
+    const docNames: Record<DocType, string> = { qp: "Question Paper", ms: "Mark Scheme", in: "Insert", er: "Examiner Report", gt: "Grade Thresholds" };
     
     const availableDocs = cycleOrder.filter(type => paperSet[type]);
     if (availableDocs.length < 2) return null;
@@ -147,7 +161,6 @@ export const PDFViewer = ({ initialFile, paperSet, initialFileType, onClose }: P
   const handleCycleDocument = useCallback(() => {
     const nextDoc = getNextDocumentInfo();
     if (nextDoc) {
-      // MODIFIED: Save current scroll position before switching
       if (viewerRef.current) {
         setScrollPositions(prev => ({
           ...prev,
@@ -158,19 +171,17 @@ export const PDFViewer = ({ initialFile, paperSet, initialFileType, onClose }: P
       if (!documents[nextDoc.type]) setIsLoading(true);
       setActiveDocumentType(nextDoc.type);
     }
-  }, [getNextDocumentInfo, documents, activeDocumentType]); // Added activeDocumentType dependency
+  }, [getNextDocumentInfo, documents, activeDocumentType]);
 
-  // NEW: Effect to restore scroll position when document changes
   useEffect(() => {
     if (viewerRef.current) {
-      // Use a timeout to ensure the DOM has updated (new doc is visible) before we scroll
       setTimeout(() => {
         if (viewerRef.current) {
           viewerRef.current.scrollTop = scrollPositions[activeDocumentType];
         }
       }, 0);
     }
-  }, [activeDocumentType]); // Only runs when the active document changes
+  }, [activeDocumentType, scrollPositions]);
 
   // --- Pre-loading and Switching Logic ---
   useEffect(() => {
@@ -229,7 +240,6 @@ export const PDFViewer = ({ initialFile, paperSet, initialFileType, onClose }: P
     if (docType === activeDocumentType) {
       setIsLoading(false);
       toast({ title: "PDF Loaded", description: `${documents[docType]?.name} is ready.` });
-      // Restore scroll position after initial load
       setTimeout(() => {
         if (viewerRef.current) {
           viewerRef.current.scrollTop = scrollPositions[docType];
@@ -388,9 +398,12 @@ export const PDFViewer = ({ initialFile, paperSet, initialFileType, onClose }: P
             <ResizablePanel defaultSize={isNotesViewActive || isChatViewActive ? 50 : 100}>
               <div className="flex-1 overflow-auto p-4 md:p-8 h-full" ref={viewerRef}>
                 {isLoading && <div className="absolute inset-0 flex justify-center items-center bg-background/50 z-20"><div className="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent" /></div>}
+                {/* --- CHANGE 8: Added render blocks for `er` and `gt` --- */}
                 <div className={cn({ 'hidden': activeDocumentType !== 'qp' })}>{renderPagesForDoc('qp')}</div>
                 <div className={cn({ 'hidden': activeDocumentType !== 'ms' })}>{renderPagesForDoc('ms')}</div>
                 <div className={cn({ 'hidden': activeDocumentType !== 'in' })}>{renderPagesForDoc('in')}</div>
+                <div className={cn({ 'hidden': activeDocumentType !== 'er' })}>{renderPagesForDoc('er')}</div>
+                <div className={cn({ 'hidden': activeDocumentType !== 'gt' })}>{renderPagesForDoc('gt')}</div>
               </div>
             </ResizablePanel>
             {(isNotesViewActive || isChatViewActive) && <ResizableHandle withHandle />}

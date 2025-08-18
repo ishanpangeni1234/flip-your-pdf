@@ -26,6 +26,7 @@ interface PDFFileData {
   name: string
   path: string
 }
+
 export interface PaperSet {
   id: string
   series: string
@@ -38,14 +39,14 @@ export interface PaperSet {
   qp: PDFFileData | null
   ms: PDFFileData | null
   in: PDFFileData | null
+  er: PDFFileData | null
+  gt: PDFFileData | null
 }
+
 interface YearData {
-  sessionDocs: {
-    er: PDFFileData | null
-    gt: PDFFileData | null
-  }
   paperList: PaperSet[]
 }
+
 type PapersData = {
   [subject: string]: { [session: string]: { [year: string]: YearData } }
 }
@@ -124,19 +125,45 @@ export const PaperCard = ({ paper, groupName, onLinkClick }: { paper: PaperSet; 
   </Card>
 )
 
-const SessionDocuments = ({ er, gt, onLinkClick, subject, session, year }: { er: PDFFileData | null; gt: PDFFileData | null; onLinkClick: LinkClickHandler, subject: string, session: string, year: string }) => {
-  if (!er && !gt) return null
-  const dummyPaperSet: PaperSet = { id: 'session-docs', series: 'Session Documents', subject, session, year: parseInt(year), season: 's', paperNumber: 0, variantNumber: 0, qp: null, ms: null, in: null };
-  return (
-    <Card className="max-w-4xl mx-auto p-6 bg-card/60 backdrop-blur-sm border-2 border-dashed">
-       <h3 className="text-xl font-semibold mb-4 text-center">Session Documents</h3>
-       <div className="flex flex-col sm:flex-row gap-4 justify-center">
-        {er && <FileButton pdf={er} icon={PenSquare} label="Examiner Report" onLinkClick={(e, pdf) => onLinkClick(e, pdf, 'er', dummyPaperSet)} colorScheme="orange" />}
-        {gt && <FileButton pdf={gt} icon={BarChart3} label="Grade Thresholds" onLinkClick={(e, pdf) => onLinkClick(e, pdf, 'gt', dummyPaperSet)} colorScheme="indigo" />}
-      </div>
-    </Card>
-  )
-}
+const SessionDocCard = ({ doc, onLinkClick }: { doc: PaperSet; onLinkClick: LinkClickHandler }) => {
+    const isER = !!doc.er;
+    const file = isER ? doc.er : doc.gt;
+    const Icon = isER ? PenSquare : BarChart3;
+    const label = isER ? 'Examiner Report' : 'Grade Thresholds';
+    const colorScheme = isER ? 'orange' : 'indigo';
+
+    const iconColorStyles = {
+        orange: "bg-orange-500/10 text-orange-600 dark:text-orange-400",
+        indigo: "bg-indigo-500/10 text-indigo-600 dark:text-indigo-400",
+    };
+
+    if (!file) return null;
+
+    return (
+        <Card className="flex flex-col bg-card/60 backdrop-blur-sm hover:shadow-lg transition-all duration-300 border hover:border-primary/30 hover:-translate-y-1">
+            <CardHeader className="p-4 pb-2">
+                <div className="flex items-center gap-3">
+                    <div className={`p-2 rounded-lg ${iconColorStyles[colorScheme]}`}>
+                        <Icon className="h-5 w-5" />
+                    </div>
+                    <div>
+                        <CardTitle className="text-md font-bold">{label}</CardTitle>
+                        <CardDescription className="text-xs">{doc.id}</CardDescription>
+                    </div>
+                </div>
+            </CardHeader>
+            <CardContent className="flex-grow flex flex-col justify-end p-4 pt-2">
+                <FileButton
+                    pdf={file}
+                    icon={Icon}
+                    label={label}
+                    onLinkClick={(e, pdf) => onLinkClick(e, pdf, isER ? 'er' : 'gt', doc)}
+                    colorScheme={colorScheme}
+                />
+            </CardContent>
+        </Card>
+    );
+};
 
 export const EmptyState = ({ icon: Icon, title, message }: { icon: React.ElementType<LucideProps>; title: string; message: string }) => (
   <div className="text-center py-16 bg-card/50 rounded-xl border">
@@ -275,32 +302,13 @@ const PastPapers = () => {
     const loadPdfFromUrl = async () => {
       if (!viewId || !viewType) { setLoadedPdfData(null); return; }
 
-      const isReadyToLoad = viewId && viewType && (isFiltering || (selectedSubject && selectedSession && selectedYear));
-      if (!isReadyToLoad) { setLoadedPdfData(null); return; }
-
       setIsLoading(true);
       try {
-        let paperSetToView: PaperSet | null | undefined = null;
-        let pdfData: PDFFileData | null = null;
-        let yearData;
-
-        if (selectedSubject && selectedSession && selectedYear) {
-            yearData = papers[selectedSubject]?.[selectedSession]?.[selectedYear];
-        }
-
-        if (viewId === 'session-docs') {
-            if (!yearData) throw new Error("Could not find data for the selected year for session docs.");
-            paperSetToView = { id: 'session-docs', series: 'Session Documents', subject: selectedSubject!, session: selectedSession!, year: parseInt(selectedYear!), season: 's', paperNumber: 0, variantNumber: 0, qp: null, ms: null, in: null };
-            pdfData = viewType === 'er' ? yearData.sessionDocs.er : viewType === 'gt' ? yearData.sessionDocs.gt : null;
-        } else {
-            paperSetToView = allPapersList.find(p => p.id === viewId);
-            if(paperSetToView) {
-                pdfData = paperSetToView[viewType as 'qp' | 'ms' | 'in'] || null;
-            }
-        }
-
+        const paperSetToView = allPapersList.find(p => p.id === viewId);
         if (!paperSetToView) throw new Error("Could not find the specified paper set.");
-        if (!pdfData) throw new Error("Could not find the specified PDF data.");
+        
+        const pdfData = paperSetToView[viewType] || null;
+        if (!pdfData) throw new Error("Could not find the specified PDF data for the selected type.");
 
         toast({ title: "Loading PDF...", description: `Fetching ${pdfData.name}` });
         const response = await fetch(pdfData.path);
@@ -317,7 +325,7 @@ const PastPapers = () => {
       }
     };
     loadPdfFromUrl();
-  }, [viewId, viewType, selectedSubject, selectedSession, selectedYear, papers, toast, setSearchParams, isFiltering, allPapersList]);
+  }, [viewId, viewType, toast, setSearchParams, allPapersList]);
 
   const handleSelectSession = (subject: string, session: string) => { navigate(`/past-papers/${slugify(subject)}/${slugify(session)}`); }
   const handleSelectYear = (year: string) => { navigate(`/past-papers/${subjectSlug}/${sessionSlug}/${year}`); }
@@ -386,10 +394,13 @@ const PastPapers = () => {
                             )
                         }
                         case "papers": {
-                            const yearData = selectedSubject && selectedSession && selectedYear ? papers[selectedSubject][selectedSession][selectedYear] : { sessionDocs: { er: null, gt: null }, paperList: [] }
-                            const { sessionDocs, paperList } = yearData
+                            const yearData = selectedSubject && selectedSession && selectedYear ? papers[selectedSubject][selectedSession][selectedYear] : { paperList: [] }
+                            const { paperList } = yearData
 
-                            const groupedPapers = paperList.reduce<Record<string, PaperSet[]>>((acc, paper) => {
+                            const sessionDocsList = paperList.filter(p => p.er || p.gt);
+                            const regularPapers = paperList.filter(p => p.qp || p.ms);
+
+                            const groupedPapers = regularPapers.reduce<Record<string, PaperSet[]>>((acc, paper) => {
                                 const groupName = paper.series.match(/^(Paper\s+\d+)/)?.[1] || "Uncategorized Papers"
                                 if (!acc[groupName]) acc[groupName] = []
                                 acc[groupName].push(paper); return acc
@@ -404,8 +415,19 @@ const PastPapers = () => {
                                         <h2 className="text-4xl font-extrabold tracking-tighter mb-2">Available Papers</h2>
                                         <p className="text-muted-foreground text-xl">{selectedSubject} • {selectedSession} • {selectedYear}</p>
                                     </div>
-                                    <SessionDocuments er={sessionDocs.er} gt={sessionDocs.gt} onLinkClick={handleLinkClick} subject={selectedSubject!} session={selectedSession!} year={selectedYear!} />
-                                    {paperList.length > 0 ? (
+
+                                    {sessionDocsList.length > 0 && (
+                                        <div className="max-w-4xl mx-auto space-y-6">
+                                            <h3 className="text-2xl font-semibold text-center border-b pb-4">Session Documents</h3>
+                                            <div className="grid gap-6 sm:grid-cols-2">
+                                                {sessionDocsList.map(doc => (
+                                                    <SessionDocCard key={doc.id} doc={doc} onLinkClick={handleLinkClick} />
+                                                ))}
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    {regularPapers.length > 0 ? (
                                         <div className="space-y-12 max-w-7xl mx-auto">
                                             {sortedGroupNames.map((groupName) => (
                                                 <div key={groupName}>
@@ -416,7 +438,7 @@ const PastPapers = () => {
                                                 </div>
                                             ))}
                                         </div>
-                                    ) : (<EmptyState icon={FileX} title="No Papers Found" message="No papers are available for this selection. Please try a different year or session." />)}
+                                    ) : ( sessionDocsList.length === 0 && <EmptyState icon={FileX} title="No Papers Found" message="No papers are available for this selection. Please try a different year or session." /> )}
                                 </div>
                             )
                         }

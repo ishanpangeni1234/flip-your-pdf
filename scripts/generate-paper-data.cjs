@@ -17,12 +17,12 @@ function parseFilename(filename) {
   if (parts.length === 4) {
     return {
       subjectCode: parts[0],
-      season: parts[1].charAt(0), // s23 -> 's'
-      year: `20${parts[1].substring(1)}`, // s23 -> '2023'
+      season: parts[1].charAt(0),
+      year: `20${parts[1].substring(1)}`,
       type: parts[2], // 'qp', 'ms', 'in'
-      paperNumber: parts[3].charAt(0), // '11' -> '1'
-      variantNumber: parts[3].charAt(1), // '11' -> '1'
-      fullVariant: parts[3], // '11', '12', etc.
+      paperNumber: parts[3].charAt(0),
+      variantNumber: parts[3].charAt(1),
+      fullVariant: parts[3],
     };
   } else if (parts.length === 3) {
     const type = parts[2];
@@ -57,7 +57,9 @@ function generatePaperData() {
   const subjects = fs.readdirSync(papersRootDir);
 
   for (const subject of subjects) {
-    if (!subjectCodes[subject]) continue;
+    const subjectCode = subjectCodes[subject];
+    if (!subjectCode) continue;
+
     data[subject] = {};
     const subjectPath = path.join(papersRootDir, subject);
 
@@ -74,8 +76,7 @@ function generatePaperData() {
         const files = fs.readdirSync(yearPath).filter(f => f.endsWith('.pdf'));
 
         const paperGroups = {};
-        let sessionDocs = { er: null, gt: null };
-
+        
         for (const file of files) {
           const parsed = parseFilename(file);
           if (!parsed) continue;
@@ -85,37 +86,52 @@ function generatePaperData() {
             path: `/Past Paper/${subject}/${session}/${yearDir}/${file}`,
           };
 
-          if (parsed.fullVariant) {
-            if (!paperGroups[parsed.fullVariant]) {
-              // --- THIS IS THE KEY CHANGE ---
-              // Add all the new required fields here
-              paperGroups[parsed.fullVariant] = {
-                id: `${parsed.season}20${parsed.year.substring(2)}${parsed.fullVariant}`, // e.g., s2311
+          if (parsed.fullVariant) { // It's a QP, MS, or IN file
+            const paperId = `${parsed.season}${parsed.year.substring(2)}_${parsed.fullVariant}`;
+            if (!paperGroups[paperId]) {
+              paperGroups[paperId] = {
+                id: paperId,
                 series: `Paper ${parsed.paperNumber} Variant ${parsed.variantNumber}`,
-                // --- NEW FIELDS ---
                 subject: subject,
                 year: parseInt(parsed.year),
                 session: session,
                 season: parsed.season,
                 paperNumber: parseInt(parsed.paperNumber),
                 variantNumber: parseInt(parsed.variantNumber),
-                // --- EXISTING FIELDS ---
                 qp: null,
                 ms: null,
                 in: null,
+                er: null,
+                gt: null,
               };
             }
-            if (parsed.type === 'qp') paperGroups[parsed.fullVariant].qp = fileData;
-            if (parsed.type === 'ms') paperGroups[parsed.fullVariant].ms = fileData;
-            if (parsed.type === 'in') paperGroups[parsed.fullVariant].in = fileData;
-          } else {
-            if (parsed.type === 'er') sessionDocs.er = fileData;
-            if (parsed.type === 'gt') sessionDocs.gt = fileData;
+            if (parsed.type === 'qp') paperGroups[paperId].qp = fileData;
+            if (parsed.type === 'ms') paperGroups[paperId].ms = fileData;
+            if (parsed.type === 'in') paperGroups[paperId].in = fileData;
+          } else { // It's an ER or GT file
+            const docId = `${subjectCode}_${parsed.season}${parsed.year.substring(2)}_${parsed.type}`;
+            const seriesName = parsed.type === 'er' ? 'Examiner Report' : 'Grade Thresholds';
+
+            paperGroups[docId] = {
+              id: docId,
+              series: seriesName,
+              subject: subject,
+              year: parseInt(parsed.year),
+              session: session,
+              season: parsed.season,
+              paperNumber: 0,
+              variantNumber: 0,
+              qp: null,
+              ms: null,
+              in: null,
+              er: parsed.type === 'er' ? fileData : null,
+              gt: parsed.type === 'gt' ? fileData : null,
+            };
           }
         }
         
         data[subject][session][year] = {
-          sessionDocs: sessionDocs,
+          // sessionDocs is no longer needed, everything is in paperList
           paperList: Object.values(paperGroups).sort((a, b) => a.id.localeCompare(b.id)),
         };
       }
