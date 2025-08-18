@@ -76,6 +76,12 @@ export const PDFViewer = ({ initialFile, paperSet, initialFileType, onClose }: P
     ms: { numPages: 0, pdfProxy: null, renderedPages: new Set(), pageDimensions: null, searchQuery: "", searchResults: [], currentMatchIndex: 0, isSearching: false },
     in: { numPages: 0, pdfProxy: null, renderedPages: new Set(), pageDimensions: null, searchQuery: "", searchResults: [], currentMatchIndex: 0, isSearching: false },
   });
+  // NEW: State to store scroll positions for each document
+  const [scrollPositions, setScrollPositions] = useState({
+    qp: 0,
+    ms: 0,
+    in: 0,
+  });
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
@@ -121,7 +127,7 @@ export const PDFViewer = ({ initialFile, paperSet, initialFileType, onClose }: P
     }));
   };
 
-  // --- NEW: Cyclical Switching Logic ---
+  // --- Cyclical Switching Logic ---
   const getNextDocumentInfo = useCallback(() => {
     if (!canSwitch || !paperSet) return null;
 
@@ -141,10 +147,30 @@ export const PDFViewer = ({ initialFile, paperSet, initialFileType, onClose }: P
   const handleCycleDocument = useCallback(() => {
     const nextDoc = getNextDocumentInfo();
     if (nextDoc) {
+      // MODIFIED: Save current scroll position before switching
+      if (viewerRef.current) {
+        setScrollPositions(prev => ({
+          ...prev,
+          [activeDocumentType]: viewerRef.current!.scrollTop,
+        }));
+      }
+
       if (!documents[nextDoc.type]) setIsLoading(true);
       setActiveDocumentType(nextDoc.type);
     }
-  }, [getNextDocumentInfo, documents]);
+  }, [getNextDocumentInfo, documents, activeDocumentType]); // Added activeDocumentType dependency
+
+  // NEW: Effect to restore scroll position when document changes
+  useEffect(() => {
+    if (viewerRef.current) {
+      // Use a timeout to ensure the DOM has updated (new doc is visible) before we scroll
+      setTimeout(() => {
+        if (viewerRef.current) {
+          viewerRef.current.scrollTop = scrollPositions[activeDocumentType];
+        }
+      }, 0);
+    }
+  }, [activeDocumentType]); // Only runs when the active document changes
 
   // --- Pre-loading and Switching Logic ---
   useEffect(() => {
@@ -203,9 +229,14 @@ export const PDFViewer = ({ initialFile, paperSet, initialFileType, onClose }: P
     if (docType === activeDocumentType) {
       setIsLoading(false);
       toast({ title: "PDF Loaded", description: `${documents[docType]?.name} is ready.` });
-      setTimeout(() => goToPage(pageStates[docType].page), 100);
+      // Restore scroll position after initial load
+      setTimeout(() => {
+        if (viewerRef.current) {
+          viewerRef.current.scrollTop = scrollPositions[docType];
+        }
+      }, 100);
     }
-  }, [activeDocumentType, documents, toast, goToPage, pageStates]);
+  }, [activeDocumentType, documents, toast, scrollPositions]);
 
   const onPageRenderSuccess = useCallback((page: { originalWidth: number; originalHeight: number }) => {
     if (!activeState.pageDimensions) {
