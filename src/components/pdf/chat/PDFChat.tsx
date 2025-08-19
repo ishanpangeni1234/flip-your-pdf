@@ -41,7 +41,7 @@ export const PDFChat = ({ allChats, activeChatName, onSendMessage, isGenerating,
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   // Sidebar and rename state
-  const [isChatListOpen, setIsChatListOpen] = useState(true); // Pinned state
+  const [isChatListOpen, setIsChatListOpen] = useState(false); // Pinned state
   const [isHoverMode, setIsHoverMode] = useState(false); // Temporary hover state
   const [renamingName, setRenamingName] = useState<string | null>(null);
   const [inputValue, setInputValue] = useState("");

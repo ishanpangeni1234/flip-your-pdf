@@ -34,7 +34,7 @@ export const PDFNotes = ({ activeSheetName, notes, onNoteChange, onCreateNewNote
   const prevActiveSheetName = useRef(activeSheetName);
 
   const [zoomLevel, setZoomLevel] = useState(1);
-  const [isNoteListOpen, setIsNoteListOpen] = useState(true); // Pinned state
+  const [isNoteListOpen, setIsNoteListOpen] = useState(false); // Pinned state
   const [isHoverMode, setIsHoverMode] = useState(false); // Temporary hover state
 
   const [renamingName, setRenamingName] = useState<string | null>(null);
