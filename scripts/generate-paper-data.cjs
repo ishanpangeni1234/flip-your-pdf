@@ -87,7 +87,8 @@ function generatePaperData() {
           };
 
           if (parsed.fullVariant) { // It's a QP, MS, or IN file
-            const paperId = `${parsed.season}${parsed.year.substring(2)}_${parsed.fullVariant}`;
+            // --- FIX 1: Added subjectCode to make the ID unique ---
+            const paperId = `${parsed.subjectCode}_${parsed.season}${parsed.year.substring(2)}_${parsed.fullVariant}`;
             if (!paperGroups[paperId]) {
               paperGroups[paperId] = {
                 id: paperId,
@@ -109,7 +110,8 @@ function generatePaperData() {
             if (parsed.type === 'ms') paperGroups[paperId].ms = fileData;
             if (parsed.type === 'in') paperGroups[paperId].in = fileData;
           } else { // It's an ER or GT file
-            const docId = `${subjectCode}_${parsed.season}${parsed.year.substring(2)}_${parsed.type}`;
+            // --- FIX 2: Ensured the session doc ID is also unique ---
+            const docId = `${parsed.subjectCode}_${parsed.season}${parsed.year.substring(2)}_${parsed.type}`;
             const seriesName = parsed.type === 'er' ? 'Examiner Report' : 'Grade Thresholds';
 
             paperGroups[docId] = {
