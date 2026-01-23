@@ -20,7 +20,7 @@ import { CompactFilterSidebar } from "@/components/pdf/filter/CompactFilterSideb
 import { ActiveFilterDisplay } from "@/components/pdf/filter/ActiveFilterDisplay"
 import { FilteredResults } from "@/components/pdf/filter/FilteredResults"
 
-import allPapersData from "@/data/papers.json"
+import allPapersData from "@/data/external-papers.json"
 
 interface PDFFileData {
   name: string
@@ -126,43 +126,43 @@ export const PaperCard = ({ paper, groupName, onLinkClick }: { paper: PaperSet; 
 )
 
 const SessionDocCard = ({ doc, onLinkClick }: { doc: PaperSet; onLinkClick: LinkClickHandler }) => {
-    const isER = !!doc.er;
-    const file = isER ? doc.er : doc.gt;
-    const Icon = isER ? PenSquare : BarChart3;
-    const label = isER ? 'Examiner Report' : 'Grade Thresholds';
-    const colorScheme = isER ? 'orange' : 'indigo';
+  const isER = !!doc.er;
+  const file = isER ? doc.er : doc.gt;
+  const Icon = isER ? PenSquare : BarChart3;
+  const label = isER ? 'Examiner Report' : 'Grade Thresholds';
+  const colorScheme = isER ? 'orange' : 'indigo';
 
-    const iconColorStyles = {
-        orange: "bg-orange-500/10 text-orange-600 dark:text-orange-400",
-        indigo: "bg-indigo-500/10 text-indigo-600 dark:text-indigo-400",
-    };
+  const iconColorStyles = {
+    orange: "bg-orange-500/10 text-orange-600 dark:text-orange-400",
+    indigo: "bg-indigo-500/10 text-indigo-600 dark:text-indigo-400",
+  };
 
-    if (!file) return null;
+  if (!file) return null;
 
-    return (
-        <Card className="flex flex-col bg-card/60 backdrop-blur-sm hover:shadow-lg transition-all duration-300 border hover:border-primary/30 hover:-translate-y-1">
-            <CardHeader className="p-4 pb-2">
-                <div className="flex items-center gap-3">
-                    <div className={`p-2 rounded-lg ${iconColorStyles[colorScheme]}`}>
-                        <Icon className="h-5 w-5" />
-                    </div>
-                    <div>
-                        <CardTitle className="text-md font-bold">{label}</CardTitle>
-                        <CardDescription className="text-xs">{doc.id}</CardDescription>
-                    </div>
-                </div>
-            </CardHeader>
-            <CardContent className="flex-grow flex flex-col justify-end p-4 pt-2">
-                <FileButton
-                    pdf={file}
-                    icon={Icon}
-                    label={label}
-                    onLinkClick={(e, pdf) => onLinkClick(e, pdf, isER ? 'er' : 'gt', doc)}
-                    colorScheme={colorScheme}
-                />
-            </CardContent>
-        </Card>
-    );
+  return (
+    <Card className="flex flex-col bg-card/60 backdrop-blur-sm hover:shadow-lg transition-all duration-300 border hover:border-primary/30 hover:-translate-y-1">
+      <CardHeader className="p-4 pb-2">
+        <div className="flex items-center gap-3">
+          <div className={`p-2 rounded-lg ${iconColorStyles[colorScheme]}`}>
+            <Icon className="h-5 w-5" />
+          </div>
+          <div>
+            <CardTitle className="text-md font-bold">{label}</CardTitle>
+            <CardDescription className="text-xs">{doc.id}</CardDescription>
+          </div>
+        </div>
+      </CardHeader>
+      <CardContent className="flex-grow flex flex-col justify-end p-4 pt-2">
+        <FileButton
+          pdf={file}
+          icon={Icon}
+          label={label}
+          onLinkClick={(e, pdf) => onLinkClick(e, pdf, isER ? 'er' : 'gt', doc)}
+          colorScheme={colorScheme}
+        />
+      </CardContent>
+    </Card>
+  );
 };
 
 export const EmptyState = ({ icon: Icon, title, message }: { icon: React.ElementType<LucideProps>; title: string; message: string }) => (
@@ -186,7 +186,7 @@ const Breadcrumbs = ({ steps, onNavigate }: { steps: string[]; onNavigate: (inde
           <ChevronRight className="h-4 w-4 text-muted-foreground" />
           <button
             onClick={() => onNavigate(index + 1)}
-            className={`px-3 py-1.5 rounded-md transition-colors ${ index === steps.length - 1 ? "bg-primary text-primary-foreground font-semibold shadow-sm" : "hover:bg-muted"}`}
+            className={`px-3 py-1.5 rounded-md transition-colors ${index === steps.length - 1 ? "bg-primary text-primary-foreground font-semibold shadow-sm" : "hover:bg-muted"}`}
             disabled={index === steps.length - 1}
           >
             {step}
@@ -198,57 +198,57 @@ const Breadcrumbs = ({ steps, onNavigate }: { steps: string[]; onNavigate: (inde
 )
 
 const LoadingOverlay = () => (
-    <div className="fixed inset-0 bg-background/80 backdrop-blur-sm flex items-center justify-center z-50">
-      <div className="bg-card p-8 rounded-xl shadow-2xl border flex flex-col items-center gap-4">
-        <div className="h-10 w-10 animate-spin rounded-full border-4 border-primary border-t-transparent" />
-        <div className="text-center">
-          <h3 className="text-xl font-semibold">Loading Paper</h3>
-          <p className="text-sm text-muted-foreground">Please wait, your document is being prepared...</p>
-        </div>
+  <div className="fixed inset-0 bg-background/80 backdrop-blur-sm flex items-center justify-center z-50">
+    <div className="bg-card p-8 rounded-xl shadow-2xl border flex flex-col items-center gap-4">
+      <div className="h-10 w-10 animate-spin rounded-full border-4 border-primary border-t-transparent" />
+      <div className="text-center">
+        <h3 className="text-xl font-semibold">Loading Paper</h3>
+        <p className="text-sm text-muted-foreground">Please wait, your document is being prepared...</p>
       </div>
     </div>
+  </div>
 )
 
 const SessionSelector = ({ subject, sessions, onSelectSession }: { subject: string; sessions: string[]; onSelectSession: (session: string) => void }) => (
   <Card
     className="group relative flex flex-col justify-center items-center overflow-hidden hover:shadow-2xl hover:border-primary/50 transition-all duration-300 transform hover:-translate-y-2 cursor-pointer min-h-[220px] bg-card/60 backdrop-blur-sm"
   >
-     <div className="transition-all duration-500 ease-in-out group-hover:opacity-0 group-hover:-translate-y-4 w-full text-center p-4 flex flex-col items-center justify-center">
-        <div className="mx-auto mb-3 p-4 bg-primary/10 rounded-full w-fit group-hover:scale-110 transition-transform duration-300">
-            <BookOpen className="h-10 w-10 text-primary" />
+    <div className="transition-all duration-500 ease-in-out group-hover:opacity-0 group-hover:-translate-y-4 w-full text-center p-4 flex flex-col items-center justify-center">
+      <div className="mx-auto mb-3 p-4 bg-primary/10 rounded-full w-fit group-hover:scale-110 transition-transform duration-300">
+        <BookOpen className="h-10 w-10 text-primary" />
+      </div>
+      <h3 className="text-xl font-bold group-hover:text-primary transition-colors">{subject}</h3>
+      <p className="text-xs text-muted-foreground mt-1">Click to select a session</p>
+    </div>
+    <div className="absolute inset-0 p-3 flex flex-col items-center justify-center transition-all duration-500 ease-in-out opacity-0 group-hover:opacity-100 group-hover:translate-y-0 translate-y-4 pointer-events-none group-hover:pointer-events-auto">
+      <h4 className="text-base font-semibold mb-3 text-primary">Select Session</h4>
+      {sessions.length > 0 ? (
+        <div className="space-y-1.5 w-full max-w-[85%] mx-auto">
+          {sessions.map((session) => (
+            <Button key={session} variant="ghost" className="w-full flex justify-between items-center p-2 h-auto hover:bg-primary/10" onClick={() => onSelectSession(session)}>
+              <div className="flex items-center gap-2"><Calendar className="h-4 w-4 text-primary" /><span className="font-medium text-sm">{session}</span></div>
+              <ChevronRight className="h-3 w-3 text-muted-foreground" />
+            </Button>
+          ))}
         </div>
-        <h3 className="text-xl font-bold group-hover:text-primary transition-colors">{subject}</h3>
-        <p className="text-xs text-muted-foreground mt-1">Click to select a session</p>
-     </div>
-     <div className="absolute inset-0 p-3 flex flex-col items-center justify-center transition-all duration-500 ease-in-out opacity-0 group-hover:opacity-100 group-hover:translate-y-0 translate-y-4 pointer-events-none group-hover:pointer-events-auto">
-        <h4 className="text-base font-semibold mb-3 text-primary">Select Session</h4>
-        {sessions.length > 0 ? (
-          <div className="space-y-1.5 w-full max-w-[85%] mx-auto">
-            {sessions.map((session) => (
-              <Button key={session} variant="ghost" className="w-full flex justify-between items-center p-2 h-auto hover:bg-primary/10" onClick={() => onSelectSession(session)}>
-                <div className="flex items-center gap-2"><Calendar className="h-4 w-4 text-primary" /><span className="font-medium text-sm">{session}</span></div>
-                <ChevronRight className="h-3 w-3 text-muted-foreground" />
-              </Button>
-            ))}
-          </div>
-        ) : (<p className="text-xs text-muted-foreground text-center px-4">No sessions available.</p>)}
-     </div>
+      ) : (<p className="text-xs text-muted-foreground text-center px-4">No sessions available.</p>)}
+    </div>
   </Card>
 )
 
 const YearCard = ({ year, onClick }: { year: string; onClick: () => void }) => (
-    <motion.div
-        whileHover={{ scale: 1.05, y: -5 }}
-        whileTap={{ scale: 0.95 }}
-        transition={{ type: "spring", stiffness: 300 }}
-    >
-        <Card onClick={onClick} className="group cursor-pointer bg-card/60 backdrop-blur-sm hover:bg-primary/5 hover:border-primary/40 transition-colors duration-200">
-            <CardContent className="p-6 flex flex-col items-center justify-center text-center">
-                <Clock className="h-8 w-8 mb-3 text-muted-foreground group-hover:text-primary transition-colors" />
-                <p className="text-2xl font-bold text-card-foreground group-hover:text-primary transition-colors">{year}</p>
-            </CardContent>
-        </Card>
-    </motion.div>
+  <motion.div
+    whileHover={{ scale: 1.05, y: -5 }}
+    whileTap={{ scale: 0.95 }}
+    transition={{ type: "spring", stiffness: 300 }}
+  >
+    <Card onClick={onClick} className="group cursor-pointer bg-card/60 backdrop-blur-sm hover:bg-primary/5 hover:border-primary/40 transition-colors duration-200">
+      <CardContent className="p-6 flex flex-col items-center justify-center text-center">
+        <Clock className="h-8 w-8 mb-3 text-muted-foreground group-hover:text-primary transition-colors" />
+        <p className="text-2xl font-bold text-card-foreground group-hover:text-primary transition-colors">{year}</p>
+      </CardContent>
+    </Card>
+  </motion.div>
 );
 
 const initialFilter: FilterCriteria = {
@@ -285,8 +285,8 @@ const PastPapers = () => {
       subjects: [...new Set(list.map(p => p.subject))].sort(),
       years: [...new Set(list.map(p => p.year.toString()))].sort(),
       seasons: [...new Set(list.map(p => p.season))].sort(),
-      paperNumbers: [...new Set(list.map(p => p.paperNumber.toString()))].sort((a,b) => parseInt(a) - parseInt(b)),
-      variantNumbers: [...new Set(list.map(p => p.variantNumber.toString()))].sort((a,b) => parseInt(a) - parseInt(b)),
+      paperNumbers: [...new Set(list.map(p => p.paperNumber.toString()))].sort((a, b) => parseInt(a) - parseInt(b)),
+      variantNumbers: [...new Set(list.map(p => p.variantNumber.toString()))].sort((a, b) => parseInt(a) - parseInt(b)),
     };
     return { allPapersList: list, filterOptions: options };
   }, [papers]);
@@ -306,12 +306,22 @@ const PastPapers = () => {
       try {
         const paperSetToView = allPapersList.find(p => p.id === viewId);
         if (!paperSetToView) throw new Error("Could not find the specified paper set.");
-        
+
         const pdfData = paperSetToView[viewType] || null;
         if (!pdfData) throw new Error("Could not find the specified PDF data for the selected type.");
 
         toast({ title: "Loading PDF...", description: `Fetching ${pdfData.name}` });
-        const response = await fetch(pdfData.path);
+
+        // Optimistic direct fetch (CORS friendly jsDelivr)
+        let response;
+        try {
+          response = await fetch(pdfData.path, { signal: AbortSignal.timeout(10000) });
+        } catch (e) {
+          console.warn("Direct fetch failed, falling back to proxy...");
+          const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(pdfData.path)}`;
+          response = await fetch(proxyUrl, { signal: AbortSignal.timeout(15000) });
+        }
+
         if (!response.ok) throw new Error(`Failed to fetch PDF: ${response.statusText}`);
         const file = new File([await response.blob()], pdfData.name, { type: "application/pdf" });
         setLoadedPdfData({ set: paperSetToView, initialFile: file, initialFileType: viewType });
@@ -348,7 +358,7 @@ const PastPapers = () => {
 
   const handleApplyFilter = (filter: FilterCriteria) => {
     if ((Object.values(filter) as string[][]).some(v => v.length > 0)) {
-        navigate('/past-papers', { replace: true });
+      navigate('/past-papers', { replace: true });
     }
     setActiveFilter(filter);
   }
@@ -362,89 +372,89 @@ const PastPapers = () => {
   };
 
   if (viewId && loadedPdfData) {
-    return ( <PDFViewer initialFile={loadedPdfData.initialFile} paperSet={loadedPdfData.set} initialFileType={loadedPdfData.initialFileType as any} onClose={handleCloseViewer} /> );
+    return (<PDFViewer initialFile={loadedPdfData.initialFile} paperSet={loadedPdfData.set} initialFileType={loadedPdfData.initialFileType as any} onClose={handleCloseViewer} />);
   }
 
   const renderContent = () => {
     const animationVariants = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 }, exit: { opacity: 0, y: -20 } };
 
     const currentView = selectedYear ? "papers" : selectedSession ? "years" : "subjects";
-    if ((subjectSlug && !selectedSubject) || (sessionSlug && !selectedSession)) { return ( <EmptyState icon={SearchX} title="Content Not Found" message="The page you are looking for does not exist. It might have been moved, or the link is incorrect." /> ); }
+    if ((subjectSlug && !selectedSubject) || (sessionSlug && !selectedSession)) { return (<EmptyState icon={SearchX} title="Content Not Found" message="The page you are looking for does not exist. It might have been moved, or the link is incorrect." />); }
 
     if (currentView !== 'subjects' && !isFiltering) {
       return (
         <AnimatePresence mode="wait">
-            <motion.div key={currentView} initial="hidden" animate="visible" exit="exit" variants={animationVariants} transition={{ duration: 0.3 }}>
-                {(() => {
-                    switch (currentView) {
-                        case "years": {
-                            const years = selectedSubject && selectedSession ? Object.keys(papers[selectedSubject][selectedSession]).sort((a, b) => Number.parseInt(b) - Number.parseInt(a)) : []
-                            return (
-                                <div className="space-y-10">
-                                    <div className="text-center">
-                                        <h2 className="text-3xl font-bold tracking-tight mb-2">Select Year</h2>
-                                        <p className="text-muted-foreground text-lg">For {selectedSubject} - {selectedSession}</p>
-                                    </div>
-                                    <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 max-w-6xl mx-auto">
-                                        {years.map((year) => (
-                                            <YearCard key={year} year={year} onClick={() => handleSelectYear(year)} />
-                                        ))}
-                                    </div>
-                                </div>
-                            )
-                        }
-                        case "papers": {
-                            const yearData = selectedSubject && selectedSession && selectedYear ? papers[selectedSubject][selectedSession][selectedYear] : { paperList: [] }
-                            const { paperList } = yearData
+          <motion.div key={currentView} initial="hidden" animate="visible" exit="exit" variants={animationVariants} transition={{ duration: 0.3 }}>
+            {(() => {
+              switch (currentView) {
+                case "years": {
+                  const years = selectedSubject && selectedSession ? Object.keys(papers[selectedSubject][selectedSession]).sort((a, b) => Number.parseInt(b) - Number.parseInt(a)) : []
+                  return (
+                    <div className="space-y-10">
+                      <div className="text-center">
+                        <h2 className="text-3xl font-bold tracking-tight mb-2">Select Year</h2>
+                        <p className="text-muted-foreground text-lg">For {selectedSubject} - {selectedSession}</p>
+                      </div>
+                      <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 max-w-6xl mx-auto">
+                        {years.map((year) => (
+                          <YearCard key={year} year={year} onClick={() => handleSelectYear(year)} />
+                        ))}
+                      </div>
+                    </div>
+                  )
+                }
+                case "papers": {
+                  const yearData = selectedSubject && selectedSession && selectedYear ? papers[selectedSubject][selectedSession][selectedYear] : { paperList: [] }
+                  const { paperList } = yearData
 
-                            const sessionDocsList = paperList.filter(p => p.er || p.gt);
-                            const regularPapers = paperList.filter(p => p.qp || p.ms);
+                  const sessionDocsList = paperList.filter(p => p.er || p.gt);
+                  const regularPapers = paperList.filter(p => p.qp || p.ms);
 
-                            const groupedPapers = regularPapers.reduce<Record<string, PaperSet[]>>((acc, paper) => {
-                                const groupName = paper.series.match(/^(Paper\s+\d+)/)?.[1] || "Uncategorized Papers"
-                                if (!acc[groupName]) acc[groupName] = []
-                                acc[groupName].push(paper); return acc
-                            }, {})
+                  const groupedPapers = regularPapers.reduce<Record<string, PaperSet[]>>((acc, paper) => {
+                    const groupName = paper.series.match(/^(Paper\s+\d+)/)?.[1] || "Uncategorized Papers"
+                    if (!acc[groupName]) acc[groupName] = []
+                    acc[groupName].push(paper); return acc
+                  }, {})
 
-                            Object.values(groupedPapers).forEach((group) => group.sort((a, b) => a.series.localeCompare(b.series)))
-                            const sortedGroupNames = Object.keys(groupedPapers).sort((a, b) => (Number.parseInt(a.replace(/\D/g, "")) || 999) - (Number.parseInt(b.replace(/\D/g, "")) || 999))
+                  Object.values(groupedPapers).forEach((group) => group.sort((a, b) => a.series.localeCompare(b.series)))
+                  const sortedGroupNames = Object.keys(groupedPapers).sort((a, b) => (Number.parseInt(a.replace(/\D/g, "")) || 999) - (Number.parseInt(b.replace(/\D/g, "")) || 999))
 
-                            return (
-                                <div className="space-y-12">
-                                    <div className="text-center">
-                                        <h2 className="text-4xl font-extrabold tracking-tighter mb-2">Available Papers</h2>
-                                        <p className="text-muted-foreground text-xl">{selectedSubject} • {selectedSession} • {selectedYear}</p>
-                                    </div>
+                  return (
+                    <div className="space-y-12">
+                      <div className="text-center">
+                        <h2 className="text-4xl font-extrabold tracking-tighter mb-2">Available Papers</h2>
+                        <p className="text-muted-foreground text-xl">{selectedSubject} • {selectedSession} • {selectedYear}</p>
+                      </div>
 
-                                    {sessionDocsList.length > 0 && (
-                                        <div className="max-w-4xl mx-auto space-y-6">
-                                            <h3 className="text-2xl font-semibold text-center border-b pb-4">Session Documents</h3>
-                                            <div className="grid gap-6 sm:grid-cols-2">
-                                                {sessionDocsList.map(doc => (
-                                                    <SessionDocCard key={doc.id} doc={doc} onLinkClick={handleLinkClick} />
-                                                ))}
-                                            </div>
-                                        </div>
-                                    )}
+                      {sessionDocsList.length > 0 && (
+                        <div className="max-w-4xl mx-auto space-y-6">
+                          <h3 className="text-2xl font-semibold text-center border-b pb-4">Session Documents</h3>
+                          <div className="grid gap-6 sm:grid-cols-2">
+                            {sessionDocsList.map(doc => (
+                              <SessionDocCard key={doc.id} doc={doc} onLinkClick={handleLinkClick} />
+                            ))}
+                          </div>
+                        </div>
+                      )}
 
-                                    {regularPapers.length > 0 ? (
-                                        <div className="space-y-12 max-w-7xl mx-auto">
-                                            {sortedGroupNames.map((groupName) => (
-                                                <div key={groupName}>
-                                                    <h3 className="text-2xl font-semibold mb-6 border-b pb-4 flex items-center gap-3"><BookOpen className="h-6 w-6 text-primary" />{groupName}</h3>
-                                                    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                                                        {groupedPapers[groupName].map((paper) => (<PaperCard key={paper.id} paper={paper} groupName={groupName} onLinkClick={handleLinkClick} />))}
-                                                    </div>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    ) : ( sessionDocsList.length === 0 && <EmptyState icon={FileX} title="No Papers Found" message="No papers are available for this selection. Please try a different year or session." /> )}
-                                </div>
-                            )
-                        }
-                    }
-                })()}
-            </motion.div>
+                      {regularPapers.length > 0 ? (
+                        <div className="space-y-12 max-w-7xl mx-auto">
+                          {sortedGroupNames.map((groupName) => (
+                            <div key={groupName}>
+                              <h3 className="text-2xl font-semibold mb-6 border-b pb-4 flex items-center gap-3"><BookOpen className="h-6 w-6 text-primary" />{groupName}</h3>
+                              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                                {groupedPapers[groupName].map((paper) => (<PaperCard key={paper.id} paper={paper} groupName={groupName} onLinkClick={handleLinkClick} />))}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      ) : (sessionDocsList.length === 0 && <EmptyState icon={FileX} title="No Papers Found" message="No papers are available for this selection. Please try a different year or session." />)}
+                    </div>
+                  )
+                }
+              }
+            })()}
+          </motion.div>
         </AnimatePresence>
       )
     }
@@ -454,8 +464,8 @@ const PastPapers = () => {
       <div className="space-y-8">
         <div className="grid gap-6 lg:grid-cols-3 items-start">
           <div className="lg:col-span-1 lg:sticky top-24 self-start max-w-xs w-full">
-            <CompactFilterSidebar 
-              options={filterOptions} 
+            <CompactFilterSidebar
+              options={filterOptions}
               activeFilter={activeFilter}
               onApplyFilter={handleApplyFilter}
               onClearFilter={handleClearFilter}
@@ -503,14 +513,9 @@ const PastPapers = () => {
                       <div className="mx-auto mb-4 p-4 bg-destructive/10 rounded-full w-fit"><FileX className="h-12 w-12 text-destructive" /></div>
                       <CardTitle className="text-destructive text-2xl">Database is Empty</CardTitle>
                     </CardHeader>
-                    <CardContent className="space-y-4">
-                      <p className="text-muted-foreground text-center">We couldn't find any paper data. Please check the following:</p>
-                      <div className="bg-muted/50 rounded-lg p-4">
-                        <ul className="space-y-2 text-sm text-muted-foreground">
-                          <li className="flex items-start gap-2"><div className="h-1.5 w-1.5 rounded-full bg-primary mt-2 flex-shrink-0" />Ensure PDF files are in <code className="bg-muted px-1.5 py-0.5 rounded-md text-xs">public/Past Paper/[Subject]/...</code></li>
-                          <li className="flex items-start gap-2"><div className="h-1.5 w-1.5 rounded-full bg-primary mt-2 flex-shrink-0" />Run <code className="bg-muted px-1.5 py-0.5 rounded-md text-xs">node scripts/generate-paper-data.js</code> to create the data file.</li>
-                        </ul>
-                      </div>
+                    <CardContent className="space-y-4 text-center">
+                      <p className="text-muted-foreground">We couldn't find any paper data in the GitHub repository.</p>
+                      <p className="text-sm text-muted-foreground">Please ensure your GitHub Repository <code className="bg-muted px-1.5 py-0.5 rounded-md text-xs">Past-Paper-Storage</code> is public and contains PDF files.</p>
                     </CardContent>
                   </Card>
                 )}
@@ -538,14 +543,14 @@ const PastPapers = () => {
         <div className="absolute inset-0 -z-10 h-full w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] dark:bg-slate-950 dark:bg-[radial-gradient(rgba(255,255,255,0.1)_1px,transparent_1px)]"></div>
         <div className="container mx-auto px-4 py-8 lg:py-16">
           <AnimatePresence>{isLoading && <LoadingOverlay />}</AnimatePresence>
-          
+
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-10">
             {isBrowsing ? (
               <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="flex-grow">
                 <Breadcrumbs steps={breadcrumbSteps} onNavigate={handleBreadcrumbNavigate} />
               </motion.div>
-            ) : ( <div className="flex-grow"></div> )}
-            
+            ) : (<div className="flex-grow"></div>)}
+
             {isBrowsing && (
               <Button variant="outline" onClick={handleBack} className="flex items-center gap-2 w-fit bg-card/80 backdrop-blur-sm self-end sm:self-center">
                 <ArrowLeft className="h-4 w-4" />
@@ -553,7 +558,7 @@ const PastPapers = () => {
               </Button>
             )}
           </div>
-          
+
           {renderContent()}
         </div>
       </div>
