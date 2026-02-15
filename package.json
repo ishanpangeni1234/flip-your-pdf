@@ -4,9 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "predev": "node ./scripts/generate-paper-data.cjs",
+    "predev": "node ./scripts/generate-external-data.cjs",
     "dev": "vite",
-    "prebuild": "node ./scripts/generate-paper-data.cjs",
+    "prebuild": "node ./scripts/generate-external-data.cjs",
     "build": "vite build",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
