@@ -15,7 +15,7 @@ const ChatPage = () => {
         handleDeleteChat,
         handleRenameChat,
         handleSendMessage
-    } = useChat({ fileName: 'global' });
+    } = useChat({ fileName: 'standalone-chat' });
 
     return (
         <Layout>

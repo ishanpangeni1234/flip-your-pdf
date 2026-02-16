@@ -12,7 +12,7 @@ const NotesPage = () => {
         handleNoteChange,
         handleDeleteNote,
         handleRenameNote
-    } = useNotes('global');
+    } = useNotes('standalone-notes');
 
     return (
         <Layout>

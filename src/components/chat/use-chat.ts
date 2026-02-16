@@ -171,14 +171,44 @@ export const useChat = ({ fileName }: UseChatProps) => {
       }
     }
 
-    const finalPrompt = `${systemPrompt}\n\n${contextText ? contextText + '\n\n' : ''}User Question: ${prompt}`;
     setSelectedContextPages(new Set());
 
     try {
+      // Get the current conversation history
+      const conversationHistory = allChats[activeChatName] || [];
+
+      // Build the contents array for Gemini with full conversation history
+      const contents = [
+        // System instruction as the first user message
+        { role: 'user', parts: [{ text: systemPrompt }] },
+        { role: 'model', parts: [{ text: 'Understood. I will provide concise, educational responses.' }] },
+      ];
+
+      // Add PDF context if available (as a user message)
+      if (contextText) {
+        contents.push({ role: 'user', parts: [{ text: contextText }] });
+        contents.push({ role: 'model', parts: [{ text: 'I have reviewed the document context you provided.' }] });
+      }
+
+      // Add the full conversation history
+      conversationHistory.forEach((msg) => {
+        contents.push({
+          role: msg.role === 'user' ? 'user' : 'model',
+          parts: [{ text: msg.content }]
+        });
+      });
+
+      // Add the new user message
+      contents.push({
+        role: 'user',
+        parts: [{ text: prompt }]
+      });
+
       const res = await aiClient.current.models.generateContent({
         model: "gemini-2.5-flash",
-        contents: finalPrompt,
+        contents: contents,
       });
+
       const aiResponse: ChatMessage = { role: 'model', content: res.text };
       setAllChats(prev => ({
         ...prev,
@@ -194,7 +224,7 @@ export const useChat = ({ fileName }: UseChatProps) => {
     } finally {
       setIsGeneratingResponse(false);
     }
-  }, [toast, activeChatName, selectedContextPages]);
+  }, [toast, activeChatName, selectedContextPages, allChats]);
 
   return {
     allChats,
