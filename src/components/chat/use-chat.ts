@@ -5,10 +5,12 @@ import { GoogleGenAI } from "@google/genai";
 import type { PDFDocumentProxy } from "pdfjs-dist/types/src/display/api";
 import { useToast } from '@/hooks/use-toast';
 import { useDebounce } from '@/hooks/use-debounce';
-import { getStoredChats, storeChats } from '@/lib/pdf-storage';
+
 import { getChatsFromCloud, saveChatsToCloud } from '@/lib/firebase-service';
 import { useAuth } from '@/lib/auth-context';
 import type { ChatMessage } from './Chat';
+import type { FolderStructure } from '@/lib/folder-types';
+import { createNewFolder, moveItemToFolder } from '@/lib/folder-types';
 
 interface UseChatProps {
   fileName: string;
@@ -19,8 +21,13 @@ export const useChat = ({ fileName }: UseChatProps) => {
   const [activeChatName, setActiveChatName] = useState<string | null>(null);
   const [isGeneratingResponse, setIsGeneratingResponse] = useState(false);
   const [selectedContextPages, setSelectedContextPages] = useState<Set<number>>(new Set());
+  const [folderStructure, setFolderStructure] = useState<FolderStructure>({
+    folders: {},
+    itemFolderMap: {}
+  });
 
   const debouncedChats = useDebounce(allChats, 1000);
+  const debouncedFolders = useDebounce(folderStructure, 1000);
   const { toast } = useToast();
   const { user } = useAuth();
   const isLoaded = useRef(false);
@@ -43,51 +50,55 @@ export const useChat = ({ fileName }: UseChatProps) => {
     }
   }, [toast]);
 
-  // Load chats from storage on initial render or when file or user changes
+  // Load chats from cloud only when user is logged in
   useEffect(() => {
     const loadChats = async () => {
-      let storedChats = null;
       if (user) {
-        // Try to load from Cloud
-        storedChats = await getChatsFromCloud(user.uid, fileName);
-        // If not in cloud, maybe try loading from local for migration?
-        if (!storedChats) {
-          storedChats = await getStoredChats(fileName);
-        }
-      } else {
-        // Load from local storage for guest
-        storedChats = await getStoredChats(fileName);
-      }
+        const storedData = await getChatsFromCloud(user.uid, fileName);
+        const validChats: { [key: string]: ChatMessage[] } = {};
+        const chats = storedData?.chats || {};
 
-      setAllChats(storedChats || {});
+        // Sanitize chats to ensure they are arrays
+        Object.entries(chats).forEach(([key, value]) => {
+          if (Array.isArray(value)) {
+            validChats[key] = value;
+          } else {
+            console.warn(`Invalid chat data found for chat "${key}". Expected array, got:`, typeof value);
+            // Optionally try to recover if it's an object with numbered keys, but for now just skip or reset
+            validChats[key] = [];
+          }
+        });
+
+        setAllChats(validChats);
+        setFolderStructure(storedData?.folderStructure || { folders: {}, itemFolderMap: {} });
+      } else {
+        // Clear state if not logged in
+        setAllChats({});
+        setFolderStructure({ folders: {}, itemFolderMap: {} });
+      }
       setActiveChatName(null);
       isLoaded.current = true;
     };
+
     if (fileName) {
       isLoaded.current = false;
       loadChats();
     }
   }, [fileName, user]);
 
-  // Save chats to storage when they change (debounced)
+  // Save chats to storage when they change (debounced) - Cloud only
   useEffect(() => {
     const saveChats = async () => {
-      if (!fileName || !isLoaded.current) return;
+      if (!fileName || !isLoaded.current || !user) return;
 
-      if (user) {
-        // Save to cloud if user is logged in
-        await saveChatsToCloud(user.uid, fileName, debouncedChats);
-      } else {
-        // Save to local if guest
-        if (Object.keys(debouncedChats).length > 0 || getStoredChats(fileName) !== null) {
-          storeChats(fileName, debouncedChats);
-        }
-      }
+      // Save to cloud since user is logged in
+      await saveChatsToCloud(user.uid, fileName, debouncedChats, debouncedFolders);
     };
+
     if (isLoaded.current) {
       saveChats();
     }
-  }, [debouncedChats, fileName, user]);
+  }, [debouncedChats, debouncedFolders, fileName, user]);
 
   const handleCreateNewChat = useCallback(() => {
     let newName = "New Chat";
@@ -111,6 +122,15 @@ export const useChat = ({ fileName }: UseChatProps) => {
       delete newChats[name];
       return newChats;
     });
+
+    setFolderStructure(prev => {
+      const newItemFolderMap = { ...prev.itemFolderMap };
+      if (newItemFolderMap.hasOwnProperty(name)) {
+        delete newItemFolderMap[name];
+      }
+      return { ...prev, itemFolderMap: newItemFolderMap };
+    });
+
     if (activeChatName === name) {
       setActiveChatName(null);
     }
@@ -131,6 +151,17 @@ export const useChat = ({ fileName }: UseChatProps) => {
       const content = prev[oldName];
       const { [oldName]: _, ...rest } = prev;
       return { ...rest, [newName]: content };
+    });
+
+    // Update folder structure map if the chat is in a folder (or unorganized map entry)
+    setFolderStructure(prev => {
+      const newItemFolderMap = { ...prev.itemFolderMap };
+      if (newItemFolderMap.hasOwnProperty(oldName)) {
+        const folderId = newItemFolderMap[oldName];
+        delete newItemFolderMap[oldName];
+        newItemFolderMap[newName] = folderId;
+      }
+      return { ...prev, itemFolderMap: newItemFolderMap };
     });
 
     setActiveChatName(currentActive =>
@@ -226,6 +257,90 @@ export const useChat = ({ fileName }: UseChatProps) => {
     }
   }, [toast, activeChatName, selectedContextPages, allChats]);
 
+  // Folder management functions
+  const handleCreateFolder = useCallback(() => {
+    let folderName = "New Folder";
+    let counter = 1;
+    const existingNames = Object.values(folderStructure.folders).map(f => f.name);
+    while (existingNames.includes(folderName)) {
+      folderName = `New Folder ${counter}`;
+      counter++;
+    }
+
+    const newFolder = createNewFolder(folderName);
+    setFolderStructure(prev => ({
+      ...prev,
+      folders: {
+        ...prev.folders,
+        [newFolder.id]: newFolder
+      }
+    }));
+    toast({ title: "Folder Created", description: `Created folder "${folderName}".` });
+  }, [folderStructure, toast]);
+
+  const handleRenameFolder = useCallback((folderId: string, newName: string): boolean => {
+    if (!newName || newName.trim().length === 0) {
+      toast({ title: "Invalid Name", description: "Folder name cannot be empty.", variant: "destructive" });
+      return false;
+    }
+
+    const currentFolder = folderStructure.folders[folderId];
+    if (!currentFolder) return false;
+
+    if (newName === currentFolder.name) return true;
+
+    const existingNames = Object.values(folderStructure.folders)
+      .filter(f => f.id !== folderId)
+      .map(f => f.name);
+
+    if (existingNames.includes(newName)) {
+      toast({ title: "Cannot Rename", description: `A folder named "${newName}" already exists.`, variant: "destructive" });
+      return false;
+    }
+
+    setFolderStructure(prev => ({
+      ...prev,
+      folders: {
+        ...prev.folders,
+        [folderId]: { ...currentFolder, name: newName }
+      }
+    }));
+
+    toast({ title: "Folder Renamed", description: `"${currentFolder.name}" is now "${newName}".` });
+    return true;
+  }, [folderStructure, toast]);
+
+  const handleDeleteFolder = useCallback((folderId: string) => {
+    const folder = folderStructure.folders[folderId];
+    if (!folder) return;
+
+    // Move all items in this folder to unorganized
+    setFolderStructure(prev => {
+      const newItemFolderMap = { ...prev.itemFolderMap };
+      Object.keys(newItemFolderMap).forEach(itemName => {
+        if (newItemFolderMap[itemName] === folderId) {
+          delete newItemFolderMap[itemName];
+        }
+      });
+
+      const { [folderId]: _, ...remainingFolders } = prev.folders;
+
+      return {
+        folders: remainingFolders,
+        itemFolderMap: newItemFolderMap
+      };
+    });
+
+    toast({ title: "Folder Deleted", description: `Deleted folder "${folder.name}". Items moved to unorganized.` });
+  }, [folderStructure, toast]);
+
+  const handleMoveChat = useCallback((chatName: string, targetFolderId: string | null) => {
+    setFolderStructure(prev => ({
+      ...prev,
+      itemFolderMap: moveItemToFolder(chatName, targetFolderId, prev.itemFolderMap)
+    }));
+  }, []);
+
   return {
     allChats,
     activeChatName,
@@ -237,5 +352,11 @@ export const useChat = ({ fileName }: UseChatProps) => {
     handleDeleteChat,
     handleRenameChat,
     handleSendMessage,
+    // Folder management
+    folderStructure,
+    handleCreateFolder,
+    handleRenameFolder,
+    handleDeleteFolder,
+    handleMoveChat,
   };
 };

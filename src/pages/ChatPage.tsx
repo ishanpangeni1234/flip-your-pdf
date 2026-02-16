@@ -14,7 +14,12 @@ const ChatPage = () => {
         handleSelectChat,
         handleDeleteChat,
         handleRenameChat,
-        handleSendMessage
+        handleSendMessage,
+        folderStructure,
+        handleCreateFolder,
+        handleRenameFolder,
+        handleDeleteFolder,
+        handleMoveChat,
     } = useChat({ fileName: 'standalone-chat' });
 
     return (
@@ -36,6 +41,11 @@ const ChatPage = () => {
                     isFocusMode={false}
                     onToggleFocusMode={() => { }} // No focus mode in standalone page for now
                     defaultSidebarOpen={true}
+                    folderStructure={folderStructure}
+                    onCreateFolder={handleCreateFolder}
+                    onRenameFolder={handleRenameFolder}
+                    onDeleteFolder={handleDeleteFolder}
+                    onMoveChat={handleMoveChat}
                 />
             </div>
         </Layout>

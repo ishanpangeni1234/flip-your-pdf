@@ -16,6 +16,8 @@ import { Chat } from "@/components/chat/Chat";
 
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { useAuth } from "@/lib/auth-context";
 import {
   ResizableHandle,
   ResizablePanel,
@@ -59,6 +61,7 @@ interface DocumentState {
 }
 
 export const PDFViewer = ({ initialFile, paperSet, initialFileType, onClose }: PDFViewerProps) => {
+  const { user, signInWithGoogle } = useAuth();
   // --- State Management for Multi-Document Handling ---
   // --- CHANGE 3: Expanded `documents` state ---
   const [documents, setDocuments] = useState<{ qp: File | null; ms: File | null; in: File | null; er: File | null; gt: File | null }>({
@@ -106,8 +109,38 @@ export const PDFViewer = ({ initialFile, paperSet, initialFileType, onClose }: P
   const [isChatFocusMode, setIsChatFocusMode] = useState(false);
   const { toast } = useToast();
 
-  const { notes, activeNoteSheet, handleCreateNewNote, handleSelectNote, handleNoteChange, handleDeleteNote, handleRenameNote } = useNotes(initialFile.name);
-  const { allChats, activeChatName, isGeneratingResponse, selectedContextPages, setSelectedContextPages, handleCreateNewChat, handleSelectChat, handleDeleteChat, handleRenameChat, handleSendMessage } = useChat({ fileName: initialFile.name });
+  const {
+    notes,
+    activeNoteSheet,
+    handleCreateNewNote,
+    handleSelectNote,
+    handleNoteChange,
+    handleDeleteNote,
+    handleRenameNote,
+    folderStructure: notesFolderStructure,
+    handleCreateFolder: handleCreateNotesFolder,
+    handleRenameFolder: handleRenameNotesFolder,
+    handleDeleteFolder: handleDeleteNotesFolder,
+    handleMoveNote
+  } = useNotes(initialFile.name);
+
+  const {
+    allChats,
+    activeChatName,
+    isGeneratingResponse,
+    selectedContextPages,
+    setSelectedContextPages,
+    handleCreateNewChat,
+    handleSelectChat,
+    handleDeleteChat,
+    handleRenameChat,
+    handleSendMessage,
+    folderStructure: chatFolderStructure,
+    handleCreateFolder: handleCreateChatFolder,
+    handleRenameFolder: handleRenameChatFolder,
+    handleDeleteFolder: handleDeleteChatFolder,
+    handleMoveChat
+  } = useChat({ fileName: initialFile.name });
 
   const [ephemeralNoteName, setEphemeralNoteName] = useState<string | null>(null);
   const [ephemeralChatName, setEphemeralChatName] = useState<string | null>(null);
@@ -379,8 +412,59 @@ export const PDFViewer = ({ initialFile, paperSet, initialFileType, onClose }: P
     );
   };
 
-  if (isNotesFocusMode) return <div className="h-screen w-screen bg-editor-background"><Notes {...{ activeSheetName: activeNoteSheet, notes, onNoteChange: handleNoteChangeWrapper, onCreateNewNote: handleCreateNewNote, onSelectNote: handleSelectNoteWrapper, onRenameNote: handleRenameNote, onDeleteNote: handleDeleteNote, isFocusMode: isNotesFocusMode, onToggleFocusMode: toggleNotesFocusMode }} /></div>;
-  if (isChatFocusMode) return <div className="h-screen w-screen bg-background"><Chat {...{ allChats, activeChatName, onSendMessage: handleSendMessageWrapper, isGenerating: isGeneratingResponse, currentPage: pageNumber, totalPages: activeState.numPages, selectedPages: selectedContextPages, onSelectedPagesChange: setSelectedContextPages, onCreateNewChat: handleCreateNewChat, onSelectChat: handleSelectChatWrapper, onRenameChat: handleRenameChat, onDeleteChat: handleDeleteChatWrapper, isFocusMode: isChatFocusMode, onToggleFocusMode: toggleChatFocusMode }} /></div>;
+  const notesProps = {
+    activeSheetName: activeNoteSheet,
+    notes,
+    onNoteChange: handleNoteChangeWrapper,
+    onCreateNewNote: handleCreateNewNote,
+    onSelectNote: handleSelectNoteWrapper,
+    onRenameNote: handleRenameNote,
+    onDeleteNote: handleDeleteNote,
+    isFocusMode: isNotesFocusMode,
+    onToggleFocusMode: toggleNotesFocusMode,
+    folderStructure: notesFolderStructure,
+    onCreateFolder: handleCreateNotesFolder,
+    onRenameFolder: handleRenameNotesFolder,
+    onDeleteFolder: handleDeleteNotesFolder,
+    onMoveNote: handleMoveNote
+  };
+
+  const chatProps = {
+    allChats,
+    activeChatName,
+    onSendMessage: handleSendMessageWrapper,
+    isGenerating: isGeneratingResponse,
+    currentPage: pageNumber,
+    totalPages: activeState.numPages,
+    selectedPages: selectedContextPages,
+    onSelectedPagesChange: setSelectedContextPages,
+    onCreateNewChat: handleCreateNewChat,
+    onSelectChat: handleSelectChatWrapper,
+    onRenameChat: handleRenameChat,
+    onDeleteChat: handleDeleteChatWrapper,
+    isFocusMode: isChatFocusMode,
+    onToggleFocusMode: toggleChatFocusMode,
+    folderStructure: chatFolderStructure,
+    onCreateFolder: handleCreateChatFolder,
+    onRenameFolder: handleRenameChatFolder,
+    onDeleteFolder: handleDeleteChatFolder,
+    onMoveChat: handleMoveChat
+  };
+
+
+
+  const LoginPrompt = () => (
+    <div className="flex flex-col items-center justify-center h-full p-6 text-center bg-background">
+      <h3 className="text-xl font-semibold mb-2">Login Required</h3>
+      <p className="text-muted-foreground mb-4">Please log in to use chat and notes features.</p>
+      <Button onClick={() => signInWithGoogle()}>
+        Sign In with Google
+      </Button>
+    </div>
+  );
+
+  if (isNotesFocusMode) return <div className="h-screen w-screen bg-editor-background">{user ? <Notes {...notesProps} /> : <LoginPrompt />}</div>;
+  if (isChatFocusMode) return <div className="h-screen w-screen bg-background">{user ? <Chat {...chatProps} /> : <LoginPrompt />}</div>;
 
   const nextDocumentInfo = getNextDocumentInfo();
 
@@ -407,8 +491,8 @@ export const PDFViewer = ({ initialFile, paperSet, initialFileType, onClose }: P
               </div>
             </ResizablePanel>
             {(isNotesViewActive || isChatViewActive) && <ResizableHandle withHandle />}
-            {isNotesViewActive && <ResizablePanel defaultSize={50} minSize={25} collapsible><Notes {...{ activeSheetName: activeNoteSheet, notes, onNoteChange: handleNoteChangeWrapper, onCreateNewNote: handleCreateNewNote, onSelectNote: handleSelectNoteWrapper, onRenameNote: handleRenameNote, onDeleteNote: handleDeleteNote, isFocusMode: isNotesFocusMode, onToggleFocusMode: toggleNotesFocusMode }} /></ResizablePanel>}
-            {isChatViewActive && <ResizablePanel defaultSize={50} minSize={25} collapsible><Chat {...{ allChats, activeChatName, onSendMessage: handleSendMessageWrapper, isGenerating: isGeneratingResponse, currentPage: pageNumber, totalPages: activeState.numPages, selectedPages: selectedContextPages, onSelectedPagesChange: setSelectedContextPages, onCreateNewChat: handleCreateNewChat, onSelectChat: handleSelectChatWrapper, onRenameChat: handleRenameChat, onDeleteChat: handleDeleteChatWrapper, isFocusMode: isChatFocusMode, onToggleFocusMode: toggleChatFocusMode }} /></ResizablePanel>}
+            {isNotesViewActive && <ResizablePanel defaultSize={50} minSize={25} collapsible>{user ? <Notes {...notesProps} /> : <LoginPrompt />}</ResizablePanel>}
+            {isChatViewActive && <ResizablePanel defaultSize={50} minSize={25} collapsible>{user ? <Chat {...chatProps} /> : <LoginPrompt />}</ResizablePanel>}
           </ResizablePanelGroup>
         </div>
       </div>

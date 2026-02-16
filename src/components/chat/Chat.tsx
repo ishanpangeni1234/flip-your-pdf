@@ -9,9 +9,11 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import { Send, Bot, User, Paperclip, MessageSquare, PlusCircle, Trash2, Pencil, PanelLeftClose, ChevronRight, Maximize, Minimize } from 'lucide-react';
+import { Send, Bot, User, Paperclip, MessageSquare, PanelLeftClose, ChevronRight, Maximize, Minimize } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { FolderSidebar } from '@/components/common/FolderSidebar';
+import type { FolderStructure } from '@/lib/folder-types';
 
 export interface ChatMessage {
   role: 'user' | 'model';
@@ -34,19 +36,45 @@ interface ChatProps {
   isFocusMode: boolean;
   onToggleFocusMode: () => void;
   defaultSidebarOpen?: boolean;
+  // Folder props
+  folderStructure: FolderStructure;
+  onCreateFolder: () => void;
+  onRenameFolder: (folderId: string, newName: string) => boolean;
+  onDeleteFolder: (folderId: string) => void;
+  onMoveChat: (chatName: string, targetFolderId: string | null) => void;
 }
 
-export const Chat = ({ allChats, activeChatName, onSendMessage, isGenerating, currentPage, totalPages, selectedPages, onSelectedPagesChange, onCreateNewChat, onSelectChat, onRenameChat, onDeleteChat, isFocusMode, onToggleFocusMode, defaultSidebarOpen = false }: ChatProps) => {
-  const currentMessages = activeChatName ? allChats[activeChatName] ?? [] : [];
+export const Chat = ({
+  allChats,
+  activeChatName,
+  onSendMessage,
+  isGenerating,
+  currentPage,
+  totalPages,
+  selectedPages,
+  onSelectedPagesChange,
+  onCreateNewChat,
+  onSelectChat,
+  onRenameChat,
+  onDeleteChat,
+  isFocusMode,
+  onToggleFocusMode,
+  defaultSidebarOpen = false,
+  folderStructure,
+  onCreateFolder,
+  onRenameFolder,
+  onDeleteFolder,
+  onMoveChat
+}: ChatProps) => {
+  const rawMessages = activeChatName ? allChats[activeChatName] : [];
+  const currentMessages = Array.isArray(rawMessages) ? rawMessages : [];
   const [input, setInput] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   // Sidebar and rename state
   const [isChatListOpen, setIsChatListOpen] = useState(defaultSidebarOpen); // Pinned state
   const [isHoverMode, setIsHoverMode] = useState(false); // Temporary hover state
-  const [renamingName, setRenamingName] = useState<string | null>(null);
-  const [inputValue, setInputValue] = useState("");
-  const inputRef = useRef<HTMLInputElement>(null);
+  const [renamingChatName, setRenamingChatName] = useState<string | null>(null);
 
   const showSidebar = isChatListOpen || isHoverMode;
 
@@ -62,12 +90,8 @@ export const Chat = ({ allChats, activeChatName, onSendMessage, isGenerating, cu
   }, [currentMessages, isGenerating]);
 
   useEffect(() => {
-    if (renamingName) inputRef.current?.focus();
-  }, [renamingName]);
-
-  useEffect(() => {
     // When active chat changes, clear any renaming state
-    setRenamingName(null);
+    setRenamingChatName(null);
   }, [activeChatName]);
 
 
@@ -84,25 +108,6 @@ export const Chat = ({ allChats, activeChatName, onSendMessage, isGenerating, cu
     }
     onSelectedPagesChange(newSet);
   };
-
-  const handleFinishRename = () => {
-    if (renamingName) {
-      const success = onRenameChat(renamingName, inputValue);
-      if (success) {
-        setRenamingName(null);
-        setInputValue("");
-      }
-    } else {
-      setInputValue("");
-    }
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') handleFinishRename();
-    if (e.key === 'Escape') { setRenamingName(null); setInputValue(""); }
-  };
-
-  const startRename = (name: string) => { setRenamingName(name); setInputValue(name); };
 
   const handlePinClick = () => { setIsChatListOpen(true); setIsHoverMode(false); };
   const handlePeekHover = () => { if (!isChatListOpen) setIsHoverMode(true); };
@@ -157,30 +162,24 @@ export const Chat = ({ allChats, activeChatName, onSendMessage, isGenerating, cu
             <div className="flex items-center justify-between p-2 border-b flex-shrink-0">
               <h3 className="font-semibold text-sm truncate ml-2">My Chats</h3>
             </div>
-            <div className="flex-1 overflow-y-auto p-2">
-              <Button onClick={onCreateNewChat} className="w-full justify-start mb-2" disabled={!!renamingName}>
-                <PlusCircle className="mr-2 h-4 w-4" /> Create New Chat
-              </Button>
-              <div className="my-2 h-px bg-border" />
-              <div className="flex flex-col gap-1 mt-1">
-                {Object.keys(allChats).map(name => (
-                  renamingName === name ? (
-                    <div key={`renaming-${name}`} className="p-1">
-                      <Input ref={inputRef} value={inputValue} onChange={e => setInputValue(e.target.value)} onKeyDown={handleKeyDown} onBlur={handleFinishRename} className="h-9" />
-                    </div>
-                  ) : (
-                    <Button key={name} variant={activeChatName === name ? "secondary" : "ghost"} onClick={() => onSelectChat(name)} className="w-full justify-start truncate h-9 group pr-2">
-                      <MessageSquare className="mr-2 h-4 w-4 flex-shrink-0" />
-                      <span className="truncate flex-1 text-left">{name}</span>
-                      <div className="flex items-center opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity">
-                        <Tooltip><TooltipTrigger asChild><Button variant="ghost" size="icon" className="h-7 w-7" onClick={(e) => { e.stopPropagation(); startRename(name); }}><Pencil className="h-4 w-4" /></Button></TooltipTrigger><TooltipContent><p>Rename</p></TooltipContent></Tooltip>
-                        <Tooltip><TooltipTrigger asChild><Button variant="ghost" size="icon" className="h-7 w-7 hover:bg-destructive/10 hover:text-destructive" onClick={(e) => { e.stopPropagation(); onDeleteChat(name); }}><Trash2 className="h-4 w-4" /></Button></TooltipTrigger><TooltipContent><p>Delete</p></TooltipContent></Tooltip>
-                      </div>
-                    </Button>
-                  )
-                ))}
-              </div>
-            </div>
+            <FolderSidebar
+              folders={folderStructure.folders}
+              itemFolderMap={folderStructure.itemFolderMap}
+              allItems={Object.keys(allChats)}
+              activeItem={activeChatName}
+              itemIcon={MessageSquare}
+              onCreateFolder={onCreateFolder}
+              onRenameFolder={onRenameFolder}
+              onDeleteFolder={onDeleteFolder}
+              onSelectItem={onSelectChat}
+              onMoveItem={onMoveChat}
+              onRenameItem={onRenameChat}
+              onDeleteItem={onDeleteChat}
+              createNewItemLabel="Create New Chat"
+              onCreateNewItem={onCreateNewChat}
+              isRenamingItem={renamingChatName}
+              setIsRenamingItem={setRenamingChatName}
+            />
           </div>
 
           <div className="flex-1 flex flex-col min-h-0">

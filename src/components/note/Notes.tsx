@@ -7,15 +7,16 @@ import Underline from '@tiptap/extension-underline';
 import Placeholder from '@tiptap/extension-placeholder';
 import Link from '@tiptap/extension-link';
 import Typography from '@tiptap/extension-typography';
-import { PanelLeftClose, ChevronRight, PlusCircle, FileText, Trash2, Pencil, ZoomIn, ZoomOut, Maximize, Minimize } from 'lucide-react';
+import { PanelLeftClose, ChevronRight, FileText, ZoomIn, ZoomOut, Maximize, Minimize } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { BubbleToolbar } from './BubbleToolbar';
 import SlashCommand from '@/lib/tiptap-extensions/slash-command';
+import { FolderSidebar } from '@/components/common/FolderSidebar';
+import type { FolderStructure } from '@/lib/folder-types';
 
 interface NotesProps {
   activeSheetName: string | null;
@@ -28,19 +29,38 @@ interface NotesProps {
   isFocusMode: boolean;
   onToggleFocusMode: () => void;
   defaultSidebarOpen?: boolean;
+  // Folder props
+  folderStructure: FolderStructure;
+  onCreateFolder: () => void;
+  onRenameFolder: (folderId: string, newName: string) => boolean;
+  onDeleteFolder: (folderId: string) => void;
+  onMoveNote: (noteName: string, targetFolderId: string | null) => void;
 }
 
-export const Notes = ({ activeSheetName, notes, onNoteChange, onCreateNewNote, onSelectNote, onRenameNote, onDeleteNote, isFocusMode, onToggleFocusMode, defaultSidebarOpen = false }: NotesProps) => {
+export const Notes = ({
+  activeSheetName,
+  notes,
+  onNoteChange,
+  onCreateNewNote,
+  onSelectNote,
+  onRenameNote,
+  onDeleteNote,
+  isFocusMode,
+  onToggleFocusMode,
+  defaultSidebarOpen = false,
+  folderStructure,
+  onCreateFolder,
+  onRenameFolder,
+  onDeleteFolder,
+  onMoveNote
+}: NotesProps) => {
   const currentNote = activeSheetName ? notes[activeSheetName] ?? '' : '';
   const prevActiveSheetName = useRef(activeSheetName);
 
   const [zoomLevel, setZoomLevel] = useState(1);
   const [isNoteListOpen, setIsNoteListOpen] = useState(defaultSidebarOpen); // Pinned state
   const [isHoverMode, setIsHoverMode] = useState(false); // Temporary hover state
-
-  const [renamingName, setRenamingName] = useState<string | null>(null);
-  const [inputValue, setInputValue] = useState("");
-  const inputRef = useRef<HTMLInputElement>(null);
+  const [renamingNoteName, setRenamingNoteName] = useState<string | null>(null);
 
   const showSidebar = isNoteListOpen || isHoverMode;
 
@@ -60,39 +80,18 @@ export const Notes = ({ activeSheetName, notes, onNoteChange, onCreateNewNote, o
     onUpdate: ({ editor }) => { onNoteChange(editor.getHTML()); },
   });
 
-  useEffect(() => { if (renamingName) inputRef.current?.focus(); }, [renamingName]);
-
   useEffect(() => {
     if (!editor || editor.isDestroyed) return;
     const hasActiveSheetChanged = activeSheetName !== prevActiveSheetName.current;
     if (hasActiveSheetChanged) {
       editor.commands.setContent(currentNote, false);
-      setRenamingName(null);
+      setRenamingNoteName(null);
       prevActiveSheetName.current = activeSheetName;
     }
     else if (editor.getHTML() !== currentNote) {
       editor.commands.setContent(currentNote, false);
     }
   }, [activeSheetName, currentNote, editor]);
-
-  const handleFinishRename = () => {
-    if (renamingName) {
-      const success = onRenameNote(renamingName, inputValue);
-      if (success) {
-        setRenamingName(null);
-        setInputValue("");
-      }
-    } else {
-      setInputValue("");
-    }
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') handleFinishRename();
-    if (e.key === 'Escape') { setRenamingName(null); setInputValue(""); }
-  };
-
-  const startRename = (name: string) => { setRenamingName(name); setInputValue(name); };
 
   const handlePinClick = () => { setIsNoteListOpen(true); setIsHoverMode(false); };
   const handlePeekHover = () => { if (!isNoteListOpen) setIsHoverMode(true); };
@@ -149,30 +148,24 @@ export const Notes = ({ activeSheetName, notes, onNoteChange, onCreateNewNote, o
             <div className="flex items-center justify-between p-2 border-b border-editor-border flex-shrink-0">
               <h3 className="font-semibold text-sm truncate ml-2">My Notes</h3>
             </div>
-            <div className="flex-1 overflow-y-auto p-2">
-              <Button onClick={onCreateNewNote} className="w-full justify-start mb-2" disabled={!!renamingName}>
-                <PlusCircle className="mr-2 h-4 w-4" /> Create New Note
-              </Button>
-              <div className="my-2 h-px bg-border" />
-              <div className="flex flex-col gap-1 mt-1">
-                {Object.keys(notes).map(name => (
-                  renamingName === name ? (
-                    <div key={`renaming-${name}`} className="p-1">
-                      <Input ref={inputRef} value={inputValue} onChange={e => setInputValue(e.target.value)} onKeyDown={handleKeyDown} onBlur={handleFinishRename} className="h-9" />
-                    </div>
-                  ) : (
-                    <Button key={name} variant={activeSheetName === name ? "secondary" : "ghost"} onClick={() => onSelectNote(name)} className="w-full justify-start truncate h-9 group pr-2">
-                      <FileText className="mr-2 h-4 w-4 flex-shrink-0" />
-                      <span className="truncate flex-1 text-left">{name}</span>
-                      <div className="flex items-center opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity">
-                        <Tooltip><TooltipTrigger asChild><Button variant="ghost" size="icon" className="h-7 w-7" onClick={(e) => { e.stopPropagation(); startRename(name); }}><Pencil className="h-4 w-4" /></Button></TooltipTrigger><TooltipContent><p>Rename</p></TooltipContent></Tooltip>
-                        <Tooltip><TooltipTrigger asChild><Button variant="ghost" size="icon" className="h-7 w-7 hover:bg-destructive/10 hover:text-destructive" onClick={(e) => { e.stopPropagation(); onDeleteNote(name); }}><Trash2 className="h-4 w-4" /></Button></TooltipTrigger><TooltipContent><p>Delete</p></TooltipContent></Tooltip>
-                      </div>
-                    </Button>
-                  )
-                ))}
-              </div>
-            </div>
+            <FolderSidebar
+              folders={folderStructure.folders}
+              itemFolderMap={folderStructure.itemFolderMap}
+              allItems={Object.keys(notes)}
+              activeItem={activeSheetName}
+              itemIcon={FileText}
+              onCreateFolder={onCreateFolder}
+              onRenameFolder={onRenameFolder}
+              onDeleteFolder={onDeleteFolder}
+              onSelectItem={onSelectNote}
+              onMoveItem={onMoveNote}
+              onRenameItem={onRenameNote}
+              onDeleteItem={onDeleteNote}
+              createNewItemLabel="Create New Note"
+              onCreateNewItem={onCreateNewNote}
+              isRenamingItem={renamingNoteName}
+              setIsRenamingItem={setRenamingNoteName}
+            />
           </div>
 
           <div className="flex-1 flex flex-col min-h-0">

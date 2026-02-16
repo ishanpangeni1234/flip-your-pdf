@@ -11,7 +11,12 @@ const NotesPage = () => {
         handleSelectNote,
         handleNoteChange,
         handleDeleteNote,
-        handleRenameNote
+        handleRenameNote,
+        folderStructure,
+        handleCreateFolder,
+        handleRenameFolder,
+        handleDeleteFolder,
+        handleMoveNote,
     } = useNotes('standalone-notes');
 
     return (
@@ -28,6 +33,11 @@ const NotesPage = () => {
                     isFocusMode={false}
                     onToggleFocusMode={() => { }} // No focus mode in standalone page for now
                     defaultSidebarOpen={true}
+                    folderStructure={folderStructure}
+                    onCreateFolder={handleCreateFolder}
+                    onRenameFolder={handleRenameFolder}
+                    onDeleteFolder={handleDeleteFolder}
+                    onMoveNote={handleMoveNote}
                 />
             </div>
         </Layout>
