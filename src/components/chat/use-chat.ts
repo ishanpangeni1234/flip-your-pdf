@@ -20,6 +20,7 @@ export const useChat = ({ fileName }: UseChatProps) => {
   const [allChats, setAllChats] = useState<{ [key: string]: ChatMessage[] }>({});
   const [activeChatName, setActiveChatName] = useState<string | null>(null);
   const [isGeneratingResponse, setIsGeneratingResponse] = useState(false);
+  const [streamingContent, setStreamingContent] = useState<string | null>(null);
   const [selectedContextPages, setSelectedContextPages] = useState<Set<number>>(new Set());
   const [folderStructure, setFolderStructure] = useState<FolderStructure>({
     folders: {},
@@ -235,18 +236,32 @@ export const useChat = ({ fileName }: UseChatProps) => {
         parts: [{ text: prompt }]
       });
 
-      const res = await aiClient.current.models.generateContent({
+      const result = await aiClient.current.models.generateContentStream({
         model: "gemini-2.5-flash",
         contents: contents,
       });
 
-      const aiResponse: ChatMessage = { role: 'model', content: res.text };
+      // Initialize streaming content
+      setStreamingContent('');
+
+      let fullText = '';
+      for await (const chunk of result) {
+        const chunkText = chunk.text;
+        if (chunkText) {
+          fullText += chunkText;
+          setStreamingContent(prev => prev + chunkText);
+        }
+      }
+
+      // Add final message to chat history
+      const aiResponse: ChatMessage = { role: 'model', content: fullText };
       setAllChats(prev => ({
         ...prev,
         [activeChatName]: [...prev[activeChatName], aiResponse]
       }));
     } catch (e: any) {
-      const errorMessage: ChatMessage = { role: 'model', content: `Error: ${e.message}` };
+      console.error("Gemini Error:", e);
+      const errorMessage: ChatMessage = { role: 'model', content: `Error: ${e.message || "Unknown error occurred"}` };
       setAllChats(prev => ({
         ...prev,
         [activeChatName]: [...prev[activeChatName], errorMessage]
@@ -254,6 +269,7 @@ export const useChat = ({ fileName }: UseChatProps) => {
       toast({ title: "AI Error", description: "Could not get a response from the AI.", variant: "destructive" });
     } finally {
       setIsGeneratingResponse(false);
+      setStreamingContent(null);
     }
   }, [toast, activeChatName, selectedContextPages, allChats]);
 
@@ -358,5 +374,6 @@ export const useChat = ({ fileName }: UseChatProps) => {
     handleRenameFolder,
     handleDeleteFolder,
     handleMoveChat,
+    streamingContent,
   };
 };

@@ -42,6 +42,7 @@ interface ChatProps {
   onRenameFolder: (folderId: string, newName: string) => boolean;
   onDeleteFolder: (folderId: string) => void;
   onMoveChat: (chatName: string, targetFolderId: string | null) => void;
+  streamingContent?: string | null;
 }
 
 export const Chat = ({
@@ -64,7 +65,8 @@ export const Chat = ({
   onCreateFolder,
   onRenameFolder,
   onDeleteFolder,
-  onMoveChat
+  onMoveChat,
+  streamingContent
 }: ChatProps) => {
   const rawMessages = activeChatName ? allChats[activeChatName] : [];
   const currentMessages = Array.isArray(rawMessages) ? rawMessages : [];
@@ -87,7 +89,7 @@ export const Chat = ({
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [currentMessages, isGenerating]);
+  }, [currentMessages, isGenerating, streamingContent]);
 
   useEffect(() => {
     // When active chat changes, clear any renaming state
@@ -201,7 +203,17 @@ export const Chat = ({
                       {message.role === 'user' && (<div className="p-2 rounded-full bg-primary text-primary-foreground flex-shrink-0"><User size={18} /></div>)}
                     </div>
                   ))}
-                  {isGenerating && (
+
+                  {streamingContent && (
+                    <div className="flex items-start gap-3 w-full justify-start">
+                      <div className="p-2 rounded-full bg-muted flex-shrink-0"><Bot size={18} /></div>
+                      <div className="rounded-lg p-3 text-sm max-w-[85%] bg-muted">
+                        <div className="prose max-w-none"><ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>{streamingContent}</ReactMarkdown></div>
+                      </div>
+                    </div>
+                  )}
+
+                  {isGenerating && !streamingContent && (
                     <div className="flex items-start gap-3">
                       <div className="p-2 rounded-full bg-muted flex-shrink-0"><Bot size={18} /></div>
                       <div className="rounded-lg p-3 text-sm bg-muted flex items-center space-x-2">

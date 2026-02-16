@@ -20,6 +20,7 @@ const ChatPage = () => {
         handleRenameFolder,
         handleDeleteFolder,
         handleMoveChat,
+        streamingContent,
     } = useChat({ fileName: 'standalone-chat' });
 
     return (
@@ -46,6 +47,7 @@ const ChatPage = () => {
                     onRenameFolder={handleRenameFolder}
                     onDeleteFolder={handleDeleteFolder}
                     onMoveChat={handleMoveChat}
+                    streamingContent={streamingContent}
                 />
             </div>
         </Layout>
