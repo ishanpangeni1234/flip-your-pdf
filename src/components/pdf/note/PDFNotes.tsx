@@ -27,20 +27,21 @@ interface PDFNotesProps {
   onDeleteNote: (name: string) => void;
   isFocusMode: boolean;
   onToggleFocusMode: () => void;
+  defaultSidebarOpen?: boolean;
 }
 
-export const PDFNotes = ({ activeSheetName, notes, onNoteChange, onCreateNewNote, onSelectNote, onRenameNote, onDeleteNote, isFocusMode, onToggleFocusMode }: PDFNotesProps) => {
+export const PDFNotes = ({ activeSheetName, notes, onNoteChange, onCreateNewNote, onSelectNote, onRenameNote, onDeleteNote, isFocusMode, onToggleFocusMode, defaultSidebarOpen = false }: PDFNotesProps) => {
   const currentNote = activeSheetName ? notes[activeSheetName] ?? '' : '';
   const prevActiveSheetName = useRef(activeSheetName);
 
   const [zoomLevel, setZoomLevel] = useState(1);
-  const [isNoteListOpen, setIsNoteListOpen] = useState(false); // Pinned state
+  const [isNoteListOpen, setIsNoteListOpen] = useState(defaultSidebarOpen); // Pinned state
   const [isHoverMode, setIsHoverMode] = useState(false); // Temporary hover state
 
   const [renamingName, setRenamingName] = useState<string | null>(null);
   const [inputValue, setInputValue] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
-  
+
   const showSidebar = isNoteListOpen || isHoverMode;
 
   const handleZoomIn = () => setZoomLevel(prev => Math.min(prev + 0.1, 1.5));
@@ -65,32 +66,32 @@ export const PDFNotes = ({ activeSheetName, notes, onNoteChange, onCreateNewNote
     if (!editor || editor.isDestroyed) return;
     const hasActiveSheetChanged = activeSheetName !== prevActiveSheetName.current;
     if (hasActiveSheetChanged) {
-        editor.commands.setContent(currentNote, false);
-        setRenamingName(null);
-        prevActiveSheetName.current = activeSheetName;
-    } 
+      editor.commands.setContent(currentNote, false);
+      setRenamingName(null);
+      prevActiveSheetName.current = activeSheetName;
+    }
     else if (editor.getHTML() !== currentNote) {
-        editor.commands.setContent(currentNote, false);
+      editor.commands.setContent(currentNote, false);
     }
   }, [activeSheetName, currentNote, editor]);
 
   const handleFinishRename = () => {
     if (renamingName) {
-        const success = onRenameNote(renamingName, inputValue);
-        if (success) {
-            setRenamingName(null);
-            setInputValue("");
-        }
-    } else {
+      const success = onRenameNote(renamingName, inputValue);
+      if (success) {
+        setRenamingName(null);
         setInputValue("");
+      }
+    } else {
+      setInputValue("");
     }
   };
-  
+
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') handleFinishRename();
     if (e.key === 'Escape') { setRenamingName(null); setInputValue(""); }
   };
-  
+
   const startRename = (name: string) => { setRenamingName(name); setInputValue(name); };
 
   const handlePinClick = () => { setIsNoteListOpen(true); setIsHoverMode(false); };
@@ -101,14 +102,14 @@ export const PDFNotes = ({ activeSheetName, notes, onNoteChange, onCreateNewNote
   return (
     <TooltipProvider>
       <Card className={cn("h-full w-full flex flex-col rounded-none border-0 md:border-l bg-editor-background", isFocusMode && 'md:border-l-0')}>
-        
+
         <div className="flex items-center justify-between p-1 border-b border-editor-border flex-shrink-0">
           <div>
             <Tooltip>
               <TooltipTrigger asChild>
-                <Button 
-                  variant="ghost" 
-                  size="icon" 
+                <Button
+                  variant="ghost"
+                  size="icon"
                   onClick={isNoteListOpen ? handleUnpinClick : handlePinClick}
                   onMouseEnter={handlePeekHover}
                 >
@@ -120,26 +121,26 @@ export const PDFNotes = ({ activeSheetName, notes, onNoteChange, onCreateNewNote
               </TooltipContent>
             </Tooltip>
           </div>
-          
+
           <div className="flex items-center">
-            <Tooltip><TooltipTrigger asChild><Button variant="ghost" size="icon" onClick={handleZoomOut}><ZoomOut className="h-5 w-5"/></Button></TooltipTrigger><TooltipContent><p>Zoom Out</p></TooltipContent></Tooltip>
+            <Tooltip><TooltipTrigger asChild><Button variant="ghost" size="icon" onClick={handleZoomOut}><ZoomOut className="h-5 w-5" /></Button></TooltipTrigger><TooltipContent><p>Zoom Out</p></TooltipContent></Tooltip>
             <span className="text-sm font-semibold text-foreground min-w-[3rem] text-center select-none">{Math.round(zoomLevel * 100)}%</span>
-            <Tooltip><TooltipTrigger asChild><Button variant="ghost" size="icon" onClick={handleZoomIn}><ZoomIn className="h-5 w-5"/></Button></TooltipTrigger><TooltipContent><p>Zoom In</p></TooltipContent></Tooltip>
+            <Tooltip><TooltipTrigger asChild><Button variant="ghost" size="icon" onClick={handleZoomIn}><ZoomIn className="h-5 w-5" /></Button></TooltipTrigger><TooltipContent><p>Zoom In</p></TooltipContent></Tooltip>
             <div className="h-6 w-px bg-editor-border mx-1" />
             <Tooltip>
-                <TooltipTrigger asChild>
-                    <Button variant="ghost" size="icon" onClick={onToggleFocusMode}>
-                        {isFocusMode ? <Minimize className="h-5 w-5" /> : <Maximize className="h-5 w-5" />}
-                    </Button>
-                </TooltipTrigger>
-                <TooltipContent><p>{isFocusMode ? 'Exit focus mode' : 'Enter focus mode'}</p></TooltipContent>
+              <TooltipTrigger asChild>
+                <Button variant="ghost" size="icon" onClick={onToggleFocusMode}>
+                  {isFocusMode ? <Minimize className="h-5 w-5" /> : <Maximize className="h-5 w-5" />}
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent><p>{isFocusMode ? 'Exit focus mode' : 'Enter focus mode'}</p></TooltipContent>
             </Tooltip>
           </div>
         </div>
 
         <div className="flex flex-1 min-h-0">
-          <div 
-            className={cn( 
+          <div
+            className={cn(
               "flex flex-col bg-muted/20 transition-all duration-300 ease-in-out",
               showSidebar ? "w-64 border-r border-editor-border" : "w-0 overflow-hidden"
             )}
@@ -154,22 +155,22 @@ export const PDFNotes = ({ activeSheetName, notes, onNoteChange, onCreateNewNote
               </Button>
               <div className="my-2 h-px bg-border" />
               <div className="flex flex-col gap-1 mt-1">
-                  {Object.keys(notes).map(name => (
-                      renamingName === name ? (
-                          <div key={`renaming-${name}`} className="p-1">
-                              <Input ref={inputRef} value={inputValue} onChange={e => setInputValue(e.target.value)} onKeyDown={handleKeyDown} onBlur={handleFinishRename} className="h-9"/>
-                          </div>
-                      ) : (
-                          <Button key={name} variant={activeSheetName === name ? "secondary" : "ghost"} onClick={() => onSelectNote(name)} className="w-full justify-start truncate h-9 group pr-2">
-                              <FileText className="mr-2 h-4 w-4 flex-shrink-0" />
-                              <span className="truncate flex-1 text-left">{name}</span>
-                              <div className="flex items-center opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity">
-                                  <Tooltip><TooltipTrigger asChild><Button variant="ghost" size="icon" className="h-7 w-7" onClick={(e) => { e.stopPropagation(); startRename(name);}}><Pencil className="h-4 w-4" /></Button></TooltipTrigger><TooltipContent><p>Rename</p></TooltipContent></Tooltip>
-                                  <Tooltip><TooltipTrigger asChild><Button variant="ghost" size="icon" className="h-7 w-7 hover:bg-destructive/10 hover:text-destructive" onClick={(e) => { e.stopPropagation(); onDeleteNote(name);}}><Trash2 className="h-4 w-4" /></Button></TooltipTrigger><TooltipContent><p>Delete</p></TooltipContent></Tooltip>
-                              </div>
-                          </Button>
-                      )
-                  ))}
+                {Object.keys(notes).map(name => (
+                  renamingName === name ? (
+                    <div key={`renaming-${name}`} className="p-1">
+                      <Input ref={inputRef} value={inputValue} onChange={e => setInputValue(e.target.value)} onKeyDown={handleKeyDown} onBlur={handleFinishRename} className="h-9" />
+                    </div>
+                  ) : (
+                    <Button key={name} variant={activeSheetName === name ? "secondary" : "ghost"} onClick={() => onSelectNote(name)} className="w-full justify-start truncate h-9 group pr-2">
+                      <FileText className="mr-2 h-4 w-4 flex-shrink-0" />
+                      <span className="truncate flex-1 text-left">{name}</span>
+                      <div className="flex items-center opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity">
+                        <Tooltip><TooltipTrigger asChild><Button variant="ghost" size="icon" className="h-7 w-7" onClick={(e) => { e.stopPropagation(); startRename(name); }}><Pencil className="h-4 w-4" /></Button></TooltipTrigger><TooltipContent><p>Rename</p></TooltipContent></Tooltip>
+                        <Tooltip><TooltipTrigger asChild><Button variant="ghost" size="icon" className="h-7 w-7 hover:bg-destructive/10 hover:text-destructive" onClick={(e) => { e.stopPropagation(); onDeleteNote(name); }}><Trash2 className="h-4 w-4" /></Button></TooltipTrigger><TooltipContent><p>Delete</p></TooltipContent></Tooltip>
+                      </div>
+                    </Button>
+                  )
+                ))}
               </div>
             </div>
           </div>
@@ -183,7 +184,7 @@ export const PDFNotes = ({ activeSheetName, notes, onNoteChange, onCreateNewNote
               <CardContent className="p-0 flex-1 flex flex-col min-h-0">
                 {editor && <BubbleMenu editor={editor}><BubbleToolbar editor={editor} /></BubbleMenu>}
                 <div className="flex-1 overflow-y-auto editor-scroll-container">
-                  <EditorContent editor={editor} className="h-full" style={{ transform: `scale(${zoomLevel})`, transformOrigin: 'top left' }}/>
+                  <EditorContent editor={editor} className="h-full" style={{ transform: `scale(${zoomLevel})`, transformOrigin: 'top left' }} />
                 </div>
               </CardContent>
             )}
