@@ -30,9 +30,8 @@ export const useChat = ({ fileName }: UseChatProps) => {
   useEffect(() => {
     // IMPORTANT: Storing API keys directly in code is not secure for production.
     // Consider using environment variables.
-    const apiKey = "AIzaSyAlAylJfvQd15zgdymkHagWW-5nVjQtsac";
+    const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
     if (apiKey) {
-      // FIX: The API key must be passed inside an options object.
       aiClient.current = new GoogleGenAI({ apiKey });
     } else {
       console.error("Gemini API key is missing.");
