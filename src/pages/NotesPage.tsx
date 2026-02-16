@@ -1,7 +1,7 @@
 import React from 'react';
 import { Layout } from '@/components/layout/Layout';
-import { PDFNotes } from '@/components/pdf/note/PDFNotes';
-import { useNotes } from '@/components/pdf/note/use-notes';
+import { Notes } from '@/components/note/Notes';
+import { useNotes } from '@/components/note/use-notes';
 
 const NotesPage = () => {
     const {
@@ -17,7 +17,7 @@ const NotesPage = () => {
     return (
         <Layout>
             <div className="flex-1 h-[calc(100vh-73px)] overflow-hidden bg-editor-background">
-                <PDFNotes
+                <Notes
                     activeSheetName={activeNoteSheet}
                     notes={notes}
                     onNoteChange={handleNoteChange}

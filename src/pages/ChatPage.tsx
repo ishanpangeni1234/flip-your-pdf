@@ -1,7 +1,7 @@
 import React from 'react';
 import { Layout } from '@/components/layout/Layout';
-import { PDFChat } from '@/components/pdf/chat/PDFChat';
-import { useChat } from '@/components/pdf/chat/use-chat';
+import { Chat } from '@/components/chat/Chat';
+import { useChat } from '@/components/chat/use-chat';
 
 const ChatPage = () => {
     const {
@@ -20,7 +20,7 @@ const ChatPage = () => {
     return (
         <Layout>
             <div className="flex-1 h-[calc(100vh-73px)] overflow-hidden bg-background">
-                <PDFChat
+                <Chat
                     allChats={allChats}
                     activeChatName={activeChatName}
                     onSendMessage={(prompt) => handleSendMessage(prompt)}

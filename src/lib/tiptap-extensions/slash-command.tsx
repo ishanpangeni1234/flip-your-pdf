@@ -10,7 +10,7 @@ import {
   Quote, Type, Minus
 } from 'lucide-react';
 
-import { CommandList } from '@/components/pdf/note/CommandList';
+import { CommandList } from '@/components/note/CommandList';
 
 type CommandItemProps = {
   title: string;
@@ -126,10 +126,10 @@ const commandRenderer = () => {
 
     onExit() {
       if (popup && popup.length > 0) {
-          popup[0].destroy();
+        popup[0].destroy();
       }
       if (component) {
-          component.destroy();
+        component.destroy();
       }
     },
   };

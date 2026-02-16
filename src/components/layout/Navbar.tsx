@@ -30,9 +30,9 @@ export const Navbar = () => {
             </div>
             <div>
               <h1 className="text-xl font-bold tracking-tight bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Let Me Study
+                letme.study
               </h1>
-              <p className="text-xs text-muted-foreground">Advanced PDF Viewer</p>
+              <p className="text-xs text-muted-foreground">Smart Study Assistant</p>
             </div>
           </Link>
 

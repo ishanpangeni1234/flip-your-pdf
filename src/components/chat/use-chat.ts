@@ -1,4 +1,4 @@
-// src/components/pdf/chat/use-chat.ts
+// src/components/chat/use-chat.ts
 
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { GoogleGenAI } from "@google/genai";
@@ -8,7 +8,7 @@ import { useDebounce } from '@/hooks/use-debounce';
 import { getStoredChats, storeChats } from '@/lib/pdf-storage';
 import { getChatsFromCloud, saveChatsToCloud } from '@/lib/firebase-service';
 import { useAuth } from '@/lib/auth-context';
-import type { ChatMessage } from './PDFChat';
+import type { ChatMessage } from './Chat';
 
 interface UseChatProps {
   fileName: string;

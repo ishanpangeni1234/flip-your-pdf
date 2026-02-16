@@ -1,4 +1,4 @@
-// src/components/pdf/note/PDFNotes.tsx
+// src/components/note/Notes.tsx
 
 import React, { useEffect, useRef, useState } from 'react';
 import { useEditor, EditorContent, BubbleMenu } from '@tiptap/react';
@@ -17,7 +17,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { BubbleToolbar } from './BubbleToolbar';
 import SlashCommand from '@/lib/tiptap-extensions/slash-command';
 
-interface PDFNotesProps {
+interface NotesProps {
   activeSheetName: string | null;
   notes: { [key: string]: string };
   onNoteChange: (newText: string) => void;
@@ -30,7 +30,7 @@ interface PDFNotesProps {
   defaultSidebarOpen?: boolean;
 }
 
-export const PDFNotes = ({ activeSheetName, notes, onNoteChange, onCreateNewNote, onSelectNote, onRenameNote, onDeleteNote, isFocusMode, onToggleFocusMode, defaultSidebarOpen = false }: PDFNotesProps) => {
+export const Notes = ({ activeSheetName, notes, onNoteChange, onCreateNewNote, onSelectNote, onRenameNote, onDeleteNote, isFocusMode, onToggleFocusMode, defaultSidebarOpen = false }: NotesProps) => {
   const currentNote = activeSheetName ? notes[activeSheetName] ?? '' : '';
   const prevActiveSheetName = useRef(activeSheetName);
 

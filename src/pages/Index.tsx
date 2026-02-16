@@ -126,11 +126,11 @@ const Index = () => {
       <div className="container mx-auto px-4 py-12 sm:py-16 md:py-24">
         <div className="mx-auto max-w-3xl">
           <div className="text-center mb-10">
-            <h2 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl mb-4">
-              View Your PDF Instantly
+            <h2 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl mb-4 text-center">
+              Study Smarter with letme.study
             </h2>
-            <p className="max-w-xl mx-auto text-lg text-muted-foreground">
-              Drag & drop a PDF to get started. Secure your notes and chats in the cloud by signing in with Google.
+            <p className="max-w-xl mx-auto text-lg text-muted-foreground text-center">
+              Drag & drop your study material to begin. Experience AI-powered learning and integrated note-taking.
             </p>
           </div>
 

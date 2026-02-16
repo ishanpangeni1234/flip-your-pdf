@@ -1,4 +1,4 @@
-// src/components/pdf/note/use-notes.ts
+// src/components/note/use-notes.ts
 
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { useToast } from "@/hooks/use-toast";

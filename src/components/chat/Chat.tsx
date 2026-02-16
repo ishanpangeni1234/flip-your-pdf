@@ -1,4 +1,4 @@
-// src/components/pdf/chat/PDFChat.tsx
+// src/components/chat/Chat.tsx
 
 import React, { useState, useRef, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
@@ -18,7 +18,7 @@ export interface ChatMessage {
   content: string;
 }
 
-interface PDFChatProps {
+interface ChatProps {
   allChats: { [key: string]: ChatMessage[] };
   activeChatName: string | null;
   onSendMessage: (prompt: string) => void;
@@ -36,7 +36,7 @@ interface PDFChatProps {
   defaultSidebarOpen?: boolean;
 }
 
-export const PDFChat = ({ allChats, activeChatName, onSendMessage, isGenerating, currentPage, totalPages, selectedPages, onSelectedPagesChange, onCreateNewChat, onSelectChat, onRenameChat, onDeleteChat, isFocusMode, onToggleFocusMode, defaultSidebarOpen = false }: PDFChatProps) => {
+export const Chat = ({ allChats, activeChatName, onSendMessage, isGenerating, currentPage, totalPages, selectedPages, onSelectedPagesChange, onCreateNewChat, onSelectChat, onRenameChat, onDeleteChat, isFocusMode, onToggleFocusMode, defaultSidebarOpen = false }: ChatProps) => {
   const currentMessages = activeChatName ? allChats[activeChatName] ?? [] : [];
   const [input, setInput] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);

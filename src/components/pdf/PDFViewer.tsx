@@ -9,16 +9,16 @@ import 'react-pdf/dist/Page/TextLayer.css';
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 
-import { useNotes } from "./note/use-notes";
-import { useChat } from "./chat/use-chat";
-import { PDFNotes } from "./note/PDFNotes";
-import { PDFChat } from "./chat/PDFChat";
+import { useNotes } from "@/components/note/use-notes";
+import { useChat } from "@/components/chat/use-chat";
+import { Notes } from "@/components/note/Notes";
+import { Chat } from "@/components/chat/Chat";
 
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Card } from "@/components/ui/card";
-import { 
-  ResizableHandle, 
-  ResizablePanel, 
+import {
+  ResizableHandle,
+  ResizablePanel,
   ResizablePanelGroup,
   type ImperativePanelGroupHandle
 } from "@/components/ui/resizable";
@@ -73,8 +73,8 @@ export const PDFViewer = ({ initialFile, paperSet, initialFileType, onClose }: P
   const canSwitch = !!paperSet && [paperSet.qp, paperSet.ms, paperSet.in].filter(Boolean).length > 1;
 
   // --- CHANGE 4: Expanded `pageStates` state ---
-  const [pageStates, setPageStates] = useState({ 
-    qp: { page: 1, scale: 1.0 }, 
+  const [pageStates, setPageStates] = useState({
+    qp: { page: 1, scale: 1.0 },
     ms: { page: 1, scale: 1.0 },
     in: { page: 1, scale: 1.0 },
     er: { page: 1, scale: 1.0 },
@@ -105,7 +105,7 @@ export const PDFViewer = ({ initialFile, paperSet, initialFileType, onClose }: P
   const [isNotesFocusMode, setIsNotesFocusMode] = useState(false);
   const [isChatFocusMode, setIsChatFocusMode] = useState(false);
   const { toast } = useToast();
-  
+
   const { notes, activeNoteSheet, handleCreateNewNote, handleSelectNote, handleNoteChange, handleDeleteNote, handleRenameNote } = useNotes(initialFile.name);
   const { allChats, activeChatName, isGeneratingResponse, selectedContextPages, setSelectedContextPages, handleCreateNewChat, handleSelectChat, handleDeleteChat, handleRenameChat, handleSendMessage } = useChat({ fileName: initialFile.name });
 
@@ -116,7 +116,7 @@ export const PDFViewer = ({ initialFile, paperSet, initialFileType, onClose }: P
   // --- CHANGE 7: Expanded `pageRefs` state ---
   const pageRefs = useRef<Record<DocType, (HTMLDivElement | null)[]>>({ qp: [], ms: [], in: [], er: [], gt: [] });
   const panelGroupRef = useRef<ImperativePanelGroupHandle>(null);
-  
+
   // --- Active State Accessors ---
   const activeFile = documents[activeDocumentType];
   const activeState = docStates[activeDocumentType];
@@ -125,11 +125,11 @@ export const PDFViewer = ({ initialFile, paperSet, initialFileType, onClose }: P
 
   const setPageNumber = (updater: number | ((prev: number) => number)) => {
     const newPage = typeof updater === 'function' ? updater(pageNumber) : updater;
-    setPageStates(p => ({ ...p, [activeDocumentType]: { ...p[activeDocumentType], page: newPage }}));
+    setPageStates(p => ({ ...p, [activeDocumentType]: { ...p[activeDocumentType], page: newPage } }));
   };
   const setScale = (updater: number | ((prev: number) => number)) => {
     const newScale = typeof updater === 'function' ? updater(scale) : updater;
-    setPageStates(p => ({ ...p, [activeDocumentType]: { ...p[activeDocumentType], scale: newScale }}));
+    setPageStates(p => ({ ...p, [activeDocumentType]: { ...p[activeDocumentType], scale: newScale } }));
   };
   const setDocState = (updater: Partial<DocumentState> | ((prev: DocumentState) => Partial<DocumentState>)) => {
     setDocStates(prev => ({
@@ -147,7 +147,7 @@ export const PDFViewer = ({ initialFile, paperSet, initialFileType, onClose }: P
 
     const cycleOrder: DocType[] = ['qp', 'ms', 'in'];
     const docNames: Record<DocType, string> = { qp: "Question Paper", ms: "Mark Scheme", in: "Insert", er: "Examiner Report", gt: "Grade Thresholds" };
-    
+
     const availableDocs = cycleOrder.filter(type => paperSet[type]);
     if (availableDocs.length < 2) return null;
 
@@ -202,7 +202,7 @@ export const PDFViewer = ({ initialFile, paperSet, initialFileType, onClose }: P
         setIsPreloading(false);
       }
     };
-    
+
     const typesToPreload: DocType[] = ['qp', 'ms', 'in'];
     typesToPreload.forEach(type => {
       if (type !== activeDocumentType) preloadDocument(type);
@@ -290,7 +290,7 @@ export const PDFViewer = ({ initialFile, paperSet, initialFileType, onClose }: P
   const adjustScale = useCallback((getNewScale: (viewerRect: DOMRect) => number) => { if (!viewerRef.current || !activeState.pageDimensions) return; setScale(getNewScale(viewerRef.current.getBoundingClientRect())); }, [activeState.pageDimensions]);
   const fitToPage = useCallback(() => { adjustScale(rect => Math.min(rect.width / activeState.pageDimensions!.width, rect.height / activeState.pageDimensions!.height) * 0.95); }, [adjustScale, activeState.pageDimensions]);
   const fitToWidth = useCallback(() => { adjustScale(rect => (rect.width / activeState.pageDimensions!.width) * 0.95); }, [adjustScale, activeState.pageDimensions]);
-  
+
   // Search logic
   const handleSearch = useCallback(async () => {
     if (!activeState.searchQuery.trim() || !activeState.pdfProxy) { setDocState({ searchResults: [] }); return; }
@@ -312,8 +312,8 @@ export const PDFViewer = ({ initialFile, paperSet, initialFileType, onClose }: P
       activeState.renderedPages.forEach(pageNum => {
         const pageWrapper = pageRefs.current[activeDocumentType][pageNum]; if (!pageWrapper) return;
         const textLayer = pageWrapper.querySelector('.react-pdf__Page__textContent'); if (!textLayer) return;
-        textLayer.querySelectorAll('mark.search-highlight').forEach(mark => { const p = mark.parentNode; if(p){ p.replaceChild(document.createTextNode(mark.textContent || ''), mark); p.normalize(); } }); if (!regex) return;
-        const walker = document.createTreeWalker(textLayer, NodeFilter.SHOW_TEXT, null); let node; while(node = walker.nextNode()){
+        textLayer.querySelectorAll('mark.search-highlight').forEach(mark => { const p = mark.parentNode; if (p) { p.replaceChild(document.createTextNode(mark.textContent || ''), mark); p.normalize(); } }); if (!regex) return;
+        const walker = document.createTreeWalker(textLayer, NodeFilter.SHOW_TEXT, null); let node; while (node = walker.nextNode()) {
           if (!node.textContent) continue;
           const matches = [...node.textContent.matchAll(regex)];
           if (matches.length > 0) {
@@ -351,7 +351,7 @@ export const PDFViewer = ({ initialFile, paperSet, initialFileType, onClose }: P
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [goToPrevPage, goToNextPage, fitToPage, setScale, handleCycleDocument]);
-  
+
   const renderPagesForDoc = (docType: DocType) => {
     const state = docStates[docType];
     const docFile = documents[docType];
@@ -365,8 +365,8 @@ export const PDFViewer = ({ initialFile, paperSet, initialFileType, onClose }: P
             return (
               <div key={`${docType}_page_${pageNum}`} ref={(el) => (pageRefs.current[docType][pageNum] = el)} data-page-number={pageNum}>
                 {isPageRendered ? (
-                  <div style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.15)'}} className="rounded-lg overflow-hidden">
-                    <Page pageNumber={pageNum} scale={pageStates[docType].scale} onRenderSuccess={docType === activeDocumentType ? onPageRenderSuccess : undefined} loading={<div className="bg-white dark:bg-gray-700 animate-pulse rounded-lg" style={{ width: `${(state.pageDimensions?.width ?? 816) * pageStates[docType].scale}px`, height: `${(state.pageDimensions?.height ?? 1056) * pageStates[docType].scale}px` }}/>} />
+                  <div style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.15)' }} className="rounded-lg overflow-hidden">
+                    <Page pageNumber={pageNum} scale={pageStates[docType].scale} onRenderSuccess={docType === activeDocumentType ? onPageRenderSuccess : undefined} loading={<div className="bg-white dark:bg-gray-700 animate-pulse rounded-lg" style={{ width: `${(state.pageDimensions?.width ?? 816) * pageStates[docType].scale}px`, height: `${(state.pageDimensions?.height ?? 1056) * pageStates[docType].scale}px` }} />} />
                   </div>
                 ) : (
                   <div style={{ width: `${(state.pageDimensions?.width ?? 816) * pageStates[docType].scale}px`, height: `${(state.pageDimensions?.height ?? 1056) * pageStates[docType].scale}px` }} className="bg-gray-100 dark:bg-gray-700 rounded-lg animate-pulse" />
@@ -378,9 +378,9 @@ export const PDFViewer = ({ initialFile, paperSet, initialFileType, onClose }: P
       </Document>
     );
   };
-  
-  if (isNotesFocusMode) return <div className="h-screen w-screen bg-editor-background"><PDFNotes {...{activeSheetName: activeNoteSheet, notes, onNoteChange: handleNoteChangeWrapper, onCreateNewNote: handleCreateNewNote, onSelectNote: handleSelectNoteWrapper, onRenameNote: handleRenameNote, onDeleteNote: handleDeleteNote, isFocusMode: isNotesFocusMode, onToggleFocusMode: toggleNotesFocusMode}} /></div>;
-  if (isChatFocusMode) return <div className="h-screen w-screen bg-background"><PDFChat {...{allChats, activeChatName, onSendMessage: handleSendMessageWrapper, isGenerating: isGeneratingResponse, currentPage: pageNumber, totalPages: activeState.numPages, selectedPages: selectedContextPages, onSelectedPagesChange: setSelectedContextPages, onCreateNewChat: handleCreateNewChat, onSelectChat: handleSelectChatWrapper, onRenameChat: handleRenameChat, onDeleteChat: handleDeleteChatWrapper, isFocusMode: isChatFocusMode, onToggleFocusMode: toggleChatFocusMode}} /></div>;
+
+  if (isNotesFocusMode) return <div className="h-screen w-screen bg-editor-background"><Notes {...{ activeSheetName: activeNoteSheet, notes, onNoteChange: handleNoteChangeWrapper, onCreateNewNote: handleCreateNewNote, onSelectNote: handleSelectNoteWrapper, onRenameNote: handleRenameNote, onDeleteNote: handleDeleteNote, isFocusMode: isNotesFocusMode, onToggleFocusMode: toggleNotesFocusMode }} /></div>;
+  if (isChatFocusMode) return <div className="h-screen w-screen bg-background"><Chat {...{ allChats, activeChatName, onSendMessage: handleSendMessageWrapper, isGenerating: isGeneratingResponse, currentPage: pageNumber, totalPages: activeState.numPages, selectedPages: selectedContextPages, onSelectedPagesChange: setSelectedContextPages, onCreateNewChat: handleCreateNewChat, onSelectChat: handleSelectChatWrapper, onRenameChat: handleRenameChat, onDeleteChat: handleDeleteChatWrapper, isFocusMode: isChatFocusMode, onToggleFocusMode: toggleChatFocusMode }} /></div>;
 
   const nextDocumentInfo = getNextDocumentInfo();
 
@@ -392,7 +392,7 @@ export const PDFViewer = ({ initialFile, paperSet, initialFileType, onClose }: P
         </div>
         <div className="flex flex-col flex-1 min-w-0">
           <Card className="rounded-none border-0 border-b z-10">
-            <PDFToolbar {...{ fileName: activeFile?.name || 'Loading...', onClose, isSidebarOpen, toggleSidebar: () => setIsSidebarOpen(o => !o), pageNumber, numPages: activeState.numPages, goToPage, goToPrevPage, goToNextPage, isLoading, scale, setScale, fitToPage, fitToWidth, searchQuery: activeState.searchQuery, setSearchQuery: (q) => setDocState({ searchQuery: q }), handleSearch, isSearching: activeState.isSearching, searchResults: activeState.searchResults, setSearchResults: (r) => setDocState({ searchResults: r }), currentMatchIndex: activeState.currentMatchIndex, setCurrentMatchIndex: (i) => setDocState(p => ({ currentMatchIndex: typeof i === 'function' ? i(p.currentMatchIndex) : i})), goToPrevMatch, goToNextMatch, isNotesViewActive, onToggleNotesView: toggleNotesView, isChatViewActive, onToggleChatView: toggleChatView, onCycleDocument: handleCycleDocument, nextDocumentName: nextDocumentInfo?.name || null, isPreloading, canSwitch }} />
+            <PDFToolbar {...{ fileName: activeFile?.name || 'Loading...', onClose, isSidebarOpen, toggleSidebar: () => setIsSidebarOpen(o => !o), pageNumber, numPages: activeState.numPages, goToPage, goToPrevPage, goToNextPage, isLoading, scale, setScale, fitToPage, fitToWidth, searchQuery: activeState.searchQuery, setSearchQuery: (q) => setDocState({ searchQuery: q }), handleSearch, isSearching: activeState.isSearching, searchResults: activeState.searchResults, setSearchResults: (r) => setDocState({ searchResults: r }), currentMatchIndex: activeState.currentMatchIndex, setCurrentMatchIndex: (i) => setDocState(p => ({ currentMatchIndex: typeof i === 'function' ? i(p.currentMatchIndex) : i })), goToPrevMatch, goToNextMatch, isNotesViewActive, onToggleNotesView: toggleNotesView, isChatViewActive, onToggleChatView: toggleChatView, onCycleDocument: handleCycleDocument, nextDocumentName: nextDocumentInfo?.name || null, isPreloading, canSwitch }} />
           </Card>
           <ResizablePanelGroup direction="horizontal" className="flex-1" ref={panelGroupRef}>
             <ResizablePanel defaultSize={isNotesViewActive || isChatViewActive ? 50 : 100}>
@@ -407,8 +407,8 @@ export const PDFViewer = ({ initialFile, paperSet, initialFileType, onClose }: P
               </div>
             </ResizablePanel>
             {(isNotesViewActive || isChatViewActive) && <ResizableHandle withHandle />}
-            {isNotesViewActive && <ResizablePanel defaultSize={50} minSize={25} collapsible><PDFNotes {...{activeSheetName: activeNoteSheet, notes, onNoteChange: handleNoteChangeWrapper, onCreateNewNote: handleCreateNewNote, onSelectNote: handleSelectNoteWrapper, onRenameNote: handleRenameNote, onDeleteNote: handleDeleteNote, isFocusMode: isNotesFocusMode, onToggleFocusMode: toggleNotesFocusMode}} /></ResizablePanel>}
-            {isChatViewActive && <ResizablePanel defaultSize={50} minSize={25} collapsible><PDFChat {...{allChats, activeChatName, onSendMessage: handleSendMessageWrapper, isGenerating: isGeneratingResponse, currentPage: pageNumber, totalPages: activeState.numPages, selectedPages: selectedContextPages, onSelectedPagesChange: setSelectedContextPages, onCreateNewChat: handleCreateNewChat, onSelectChat: handleSelectChatWrapper, onRenameChat: handleRenameChat, onDeleteChat: handleDeleteChatWrapper, isFocusMode: isChatFocusMode, onToggleFocusMode: toggleChatFocusMode}} /></ResizablePanel>}
+            {isNotesViewActive && <ResizablePanel defaultSize={50} minSize={25} collapsible><Notes {...{ activeSheetName: activeNoteSheet, notes, onNoteChange: handleNoteChangeWrapper, onCreateNewNote: handleCreateNewNote, onSelectNote: handleSelectNoteWrapper, onRenameNote: handleRenameNote, onDeleteNote: handleDeleteNote, isFocusMode: isNotesFocusMode, onToggleFocusMode: toggleNotesFocusMode }} /></ResizablePanel>}
+            {isChatViewActive && <ResizablePanel defaultSize={50} minSize={25} collapsible><Chat {...{ allChats, activeChatName, onSendMessage: handleSendMessageWrapper, isGenerating: isGeneratingResponse, currentPage: pageNumber, totalPages: activeState.numPages, selectedPages: selectedContextPages, onSelectedPagesChange: setSelectedContextPages, onCreateNewChat: handleCreateNewChat, onSelectChat: handleSelectChatWrapper, onRenameChat: handleRenameChat, onDeleteChat: handleDeleteChatWrapper, isFocusMode: isChatFocusMode, onToggleFocusMode: toggleChatFocusMode }} /></ResizablePanel>}
           </ResizablePanelGroup>
         </div>
       </div>
