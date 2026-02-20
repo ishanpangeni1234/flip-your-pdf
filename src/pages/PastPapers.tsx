@@ -64,12 +64,14 @@ const FileButton = ({
   onLinkClick,
   className,
   colorScheme = "gray",
+  href,
 }: {
   pdf: PDFFileData | null
   icon: React.ElementType<LucideProps>
   label: string
   onLinkClick: (e: React.MouseEvent<HTMLAnchorElement>, pdf: PDFFileData | null) => void;
   colorScheme?: "blue" | "green" | "purple" | "orange" | "indigo" | "gray"
+  href: string
 } & ButtonProps) => {
 
   const colorStyles = {
@@ -94,7 +96,7 @@ const FileButton = ({
 
   return (
     <Button asChild variant="outline" className={`w-full justify-between group transition-all duration-200 border-2 ${className} ${colorStyles[colorScheme]}`}>
-      <a href={pdf.path} onClick={(e) => onLinkClick(e, pdf)} target="_blank" rel="noopener noreferrer" className="cursor-pointer">
+      <a href={href} onClick={(e) => onLinkClick(e, pdf)} target="_blank" rel="noopener noreferrer" className="cursor-pointer">
         <div className="flex items-center gap-2">
           <Icon className="h-4 w-4" /> <span className="font-semibold">{label}</span>
         </div>
@@ -118,9 +120,9 @@ export const PaperCard = ({ paper, groupName, onLinkClick }: { paper: PaperSet; 
       </div>
     </CardHeader>
     <CardContent className="space-y-2 flex-grow flex flex-col justify-end p-4 pt-2">
-      <FileButton pdf={paper.qp} icon={FileText} label="Question Paper" onLinkClick={(e, pdf) => onLinkClick(e, pdf, 'qp', paper)} colorScheme="blue" />
-      <FileButton pdf={paper.ms} icon={CheckSquare} label="Mark Scheme" onLinkClick={(e, pdf) => onLinkClick(e, pdf, 'ms', paper)} colorScheme="green" />
-      {paper.in && <FileButton pdf={paper.in} icon={ClipboardList} label="Insert" onLinkClick={(e, pdf) => onLinkClick(e, pdf, 'in', paper)} colorScheme="purple" />}
+      <FileButton pdf={paper.qp} icon={FileText} label="Question Paper" onLinkClick={(e, pdf) => onLinkClick(e, pdf, 'qp', paper)} colorScheme="blue" href={`/past-papers?view=${paper.id}&type=qp`} />
+      <FileButton pdf={paper.ms} icon={CheckSquare} label="Mark Scheme" onLinkClick={(e, pdf) => onLinkClick(e, pdf, 'ms', paper)} colorScheme="green" href={`/past-papers?view=${paper.id}&type=ms`} />
+      {paper.in && <FileButton pdf={paper.in} icon={ClipboardList} label="Insert" onLinkClick={(e, pdf) => onLinkClick(e, pdf, 'in', paper)} colorScheme="purple" href={`/past-papers?view=${paper.id}&type=in`} />}
     </CardContent>
   </Card>
 )
@@ -159,6 +161,7 @@ const SessionDocCard = ({ doc, onLinkClick }: { doc: PaperSet; onLinkClick: Link
           label={label}
           onLinkClick={(e, pdf) => onLinkClick(e, pdf, isER ? 'er' : 'gt', doc)}
           colorScheme={colorScheme}
+          href={`/past-papers?view=${doc.id}&type=${isER ? 'er' : 'gt'}`}
         />
       </CardContent>
     </Card>
