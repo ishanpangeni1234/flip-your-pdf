@@ -40,7 +40,7 @@ export const Navbar = () => {
           <nav className="absolute left-1/2 transform -translate-x-1/2 hidden md:block">
             <div className="flex items-center space-x-1 bg-muted/50 rounded-full p-1 backdrop-blur-sm">
               <Link
-                to="/past-papers"
+                to="/"
                 className={cn(
                   "px-4 py-2 text-sm font-medium rounded-full transition-all duration-200",
                   "hover:bg-background hover:text-foreground hover:shadow-sm",

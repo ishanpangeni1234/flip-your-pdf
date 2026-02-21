@@ -35,6 +35,16 @@ export interface StoredNotes {
     updatedAt: Timestamp;
 }
 
+export interface RecentPaper {
+    id: string;
+    subject: string;
+    session: string;
+    year: string;
+    type: string;
+    name: string;
+    timestamp: number;
+}
+
 // --- Chats Service ---
 
 export const saveChatsToCloud = async (
@@ -101,4 +111,29 @@ export const getNotesFromCloud = async (
         };
     }
     return null;
+};
+
+// --- Recent Papers Service ---
+
+export const saveRecentPapersToCloud = async (
+    userId: string,
+    recentPapers: RecentPaper[]
+) => {
+    const docRef = doc(db, "users", userId, "settings", "recentPapers");
+    await setDoc(docRef, {
+        papers: recentPapers.slice(0, 8),
+        updatedAt: Timestamp.now()
+    });
+};
+
+export const getRecentPapersFromCloud = async (
+    userId: string
+): Promise<RecentPaper[]> => {
+    const docRef = doc(db, "users", userId, "settings", "recentPapers");
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+        const data = docSnap.data();
+        return data.papers || [];
+    }
+    return [];
 };

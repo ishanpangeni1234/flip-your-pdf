@@ -14,6 +14,12 @@ import {
   ArrowLeft, Eye, GraduationCap, Clock, FileX, BarChart3, PenSquare,
   LucideProps, BookCopy, SearchX,
 } from "lucide-react"
+import { useAuth } from "@/lib/auth-context"
+import {
+  saveRecentPapersToCloud,
+  getRecentPapersFromCloud,
+  type RecentPaper as CloudRecentPaper
+} from "@/lib/firebase-service"
 
 import { type FilterCriteria } from "@/components/pdf/filter/PaperFilterPanel"
 import { CompactFilterSidebar } from "@/components/pdf/filter/CompactFilterSidebar"
@@ -50,6 +56,8 @@ interface YearData {
 type PapersData = {
   [subject: string]: { [session: string]: { [year: string]: YearData } }
 }
+
+type RecentPaper = CloudRecentPaper;
 
 type DocViewType = 'qp' | 'ms' | 'in' | 'er' | 'gt';
 export type LinkClickHandler = (e: React.MouseEvent<HTMLAnchorElement>, pdf: PDFFileData | null, type: DocViewType, paperSet: PaperSet) => void;
@@ -258,12 +266,52 @@ const initialFilter: FilterCriteria = {
   subject: [], year: [], season: [], paperNumber: [], variantNumber: [],
 }
 
+const RecentlyOpened = ({ papers, onOpen }: { papers: RecentPaper[]; onOpen: (paper: RecentPaper) => void }) => {
+  if (papers.length === 0) return null;
+
+  return (
+    <div className="space-y-6">
+      <div className="flex items-center gap-3 border-b pb-4">
+        <Clock className="h-6 w-6 text-primary" />
+        <h3 className="text-2xl font-semibold">Recently Opened</h3>
+      </div>
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {papers.map((paper) => (
+          <Card
+            key={`${paper.id}-${paper.type}-${paper.timestamp}`}
+            className="group cursor-pointer bg-card/60 backdrop-blur-sm hover:shadow-md transition-all border hover:border-primary/30"
+            onClick={() => onOpen(paper)}
+          >
+            <CardContent className="p-4 flex flex-col gap-2">
+              <div className="flex justify-between items-start">
+                <div className="p-1.5 bg-primary/10 rounded-md">
+                  <FileText className="h-4 w-4 text-primary" />
+                </div>
+              </div>
+              <div className="space-y-1">
+                <h4 className="font-bold text-sm line-clamp-1 group-hover:text-primary transition-colors">
+                  {paper.name.replace(/_(ms|in|er|gt)(\.pdf)?$/i, '')}
+                </h4>
+                <p className="text-xs text-muted-foreground">
+                  {paper.subject} • {paper.session} {paper.year}
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </div>
+  );
+};
+
 const PastPapers = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
   const navigate = useNavigate();
   const { subject: subjectSlug, session: sessionSlug, year: selectedYear } = useParams<{ subject: string; session: string; year: string }>();
   const [searchParams, setSearchParams] = useSearchParams();
+  const { user } = useAuth();
+  const [recentPapers, setRecentPapers] = useState<RecentPaper[]>([]);
 
   const [activeFilter, setActiveFilter] = useState<FilterCriteria>(initialFilter);
 
@@ -293,6 +341,18 @@ const PastPapers = () => {
     };
     return { allPapersList: list, filterOptions: options };
   }, [papers]);
+
+  useEffect(() => {
+    const loadRecentPapers = async () => {
+      if (!user) {
+        setRecentPapers([]);
+        return;
+      }
+      const papers = await getRecentPapersFromCloud(user.uid);
+      setRecentPapers(papers);
+    };
+    loadRecentPapers();
+  }, [user]);
 
   useEffect(() => { window.scrollTo(0, 0); }, [subjectSlug, sessionSlug, selectedYear, activeFilter]);
 
@@ -328,6 +388,32 @@ const PastPapers = () => {
         if (!response.ok) throw new Error(`Failed to fetch PDF: ${response.statusText}`);
         const file = new File([await response.blob()], pdfData.name, { type: "application/pdf" });
         setLoadedPdfData({ set: paperSetToView, initialFile: file, initialFileType: viewType });
+
+        if (user) {
+          const newRecent: RecentPaper = {
+            id: viewId,
+            subject: paperSetToView.subject,
+            session: paperSetToView.session,
+            year: paperSetToView.year.toString(),
+            type: 'qp', // Always default to Question Paper landing
+            name: paperSetToView.qp?.name || paperSetToView.subject,
+            timestamp: Date.now(),
+          };
+
+          setRecentPapers(prev => {
+            const filtered = prev.filter(p => p.id !== newRecent.id);
+            return [newRecent, ...filtered].slice(0, 8);
+          });
+
+          // Sync with cloud
+          (async () => {
+            const papers = await getRecentPapersFromCloud(user.uid);
+            const filtered = papers.filter(p => p.id !== newRecent.id);
+            const updated = [newRecent, ...filtered].slice(0, 8);
+            await saveRecentPapersToCloud(user.uid, updated);
+          })();
+        }
+
         toast({ title: "Success!", description: "PDF loaded successfully", variant: "default" });
       } catch (error) {
         console.error("Error loading PDF from URL:", error);
@@ -358,6 +444,10 @@ const PastPapers = () => {
   };
 
   const handleCloseViewer = useCallback(() => { setSearchParams({}); }, [setSearchParams]);
+
+  const handleOpenRecent = (paper: RecentPaper) => {
+    setSearchParams({ view: paper.id, type: paper.type });
+  };
 
   const handleApplyFilter = (filter: FilterCriteria) => {
     if ((Object.values(filter) as string[][]).some(v => v.length > 0)) {
@@ -498,7 +588,7 @@ const PastPapers = () => {
                 <FilteredResults allPapers={allPapersList} activeFilter={activeFilter} onLinkClick={handleLinkClick} />
               </div>
             ) : (
-              <div className="space-y-8">
+              <div className="space-y-12">
                 {subjects.length > 0 ? (
                   <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                     {subjects.map((subject) => (
@@ -522,6 +612,7 @@ const PastPapers = () => {
                     </CardContent>
                   </Card>
                 )}
+                {user && <RecentlyOpened papers={recentPapers} onOpen={handleOpenRecent} />}
               </div>
             )}
           </motion.div>
