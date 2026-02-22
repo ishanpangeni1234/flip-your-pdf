@@ -12,7 +12,7 @@ import { useToast } from "@/hooks/use-toast"
 import {
   FileText, ClipboardList, CheckSquare, ChevronRight, Home, BookOpen, Calendar,
   ArrowLeft, Eye, GraduationCap, Clock, FileX, BarChart3, PenSquare,
-  LucideProps, BookCopy, SearchX,
+  LucideProps, BookCopy, SearchX, Trash2, X
 } from "lucide-react"
 import { useAuth } from "@/lib/auth-context"
 import {
@@ -266,35 +266,56 @@ const initialFilter: FilterCriteria = {
   subject: [], year: [], season: [], paperNumber: [], variantNumber: [],
 }
 
-const RecentlyOpened = ({ papers, onOpen }: { papers: RecentPaper[]; onOpen: (paper: RecentPaper) => void }) => {
+const RecentlyOpened = ({ papers, onOpen, onDelete }: { papers: RecentPaper[]; onOpen: (paper: RecentPaper) => void; onDelete: (paper: RecentPaper) => void }) => {
   if (papers.length === 0) return null;
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center gap-3 border-b pb-4">
-        <Clock className="h-6 w-6 text-primary" />
-        <h3 className="text-2xl font-semibold">Recently Opened</h3>
+    <div className="space-y-4">
+      <div className="flex items-center gap-2 border-b border-primary/10 pb-2">
+        <Clock className="h-4 w-4 text-primary" />
+        <h3 className="text-lg font-bold tracking-tight">Recently Opened</h3>
       </div>
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <div className="flex flex-row gap-3 overflow-x-auto pb-4 -mx-1 px-1 snap-x scroll-smooth outline-none custom-scrollbar shadow-inner">
         {papers.map((paper) => (
           <Card
             key={`${paper.id}-${paper.type}-${paper.timestamp}`}
-            className="group cursor-pointer bg-card/60 backdrop-blur-sm hover:shadow-md transition-all border hover:border-primary/30"
+            className="group cursor-pointer bg-card/40 backdrop-blur-sm hover:shadow-lg transition-all border hover:border-primary/40 flex-shrink-0 w-60 snap-start relative"
             onClick={() => onOpen(paper)}
           >
-            <CardContent className="p-4 flex flex-col gap-2">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="absolute top-1 right-1 h-6 w-6 opacity-0 group-hover:opacity-100 transition-opacity z-10 hover:bg-destructive/10 hover:text-destructive"
+              onClick={(e) => {
+                e.stopPropagation();
+                onDelete(paper);
+              }}
+            >
+              <X className="h-3.5 w-3.5" />
+            </Button>
+            <CardContent className="p-3 flex flex-col gap-2">
               <div className="flex justify-between items-start">
-                <div className="p-1.5 bg-primary/10 rounded-md">
-                  <FileText className="h-4 w-4 text-primary" />
+                <div className="p-1 bg-primary/10 rounded">
+                  <FileText className="h-3.5 w-3.5 text-primary" />
                 </div>
               </div>
               <div className="space-y-1">
-                <h4 className="font-bold text-sm line-clamp-1 group-hover:text-primary transition-colors">
+                <h4 className="font-bold text-xs leading-tight line-clamp-1 group-hover:text-primary transition-colors pr-6">
                   {paper.name.replace(/_(ms|in|er|gt)(\.pdf)?$/i, '')}
                 </h4>
-                <p className="text-xs text-muted-foreground">
-                  {paper.subject} • {paper.session} {paper.year}
-                </p>
+                <div className="flex flex-col gap-0.5">
+                  <p className="text-[10px] text-muted-foreground truncate font-medium">
+                    {paper.subject}
+                  </p>
+                  <div className="flex items-center justify-between gap-2 mt-0.5">
+                    <span className="text-[9px] bg-primary/5 text-primary border border-primary/20 px-1.5 py-0.5 rounded font-bold">
+                      {paper.session} {paper.year}
+                    </span>
+                    <span className="text-[10px] text-muted-foreground/60 tabular-nums">
+                      {new Date(paper.timestamp).toLocaleDateString([], { month: 'short', day: 'numeric' })}
+                    </span>
+                  </div>
+                </div>
               </div>
             </CardContent>
           </Card>
@@ -342,6 +363,39 @@ const PastPapers = () => {
     return { allPapersList: list, filterOptions: options };
   }, [papers]);
 
+  const selectedSubject = useMemo(() => { if (!subjectSlug) return null; return findKeyBySlug(papers, subjectSlug) || null; }, [subjectSlug, papers]);
+  const selectedSession = useMemo(() => { if (!selectedSubject || !sessionSlug) return null; return findKeyBySlug(papers[selectedSubject], sessionSlug) || null; }, [selectedSubject, sessionSlug, papers]);
+
+  const isFiltering = useMemo(() => (Object.values(activeFilter) as string[][]).some(v => v.length > 0), [activeFilter]);
+
+  const relevantPapers = useMemo(() => {
+    if (isFiltering) {
+      return allPapersList.filter(paper => {
+        if (activeFilter.subject.length > 0 && !activeFilter.subject.includes(paper.subject)) return false
+        if (activeFilter.year.length > 0 && !activeFilter.year.includes(paper.year.toString())) return false
+        if (activeFilter.season.length > 0 && !activeFilter.season.includes(paper.season)) return false
+        if (activeFilter.paperNumber.length > 0 && !activeFilter.paperNumber.includes(paper.paperNumber.toString())) return false
+        if (activeFilter.variantNumber.length > 0 && !activeFilter.variantNumber.includes(paper.variantNumber.toString())) return false
+        return true
+      });
+    }
+
+    if (loadedPdfData && !subjectSlug) {
+      // Opened from Recently Opened without full URL path parameters
+      return recentPapers
+        .map(rp => allPapersList.find(p => p.id === rp.id))
+        .filter(Boolean) as PaperSet[];
+    }
+
+    if (selectedSubject && selectedSession && selectedYear) {
+      return allPapersList
+        .filter(p => p.subject === selectedSubject && p.session === selectedSession && p.year.toString() === selectedYear)
+        .sort((a, b) => a.series.localeCompare(b.series));
+    }
+
+    return [];
+  }, [allPapersList, isFiltering, activeFilter, selectedSubject, selectedSession, selectedYear, loadedPdfData, recentPapers, subjectSlug]);
+
   useEffect(() => {
     const loadRecentPapers = async () => {
       if (!user) {
@@ -355,11 +409,6 @@ const PastPapers = () => {
   }, [user]);
 
   useEffect(() => { window.scrollTo(0, 0); }, [subjectSlug, sessionSlug, selectedYear, activeFilter]);
-
-  const selectedSubject = useMemo(() => { if (!subjectSlug) return null; return findKeyBySlug(papers, subjectSlug) || null; }, [subjectSlug, papers]);
-  const selectedSession = useMemo(() => { if (!selectedSubject || !sessionSlug) return null; return findKeyBySlug(papers[selectedSubject], sessionSlug) || null; }, [selectedSubject, sessionSlug, papers]);
-
-  const isFiltering = useMemo(() => (Object.values(activeFilter) as string[][]).some(v => v.length > 0), [activeFilter]);
 
   useEffect(() => {
     const loadPdfFromUrl = async () => {
@@ -449,6 +498,14 @@ const PastPapers = () => {
     setSearchParams({ view: paper.id, type: paper.type });
   };
 
+  const handleRecentPaperDelete = async (paper: RecentPaper) => {
+    if (!user) return;
+    const updatedPapers = recentPapers.filter(p => !(p.id === paper.id && p.type === paper.type && p.timestamp === paper.timestamp));
+    setRecentPapers(updatedPapers);
+    await saveRecentPapersToCloud(user.uid, updatedPapers);
+    toast({ title: "Removed", description: "Paper removed from history", variant: "default" });
+  };
+
   const handleApplyFilter = (filter: FilterCriteria) => {
     if ((Object.values(filter) as string[][]).some(v => v.length > 0)) {
       navigate('/past-papers', { replace: true });
@@ -464,8 +521,22 @@ const PastPapers = () => {
     }));
   };
 
+  const handleSidebarPaperSelect = (paper: PaperSet) => {
+    setSearchParams({ view: paper.id, type: 'qp' });
+  };
+
   if (viewId && loadedPdfData) {
-    return (<PDFViewer initialFile={loadedPdfData.initialFile} paperSet={loadedPdfData.set} initialFileType={loadedPdfData.initialFileType as any} onClose={handleCloseViewer} />);
+    return (
+      <PDFViewer
+        key={loadedPdfData.set.id}
+        initialFile={loadedPdfData.initialFile}
+        paperSet={loadedPdfData.set}
+        initialFileType={loadedPdfData.initialFileType as any}
+        relevantPapers={relevantPapers}
+        onPaperSelect={handleSidebarPaperSelect}
+        onClose={handleCloseViewer}
+      />
+    );
   }
 
   const renderContent = () => {
@@ -612,7 +683,7 @@ const PastPapers = () => {
                     </CardContent>
                   </Card>
                 )}
-                {user && <RecentlyOpened papers={recentPapers} onOpen={handleOpenRecent} />}
+                {user && <RecentlyOpened papers={recentPapers} onOpen={handleOpenRecent} onDelete={handleRecentPaperDelete} />}
               </div>
             )}
           </motion.div>

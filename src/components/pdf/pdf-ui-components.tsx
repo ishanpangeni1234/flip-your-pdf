@@ -2,10 +2,10 @@
 
 import React, { useState } from 'react';
 import { Document, Page } from "react-pdf";
-import { 
+import {
   ChevronLeft, ChevronRight, ZoomIn, ZoomOut, Search,
   PanelLeftClose, PanelLeftOpen, Rows, Columns, ChevronUp, ChevronDown, X,
-  MessageSquare
+  MessageSquare, BookOpen, StickyNote
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -54,14 +54,91 @@ export const ThumbnailSidebar = ({ file, numPages, currentPage, goToPage, onDocu
     <div className="p-2 h-full overflow-y-auto overflow-x-hidden">
       <Document file={file} loading="" onLoadError={onDocumentLoadError}>
         {Array.from(new Array(numPages), (_, index) => (
-            <Thumbnail
-              key={`thumb-${file.name}-${index + 1}`}
-              pageNumber={index + 1}
-              onThumbnailClick={goToPage}
-              isActive={currentPage === index + 1}
-            />
+          <Thumbnail
+            key={`thumb-${file.name}-${index + 1}`}
+            pageNumber={index + 1}
+            onThumbnailClick={goToPage}
+            isActive={currentPage === index + 1}
+          />
         ))}
       </Document>
+    </div>
+  );
+};
+
+interface RelevantPaper {
+  id: string;
+  series: string;
+  subject: string;
+  year: number;
+  session: string;
+  season: string;
+  paperNumber: number;
+  variantNumber: number;
+  qp: { name: string; path: string } | null;
+  ms: { name: string; path: string } | null;
+  in: { name: string; path: string } | null;
+  er: { name: string; path: string } | null;
+  gt: { name: string; path: string } | null;
+}
+
+interface RelevantPapersSidebarProps {
+  relevantPapers: RelevantPaper[];
+  currentPaperId: string;
+  onPaperSelect: (paper: RelevantPaper) => void;
+}
+
+export const RelevantPapersSidebar = ({ relevantPapers, currentPaperId, onPaperSelect }: RelevantPapersSidebarProps) => {
+  return (
+    <div className="flex flex-col h-full bg-gray-50 dark:bg-gray-900 border-r border-gray-300 dark:border-gray-700">
+      <div className="p-4 border-b border-gray-300 dark:border-gray-700">
+        <h3 className="text-sm font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-2">
+          <BookOpen className="h-4 w-4" />
+          More Papers
+        </h3>
+      </div>
+      <div className="flex-1 overflow-y-auto p-2 space-y-2">
+        {relevantPapers.map((paper) => (
+          <button
+            key={paper.id}
+            onClick={() => onPaperSelect(paper)}
+            className={cn(
+              "w-full text-left p-3 rounded-lg border transition-all duration-200 group",
+              paper.id === currentPaperId
+                ? "bg-primary/10 border-primary shadow-sm"
+                : "bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 hover:border-primary/50 hover:shadow-sm"
+            )}
+          >
+            <div className="flex flex-col gap-1">
+              <span className={cn(
+                "text-xs font-bold transition-colors",
+                paper.id === currentPaperId ? "text-primary" : "text-muted-foreground group-hover:text-primary"
+              )}>
+                {paper.subject}
+              </span>
+              <span className="text-sm font-semibold leading-tight">
+                {paper.series}
+              </span>
+              <div className="flex items-center gap-2 mt-1">
+                <span className="text-[10px] px-1.5 py-0.5 rounded bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 font-medium">
+                  {paper.session} {paper.year}
+                </span>
+                {paper.id === currentPaperId && (
+                  <span className="text-[10px] px-1.5 py-0.5 rounded bg-primary/20 text-primary font-bold">
+                    ACTIVE
+                  </span>
+                )}
+              </div>
+            </div>
+          </button>
+        ))}
+        {relevantPapers.length === 0 && (
+          <div className="flex flex-col items-center justify-center p-8 text-center opacity-50">
+            <Search className="h-8 w-8 mb-2" />
+            <p className="text-sm font-medium">No other papers found</p>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
@@ -129,17 +206,17 @@ export const PDFToolbar = ({
         {canSwitch && nextDocumentName && (
           <div className="hidden sm:flex items-center">
             <Tooltip><TooltipTrigger asChild>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="h-8 px-3 text-xs font-semibold"
-                  onClick={onCycleDocument}
-                  disabled={isPreloading}
-                >
-                  {isPreloading && <div className="h-3 w-3 mr-2 animate-spin rounded-full border-2 border-current border-t-transparent" />}
-                  View {nextDocumentName}
-                </Button>
-              </TooltipTrigger><TooltipContent><p>Switch Document (Ctrl+X)</p></TooltipContent>
+              <Button
+                variant="outline"
+                size="sm"
+                className="h-8 px-3 text-xs font-semibold"
+                onClick={onCycleDocument}
+                disabled={isPreloading}
+              >
+                {isPreloading && <div className="h-3 w-3 mr-2 animate-spin rounded-full border-2 border-current border-t-transparent" />}
+                View {nextDocumentName}
+              </Button>
+            </TooltipTrigger><TooltipContent><p>Switch Document (Ctrl+X)</p></TooltipContent>
             </Tooltip>
           </div>
         )}
@@ -151,56 +228,56 @@ export const PDFToolbar = ({
           <Tooltip><TooltipTrigger asChild><Button variant="ghost" size="icon" onClick={goToNextPage} disabled={pageNumber >= numPages}><ChevronRight className="h-5 w-5" /></Button></TooltipTrigger><TooltipContent><p>Next (→)</p></TooltipContent></Tooltip>
         </div>
       </div>
-      
+
       {/* Right Section: Tools */}
       <div className="flex items-center gap-1 flex-shrink-0">
-          <div className="flex items-center justify-end">
-            {isSearchExpanded ? (
-              <div className="flex items-center gap-1 p-1 rounded-md bg-muted/50 dark:bg-muted/20 border">
-                <Input
-                  id="search-input"
-                  placeholder="Search..."
-                  value={searchQuery}
-                  onChange={e => {
-                    setSearchQuery(e.target.value);
-                    if (e.target.value === "") { setSearchResults([]); setCurrentMatchIndex(0); }
-                  }}
-                  onKeyDown={e => { if (e.key === 'Enter') handleSearch(); if (e.key === 'Escape') setIsSearchExpanded(false); }}
-                  className="h-7 w-32 md:w-40 border-none bg-transparent focus-visible:ring-0"
-                  autoFocus
-                />
-                <Button variant="ghost" size="icon" className="h-6 w-6" onClick={handleSearch} disabled={isSearching || !searchQuery.trim()}>
-                  {isSearching ? <div className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" /> : <Search className="h-4 w-4" />}
-                </Button>
-                <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => setIsSearchExpanded(false)}><X className="h-4 w-4" /></Button>
-              </div>
-            ) : (
-                <Tooltip><TooltipTrigger asChild><Button variant="ghost" size="icon" onClick={() => setIsSearchExpanded(true)}><Search className="h-5 w-5" /></Button></TooltipTrigger><TooltipContent><p>Search (Ctrl+F)</p></TooltipContent></Tooltip>
-            )}
-              {searchResults.length > 0 && !isSearching && (
-              <div className="flex items-center gap-1 text-sm ml-2">
-                <span className="text-muted-foreground tabular-nums">{currentMatchIndex + 1} of {searchResults.length}</span>
-                <Tooltip><TooltipTrigger asChild><Button variant="ghost" size="icon" className="h-7 w-7" onClick={goToPrevMatch}><ChevronUp className="h-4 w-4" /></Button></TooltipTrigger><TooltipContent><p>Previous Match</p></TooltipContent></Tooltip>
-                <Tooltip><TooltipTrigger asChild><Button variant="ghost" size="icon" className="h-7 w-7" onClick={goToNextMatch}><ChevronDown className="h-4 w-4" /></Button></TooltipTrigger><TooltipContent><p>Next Match</p></TooltipContent></Tooltip>
-              </div>
-            )}
-          </div>
-          
-          <div className="h-6 w-px bg-border mx-1" />
-          
-          <Tooltip><TooltipTrigger asChild><Button variant={isChatViewActive ? "secondary" : "ghost"} size="icon" onClick={onToggleChatView}><MessageSquare className="h-5 w-5" /></Button></TooltipTrigger><TooltipContent><p>Toggle AI Chat</p></TooltipContent></Tooltip>
-          <Tooltip><TooltipTrigger asChild><Button variant={isNotesViewActive ? "secondary" : "ghost"} size="icon" onClick={onToggleNotesView}><span className="text-xl" role="img" aria-label="Notes">📝</span></Button></TooltipTrigger><TooltipContent><p>Toggle Notes</p></TooltipContent></Tooltip>
-  
-          <div className="h-6 w-px bg-border mx-1" />
-  
-          <Tooltip><TooltipTrigger asChild><Button variant="ghost" size="icon" onClick={()=> setScale(s => Math.max(0.2, s - 0.2))}><ZoomOut className="h-5 w-5" /></Button></TooltipTrigger><TooltipContent><p>Zoom Out (Ctrl+-)</p></TooltipContent></Tooltip>
-          <span className="text-sm font-semibold text-foreground min-w-[3rem] text-center select-none">{Math.round(scale * 100)}%</span>
-          <Tooltip><TooltipTrigger asChild><Button variant="ghost" size="icon" onClick={()=> setScale(s => Math.min(3.0, s + 0.2))}><ZoomIn className="h-5 w-5" /></Button></TooltipTrigger><TooltipContent><p>Zoom In (Ctrl++)</p></TooltipContent></Tooltip>
-          <div className="h-6 w-px bg-border mx-1 hidden sm:block" />
-          <div className="hidden sm:flex items-center">
-            <Tooltip><TooltipTrigger asChild><Button variant="ghost" size="icon" onClick={fitToPage}><Rows className="h-5 w-5" /></Button></TooltipTrigger><TooltipContent><p>Fit Page (Ctrl+0)</p></TooltipContent></Tooltip>
-            <Tooltip><TooltipTrigger asChild><Button variant="ghost" size="icon" onClick={fitToWidth}><Columns className="h-5 w-5" /></Button></TooltipTrigger><TooltipContent><p>Fit Width</p></TooltipContent></Tooltip>
-          </div>
+        <div className="flex items-center justify-end">
+          {isSearchExpanded ? (
+            <div className="flex items-center gap-1 p-1 rounded-md bg-muted/50 dark:bg-muted/20 border">
+              <Input
+                id="search-input"
+                placeholder="Search..."
+                value={searchQuery}
+                onChange={e => {
+                  setSearchQuery(e.target.value);
+                  if (e.target.value === "") { setSearchResults([]); setCurrentMatchIndex(0); }
+                }}
+                onKeyDown={e => { if (e.key === 'Enter') handleSearch(); if (e.key === 'Escape') setIsSearchExpanded(false); }}
+                className="h-7 w-32 md:w-40 border-none bg-transparent focus-visible:ring-0"
+                autoFocus
+              />
+              <Button variant="ghost" size="icon" className="h-6 w-6" onClick={handleSearch} disabled={isSearching || !searchQuery.trim()}>
+                {isSearching ? <div className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" /> : <Search className="h-4 w-4" />}
+              </Button>
+              <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => setIsSearchExpanded(false)}><X className="h-4 w-4" /></Button>
+            </div>
+          ) : (
+            <Tooltip><TooltipTrigger asChild><Button variant="ghost" size="icon" onClick={() => setIsSearchExpanded(true)}><Search className="h-5 w-5" /></Button></TooltipTrigger><TooltipContent><p>Search (Ctrl+F)</p></TooltipContent></Tooltip>
+          )}
+          {searchResults.length > 0 && !isSearching && (
+            <div className="flex items-center gap-1 text-sm ml-2">
+              <span className="text-muted-foreground tabular-nums">{currentMatchIndex + 1} of {searchResults.length}</span>
+              <Tooltip><TooltipTrigger asChild><Button variant="ghost" size="icon" className="h-7 w-7" onClick={goToPrevMatch}><ChevronUp className="h-4 w-4" /></Button></TooltipTrigger><TooltipContent><p>Previous Match</p></TooltipContent></Tooltip>
+              <Tooltip><TooltipTrigger asChild><Button variant="ghost" size="icon" className="h-7 w-7" onClick={goToNextMatch}><ChevronDown className="h-4 w-4" /></Button></TooltipTrigger><TooltipContent><p>Next Match</p></TooltipContent></Tooltip>
+            </div>
+          )}
+        </div>
+
+        <div className="h-6 w-px bg-border mx-1" />
+
+        <Tooltip><TooltipTrigger asChild><Button variant={isChatViewActive ? "secondary" : "ghost"} size="icon" onClick={onToggleChatView}><MessageSquare className="h-5 w-5" /></Button></TooltipTrigger><TooltipContent><p>Toggle AI Chat</p></TooltipContent></Tooltip>
+        <Tooltip><TooltipTrigger asChild><Button variant={isNotesViewActive ? "secondary" : "ghost"} size="icon" onClick={onToggleNotesView}><StickyNote className="h-5 w-5" /></Button></TooltipTrigger><TooltipContent><p>Toggle Notes</p></TooltipContent></Tooltip>
+
+        <div className="h-6 w-px bg-border mx-1" />
+
+        <Tooltip><TooltipTrigger asChild><Button variant="ghost" size="icon" onClick={() => setScale(s => Math.max(0.2, s - 0.2))}><ZoomOut className="h-5 w-5" /></Button></TooltipTrigger><TooltipContent><p>Zoom Out (Ctrl+-)</p></TooltipContent></Tooltip>
+        <span className="text-sm font-semibold text-foreground min-w-[3rem] text-center select-none">{Math.round(scale * 100)}%</span>
+        <Tooltip><TooltipTrigger asChild><Button variant="ghost" size="icon" onClick={() => setScale(s => Math.min(3.0, s + 0.2))}><ZoomIn className="h-5 w-5" /></Button></TooltipTrigger><TooltipContent><p>Zoom In (Ctrl++)</p></TooltipContent></Tooltip>
+        <div className="h-6 w-px bg-border mx-1 hidden sm:block" />
+        <div className="hidden sm:flex items-center">
+          <Tooltip><TooltipTrigger asChild><Button variant="ghost" size="icon" onClick={fitToPage}><Rows className="h-5 w-5" /></Button></TooltipTrigger><TooltipContent><p>Fit Page (Ctrl+0)</p></TooltipContent></Tooltip>
+          <Tooltip><TooltipTrigger asChild><Button variant="ghost" size="icon" onClick={fitToWidth}><Columns className="h-5 w-5" /></Button></TooltipTrigger><TooltipContent><p>Fit Width</p></TooltipContent></Tooltip>
+        </div>
       </div>
     </div>
   );

@@ -24,7 +24,7 @@ import {
   ResizablePanelGroup,
   type ImperativePanelGroupHandle
 } from "@/components/ui/resizable";
-import { ThumbnailSidebar, PDFToolbar } from "./pdf-ui-components";
+import { RelevantPapersSidebar, PDFToolbar } from "./pdf-ui-components";
 
 pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js';
 
@@ -32,6 +32,12 @@ pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js';
 interface PaperSet {
   id: string;
   series: string;
+  subject: string;
+  year: number;
+  session: string;
+  season: string;
+  paperNumber: number;
+  variantNumber: number;
   qp: { name: string; path: string } | null;
   ms: { name: string; path: string } | null;
   in: { name: string; path: string } | null;
@@ -43,6 +49,8 @@ interface PDFViewerProps {
   initialFile: File;
   paperSet: PaperSet | null;
   initialFileType: 'qp' | 'ms' | 'in' | 'er' | 'gt' | null;
+  relevantPapers: PaperSet[];
+  onPaperSelect: (paper: PaperSet) => void;
   onClose: () => void;
 }
 
@@ -60,7 +68,7 @@ interface DocumentState {
   isSearching: boolean;
 }
 
-export const PDFViewer = ({ initialFile, paperSet, initialFileType, onClose }: PDFViewerProps) => {
+export const PDFViewer = ({ initialFile, paperSet, initialFileType, relevantPapers, onPaperSelect, onClose }: PDFViewerProps) => {
   const { user, signInWithGoogle } = useAuth();
   // --- State Management for Multi-Document Handling ---
   // --- CHANGE 3: Expanded `documents` state ---
@@ -471,8 +479,12 @@ export const PDFViewer = ({ initialFile, paperSet, initialFileType, onClose }: P
   return (
     <TooltipProvider>
       <div className="flex h-screen bg-gray-200 dark:bg-gray-800 font-sans overflow-hidden">
-        <div className={cn("transition-all duration-300 ease-in-out bg-gray-50 dark:bg-gray-900 border-r border-gray-300 dark:border-gray-700 flex-shrink-0", isSidebarOpen ? "w-48" : "w-0")}>
-          <ThumbnailSidebar file={activeFile} numPages={activeState.numPages} currentPage={pageNumber} goToPage={goToPage} onDocumentLoadError={onDocumentLoadError} />
+        <div className={cn("transition-all duration-300 ease-in-out bg-gray-50 dark:bg-gray-900 border-r border-gray-300 dark:border-gray-700 flex-shrink-0", isSidebarOpen ? "w-64" : "w-0")}>
+          <RelevantPapersSidebar
+            relevantPapers={relevantPapers}
+            currentPaperId={paperSet?.id || ""}
+            onPaperSelect={onPaperSelect}
+          />
         </div>
         <div className="flex flex-col flex-1 min-w-0">
           <Card className="rounded-none border-0 border-b z-10">
