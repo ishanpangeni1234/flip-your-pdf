@@ -153,7 +153,6 @@ export const Notes = ({
               itemFolderMap={folderStructure.itemFolderMap}
               allItems={Object.keys(notes)}
               activeItem={activeSheetName}
-              itemIcon={FileText}
               onCreateFolder={onCreateFolder}
               onRenameFolder={onRenameFolder}
               onDeleteFolder={onDeleteFolder}

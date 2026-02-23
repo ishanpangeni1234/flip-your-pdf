@@ -169,7 +169,6 @@ export const Chat = ({
               itemFolderMap={folderStructure.itemFolderMap}
               allItems={Object.keys(allChats)}
               activeItem={activeChatName}
-              itemIcon={MessageSquare}
               onCreateFolder={onCreateFolder}
               onRenameFolder={onRenameFolder}
               onDeleteFolder={onDeleteFolder}

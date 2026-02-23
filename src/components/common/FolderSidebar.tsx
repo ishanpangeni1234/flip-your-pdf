@@ -3,26 +3,27 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import {
-    PlusCircle,
-    Folder,
-    FolderOpen,
     Trash2,
     Pencil,
     ChevronDown,
     ChevronRight,
-    GripVertical
+    MoreVertical
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import type { Folder as FolderType } from '@/lib/folder-types';
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 interface FolderSidebarProps {
     folders: { [folderId: string]: FolderType };
     itemFolderMap: { [itemName: string]: string };
     allItems: string[];
     activeItem: string | null;
-    itemIcon: React.ComponentType<{ className?: string }>;
     onCreateFolder: () => void;
     onRenameFolder: (folderId: string, newName: string) => boolean;
     onDeleteFolder: (folderId: string) => void;
@@ -41,7 +42,6 @@ export const FolderSidebar: React.FC<FolderSidebarProps> = ({
     itemFolderMap,
     allItems,
     activeItem,
-    itemIcon: ItemIcon,
     onCreateFolder,
     onRenameFolder,
     onDeleteFolder,
@@ -177,7 +177,7 @@ export const FolderSidebar: React.FC<FolderSidebarProps> = ({
     const renderItem = (itemName: string) => {
         if (isRenamingItem === itemName) {
             return (
-                <div key={`renaming-${itemName}`} className="p-1 ml-6">
+                <div key={`renaming-${itemName}`} className="p-1 pl-2">
                     <Input
                         ref={itemInputRef}
                         value={itemInputValue}
@@ -197,51 +197,48 @@ export const FolderSidebar: React.FC<FolderSidebarProps> = ({
                 onDragStart={(e) => handleDragStart(e, itemName)}
                 onDragEnd={handleDragEnd}
                 className={cn(
-                    "ml-6 cursor-move",
+                    "pl-2 cursor-move",
                     draggedItem === itemName && "opacity-50"
                 )}
             >
                 <Button
                     variant={activeItem === itemName ? "secondary" : "ghost"}
                     onClick={() => onSelectItem(itemName)}
-                    className="w-full justify-start truncate h-9 group pr-2"
+                    className="w-full justify-start truncate h-9 group pr-0 pl-1"
                 >
-                    <GripVertical className="mr-1 h-3 w-3 text-muted-foreground flex-shrink-0" />
-                    <ItemIcon className="mr-2 h-4 w-4 flex-shrink-0" />
                     <span className="truncate flex-1 text-left">{itemName}</span>
                     <div className="flex items-center opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity">
-                        <Tooltip>
-                            <TooltipTrigger asChild>
+                        <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
                                 <Button
                                     variant="ghost"
                                     size="icon"
                                     className="h-7 w-7"
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        startItemRename(itemName);
-                                    }}
+                                    onClick={(e) => e.stopPropagation()}
                                 >
-                                    <Pencil className="h-4 w-4" />
+                                    <MoreVertical className="h-4 w-4" />
                                 </Button>
-                            </TooltipTrigger>
-                            <TooltipContent><p>Rename</p></TooltipContent>
-                        </Tooltip>
-                        <Tooltip>
-                            <TooltipTrigger asChild>
-                                <Button
-                                    variant="ghost"
-                                    size="icon"
-                                    className="h-7 w-7 hover:bg-destructive/10 hover:text-destructive"
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end">
+                                <DropdownMenuItem onClick={(e) => {
+                                    e.stopPropagation();
+                                    startItemRename(itemName);
+                                }}>
+                                    <Pencil className="mr-2 h-4 w-4" />
+                                    <span>Rename</span>
+                                </DropdownMenuItem>
+                                <DropdownMenuItem
+                                    className="text-destructive focus:text-destructive"
                                     onClick={(e) => {
                                         e.stopPropagation();
                                         onDeleteItem(itemName);
                                     }}
                                 >
-                                    <Trash2 className="h-4 w-4" />
-                                </Button>
-                            </TooltipTrigger>
-                            <TooltipContent><p>Delete</p></TooltipContent>
-                        </Tooltip>
+                                    <Trash2 className="mr-2 h-4 w-4" />
+                                    <span>Delete</span>
+                                </DropdownMenuItem>
+                            </DropdownMenuContent>
+                        </DropdownMenu>
                     </div>
                 </Button>
             </div>
@@ -282,55 +279,49 @@ export const FolderSidebar: React.FC<FolderSidebarProps> = ({
                     <Button
                         variant="ghost"
                         onClick={() => toggleFolder(folderId)}
-                        className="w-full justify-start h-9 group pr-2"
+                        className="w-full justify-start h-9 group pr-0 pl-0"
                     >
                         {isExpanded ? (
                             <ChevronDown className="mr-1 h-4 w-4 flex-shrink-0" />
                         ) : (
                             <ChevronRight className="mr-1 h-4 w-4 flex-shrink-0" />
                         )}
-                        {isExpanded ? (
-                            <FolderOpen className="mr-2 h-4 w-4 flex-shrink-0" />
-                        ) : (
-                            <Folder className="mr-2 h-4 w-4 flex-shrink-0" />
-                        )}
                         <span className="truncate flex-1 text-left">{folder.name}</span>
-                        <span className="text-xs text-muted-foreground mr-2">
+                        <span className="text-xs text-muted-foreground mr-1">
                             {itemsInFolder.length}
                         </span>
                         <div className="flex items-center opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity">
-                            <Tooltip>
-                                <TooltipTrigger asChild>
+                            <DropdownMenu>
+                                <DropdownMenuTrigger asChild>
                                     <Button
                                         variant="ghost"
                                         size="icon"
                                         className="h-7 w-7"
-                                        onClick={(e) => {
-                                            e.stopPropagation();
-                                            startFolderRename(folderId, folder.name);
-                                        }}
+                                        onClick={(e) => e.stopPropagation()}
                                     >
-                                        <Pencil className="h-4 w-4" />
+                                        <MoreVertical className="h-4 w-4" />
                                     </Button>
-                                </TooltipTrigger>
-                                <TooltipContent><p>Rename folder</p></TooltipContent>
-                            </Tooltip>
-                            <Tooltip>
-                                <TooltipTrigger asChild>
-                                    <Button
-                                        variant="ghost"
-                                        size="icon"
-                                        className="h-7 w-7 hover:bg-destructive/10 hover:text-destructive"
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent align="end">
+                                    <DropdownMenuItem onClick={(e) => {
+                                        e.stopPropagation();
+                                        startFolderRename(folderId, folder.name);
+                                    }}>
+                                        <Pencil className="mr-2 h-4 w-4" />
+                                        <span>Rename</span>
+                                    </DropdownMenuItem>
+                                    <DropdownMenuItem
+                                        className="text-destructive focus:text-destructive"
                                         onClick={(e) => {
                                             e.stopPropagation();
                                             onDeleteFolder(folderId);
                                         }}
                                     >
-                                        <Trash2 className="h-4 w-4" />
-                                    </Button>
-                                </TooltipTrigger>
-                                <TooltipContent><p>Delete folder</p></TooltipContent>
-                            </Tooltip>
+                                        <Trash2 className="mr-2 h-4 w-4" />
+                                        <span>Delete</span>
+                                    </DropdownMenuItem>
+                                </DropdownMenuContent>
+                            </DropdownMenu>
                         </div>
                     </Button>
                 </div>
@@ -343,6 +334,7 @@ export const FolderSidebar: React.FC<FolderSidebarProps> = ({
         );
     };
 
+
     const unorganizedItems = getItemsInFolder(null);
 
     return (
@@ -352,7 +344,6 @@ export const FolderSidebar: React.FC<FolderSidebarProps> = ({
                 className="w-full justify-start mb-2"
                 disabled={!!isRenamingItem || !!renamingFolder}
             >
-                <PlusCircle className="mr-2 h-4 w-4" />
                 {createNewItemLabel}
             </Button>
 
@@ -362,7 +353,6 @@ export const FolderSidebar: React.FC<FolderSidebarProps> = ({
                 className="w-full justify-start mb-2"
                 disabled={!!isRenamingItem || !!renamingFolder}
             >
-                <Folder className="mr-2 h-4 w-4" />
                 Create Folder
             </Button>
 
